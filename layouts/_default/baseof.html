@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="{{ "css/site.css" | relURL }}">
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} – {{ .Site.Title }}{{ end }}</title>
+</head>
+
+<body>
+  <div class="page">
+    <div class="content-col">
+
+      <header class="site-header">
+        <div class="wrap">
+          <div class="header-inner">
+            <div class="site-title">
+              <a href="{{ "/" | relURL }}">{{ .Site.Title }}</a>
+            </div>
+
+            <nav class="site-nav" aria-label="Primary navigation">
+              <a href="{{ "/about/" | relURL }}">ABOUT</a>
+              <a href="{{ "/projects/" | relURL }}">PROJECTS</a>
+              <a href="{{ "/roadmap/" | relURL }}">ROAD MAP</a>
+              <a href="https://bsky.app/">BLUESKY</a>
+              <a href="https://github.com/">GITHUB</a>
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      <main class="site-main">
+        <div class="wrap">
+          {{ block "main" . }}{{ end }}
+        </div>
+      </main>
+
+    </div>
+  </div>
+</body>
+</html>

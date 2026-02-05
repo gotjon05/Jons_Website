@@ -1,0 +1,9 @@
+baseURL = "http://localhost:1313/"
+languageCode = 'en-us'
+title = 'Jonathan Gottlieb'
+enableRobotsTXT = true
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

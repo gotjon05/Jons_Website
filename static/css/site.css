@@ -1,0 +1,237 @@
+/* Prevent header “jump” when scrollbar appears/disappears */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* Remove the default top margin of the first element on each page */
+.site-main > :first-child {
+  margin-top: 0;
+}
+
+/* === Key idea: full-width page, shared centered inner width === */
+:root {
+  --inner-max: 75ch;      /* shared width cap for header + content */
+  --page-pad-x: 1rem;     /* side padding on small screens */
+  --page-pad-top: 0.25rem;
+  --page-pad-bottom: 1rem;
+
+  /* Global type controls */
+  --fs-base: 18px;        /* adjust 17/18/19 */
+  --lh-base: 1.55;
+
+  /* Header sizes */
+  --fs-title: 2.8rem;
+  --fs-nav: 1.2rem;
+}
+
+/* Global typography */
+html { font-size: var(--fs-base); }
+
+body {
+  line-height: var(--lh-base);
+}
+
+/* Full-width page wrapper */
+.page {
+  width: 100%;
+  padding: var(--page-pad-top) var(--page-pad-x) var(--page-pad-bottom);
+  box-sizing: border-box;
+}
+
+/* IMPORTANT: do NOT clamp the whole site to 75ch here */
+.content-col {
+  width: 100%;
+  max-width: none;
+}
+
+/* ✅ Shared width wrapper used in baseof.html */
+.wrap {
+  width: 100%;
+  max-width: var(--inner-max);
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+/* === Header === */
+.site-header {
+  width: 100%;
+  display: block;
+}
+
+/* Header layout only (width comes from .wrap) */
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* title left, nav right */
+  gap: 2.5rem;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+}
+
+/* Title */
+.site-title {
+  flex: 0 0 auto;
+}
+
+.site-title a {
+  font-size: var(--fs-title);
+  line-height: 1.2;              /* FIX: was 2 (too tall) */
+  text-decoration: none;
+  display: inline-block;
+  font-weight: bold;
+  font-family: Verdana;
+  color: #1A2CA3;
+  text-align: center;
+}
+
+/* Vertical nav */
+.site-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  gap: 0.25rem;
+  margin-left: auto;
+}
+
+.site-nav a {
+  display: block;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+  font-size: var(--fs-nav);
+  color: black;
+  font-family: Verdana;
+}
+
+/* === Main content === */
+/* site-main no longer controls width; .wrap does */
+.site-main {
+  width: 100%;
+  margin: 1.5rem 0 0;
+  box-sizing: border-box;
+}
+
+/* --- Content typography fixes --- */
+/* Restore normal list indentation/bullets for article content */
+.site-main ul,
+.site-main ol {
+  padding-left: 1.25rem;          /* FIX: was 0 */
+  margin-left: 0;
+}
+
+/* Keep a little space between list items */
+.site-main li {
+  margin: 0.25rem 0;
+}
+
+/* Keep your post-list link styling (only affects link underline) */
+.site-main ul a {
+  text-decoration: none;
+}
+
+.post-date {
+  margin-right: 0.8rem;
+}
+
+/* Images */
+figure img { max-width: 100%; height: auto; display: block; }
+figure { margin: 1rem 0; }
+figcaption { font-size: 0.95em; opacity: 0.8; margin-top: 0.4rem; }
+
+/* --- Fold / details styling --- */
+.fold {
+  border: 1px solid rgba(0,0,0,0.14);
+  border-radius: 12px;
+  background: rgba(0,0,0,0.02);
+  margin: 1rem 0;
+  overflow: hidden;               /* FIX: was clip (compatibility) */
+}
+
+/* clickable header */
+.fold__summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 0.75rem 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  user-select: none;
+  font-weight: 600;
+}
+
+/* remove default marker (Chrome/Safari) */
+.fold__summary::-webkit-details-marker { display: none; }
+
+/* subtle hover */
+.fold__summary:hover {
+  background: rgba(0,0,0,0.04);
+}
+
+/* the chevron */
+.fold__chev {
+  margin-left: auto;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 160ms ease;
+  opacity: 0.7;
+}
+
+/* rotate when open */
+.fold[open] .fold__chev {
+  transform: rotate(-135deg);
+}
+
+/* content area */
+.fold__content {
+  padding: 0.85rem 0.9rem 0.95rem;
+  border-top: 1px solid rgba(0,0,0,0.10);
+  background: rgba(255,255,255,0.6);
+}
+
+/* tighten first/last margins inside */
+.fold__content > :first-child { margin-top: 0; }
+.fold__content > :last-child  { margin-bottom: 0; }
+
+/* optional: nicer code blocks inside folds */
+.fold__content pre {
+  border-radius: 10px;
+  overflow-x: auto;
+}
+
+/* === Mobile === */
+@media (max-width: 700px) {
+  .header-inner {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .site-title a {
+    font-size: 2.2rem;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .site-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin-left: 0;
+  }
+
+  /* Slightly reduce list indent on small screens */
+  .site-main ul,
+  .site-main ol {
+    padding-left: 1rem;
+  }
+}

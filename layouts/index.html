@@ -1,0 +1,18 @@
+{{ define "main" }}
+
+{{ .Content }}
+
+<h2>Most recent 10 posts</h2>
+<ul>
+  {{ $posts := where .Site.RegularPages "Section" "posts" }}
+  {{ $posts = where $posts "Draft" "!=" true }}
+  {{ $posts = where $posts "Date" "le" now }}
+  {{ range first 10 ($posts.ByDate.Reverse) }}
+    <li>
+      <span class="post-date">{{ .Date.Format "Jan 2 2006" }}</span>
+      <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+    </li>
+  {{ end }}
+</ul>
+
+{{ end }}

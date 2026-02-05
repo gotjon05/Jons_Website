@@ -1,0 +1,23 @@
+{{- $src := .Get "src" -}}
+{{- $alt := .Get "alt" | default "" -}}
+{{- $width := .Get "width" | default "900" -}}
+{{- $caption := .Get "caption" -}}
+
+{{- $img := .Page.Resources.GetMatch $src -}}
+{{- if not $img -}}
+  {{- errorf "img shortcode: can't find %q in page resources for %q" $src .Page.File.Path -}}
+{{- end -}}
+
+{{- $resized := $img.Resize (printf "%sx" $width) -}}
+
+<figure>
+  <img
+    src="{{ $resized.RelPermalink }}"
+    width="{{ $resized.Width }}"
+    height="{{ $resized.Height }}"
+    alt="{{ $alt }}"
+    loading="lazy"
+    decoding="async"
+  />
+  {{- with $caption -}}<figcaption>{{ . }}</figcaption>{{- end -}}
+</figure>

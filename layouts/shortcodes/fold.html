@@ -1,0 +1,10 @@
+<details class="fold" {{ if .Get "open" }}open{{ end }}>
+  <summary class="fold__summary">
+    {{ .Get "title" | default (.Get "closed" | default "Details") }}
+  </summary>
+
+  <div class="fold__content">
+    {{ .Inner | .Page.RenderString }}
+  </div>
+</details>
+
