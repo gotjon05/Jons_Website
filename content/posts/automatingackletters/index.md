@@ -78,10 +78,15 @@ What this accomplishes:
 
 3. {{< fold title="Looping through list of gifts" >}}
 
-   We create a for loop using Apply to each by passing the full array output from List Gifts into Apply to each:
-   `@outputs('List_gifts')?['body/value']`
+   We want to iterate over each gift returned by List_Gifts, so that we access all the information we need for every gift. To do this, we will use "apply to each" action. Most of the work after this will be inside this loop, where we make additional calls to gather more details about each gift.
+  
+  Before doing the steps below, run your process with List_Gifts to see the output. After it runs, go to Power Automates 28-day run history, select the most recent one, and select list_gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts.)
 
-   Most of the work after this happens inside the loop, where we make additional calls to gather information about each gift.
+  A. Select the + Sign after "List_Gifts" and Search for "apply to each"\
+  B. Add the action, then click Expression (fx) and enter: `@outputs('List_gifts')?['body/value']`\
+  Alternatively, you can select Dynamic content (lightning icon) to select body/value from List_Gifts. We want Body/value as the input, because its the section of the payload from List_Gifts that has the array of gifts we want to loop through.
+
+   {{< img src="Apply_to_each.png" alt="apply to each" width="350" >}}
 
    {{< /fold >}}
 
