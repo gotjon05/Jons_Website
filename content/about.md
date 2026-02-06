@@ -4,10 +4,10 @@ draft = false
 title = 'About Me'
 +++
 
-I'm an aspiring Data Scientist looking to make a positive impact on the world. 
+I’m an aspiring Data Scientist looking to make a positive impact on the world.
 
-Ive worked in non-profits for several of years where automating the boring stuff as been a fun challenge, using scripts and recently Database API.
+I’ve spent several years working in nonprofits, where I discovered how powerful technology can be in service of meaningful missions. Automating repetitive work has become a creative challenge I genuinely enjoy—first with scripts, and more recently through database APIs and workflow tools.
 
-Hacker Club in College had a big impact on my learning. I dont truly understand something unless I can explain what I have done in a write-up and the mistakes/assumptions i had along the way. 
+My time in my college Hacker Club shaped how I learn: I don’t feel I truly understand something until I can explain it clearly, document my process, and reflect on the mistakes and assumptions I made along the way.
 
-I'm also an avid long distance runner who dabbles in caving. I really enjoy being part of outdoor adventures. 
+Outside of tech, I’m an avid long-distance runner and occasional caver. I love being part of outdoor adventures and the perspective they bring to how I think and work.
