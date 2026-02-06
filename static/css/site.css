@@ -205,6 +205,7 @@ figcaption { font-size: 0.95em; opacity: 0.8; margin-top: 0.4rem; }
   overflow-x: auto;
 }
 
+
 /* === Mobile === */
 @media (max-width: 700px) {
   .header-inner {
@@ -218,6 +219,7 @@ figcaption { font-size: 0.95em; opacity: 0.8; margin-top: 0.4rem; }
     white-space: normal;
     text-align: center;
   }
+
 
   .site-nav {
     flex-direction: row;
