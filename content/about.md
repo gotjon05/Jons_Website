@@ -8,6 +8,6 @@ I'm an aspiring Data Scientist looking to make a positive impact on the world.
 
 Ive worked in non-profits for several of years where automating the boring stuff as been a fun challenge, using scripts and recently Database API.
 
-Hacker Club in College had a big impact on my learning. I dont truly understand something unless i can explain what ive in a write-up and the mistakes/assumptions i had along the way. 
+Hacker Club in College had a big impact on my learning. I dont truly understand something unless I can explain what I have done in a write-up and the mistakes/assumptions i had along the way. 
 
 I'm also an avid long distance runner who dabbles in caving. I really enjoy being part of outdoor adventures. 
