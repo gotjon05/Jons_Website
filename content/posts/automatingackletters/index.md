@@ -80,7 +80,7 @@ What this accomplishes:
 
    We want to iterate over each gift returned by List_Gifts, so that we access all the information we need for every gift. To do this, we will use "apply to each" action. Most of the work after this will be inside this loop, where we make additional calls to gather more details about each gift.
   
-  Before doing the steps below, run your process with List_Gifts to see the output. After it runs, go to Power Automates 28-day run history, select the most recent one, and select list_gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts.)
+  Before doing the steps below, run your process to see the output of List_Gifts. After it runs, go to Power Automates 28-day run history, select the most recent one, and select list_gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts.)
 
   A. Select the + Sign after "List_Gifts" and Search for "apply to each"\
   B. Add the action, then click Expression (fx) and enter: `@outputs('List_gifts')?['body/value']`\
@@ -92,16 +92,41 @@ What this accomplishes:
 
 4. {{< fold title="Inside Apply to each and retrieving gift information" >}}
 
-   Our first call inside each iteration is Get a gift. We make this call to get gift date, gift amount, constituent ID, and appeal ID.
+   Our first call inside each iteration is Get a gift. We make this call to get gift date, gift amount, constituent ID, and appeal ID. Each time the flow runs, it makes this call once per gift.
 
    This call requires a gift ID, which comes from List Gifts:
    `items('Apply_to_each')?['id']`
 
+  A. Expand "Apply to each" and select the + icon\ 
+  B. Search for blackbaud NXT get a gift\
+  C. Add the action, then enter the expression `items('Apply_to_each')?['id']` **or** select Dynamic content (lightning icon) and look for system record id of gift from List gifts
+
    {{< /fold >}}
 
-5. {{< fold title="Retrieving constituent information" >}}
+5. {{< fold title="Storing Constituent ID from Get a Gift into a variable" >}}
+  
+  We reference **Constituent ID** multiple times throughout this flow. To avoid repeating expressions and to keep the flow readable, we store this value in a variable immediately after Get a Gift. 
 
-   We call Get a constituent using the constituent ID from Get a gift.
-   This provides title, first name, last name, and address.
+  {{< fold title="How to initialize and set the variable" >}}
+
+  A. Select the **+** icon below **Get a Gift**  
+  B. Search for **Initialize variable**  
+  C. Name the variable (e.g., `varConstituentId`)  
+  D. Set the type to **String**  
+  E. Set the value using the Constituent ID from **Get a Gift**
+
+  {{< /fold >}}
+
+   {{< /fold >}}
+
+1. {{< fold title="Retrieving constituent information" >}}
+   
+  Our second call inside the iteration is Get Constituent. Like Get a gift, Each time the flow runs, it makes this call once per gift. We make this call to get Constituent Information about the person who received full/hard credit for the gift. (Where as Soft Credit is soft)
+
+  A. Get a Constituent requires a Constituent ID. This is provided to us in Get a Gift. 
+  C. select the + icon below, Get a Gift
+  D. Search for blackbaud NXT Get a Constituent
+  E. Add the action, then enter the expression 
+  
 
    {{< /fold >}}
