@@ -11,49 +11,49 @@ This workflow ensures that every donor receives the right acknowledgment—addre
 
 {{< fold closed="The business rules that guided this process flow" >}}
 
-- **Filtered Gifts Rule**\
-  Only gifts greater than zero, and are not yet acknowledged and are not unpaid pledges
+- **Gifts considered in this Flow**  
+  Only gifts greater than zero, not yet acknowledged, and not unpaid pledges.
 
 - **Letter Template Matching Rule**  
-  Gifts Appeal + Package combination determines which letter template/content is used.
+  A gift’s **Appeal + Package** combination determines which letter template/content is used.
 
 - **Business Identity Rule**  
-  For individuals with business addresses, the flow identifies the correct Organization Name using relationships in this priority:  
-    1. Employer  
-    2. Principal/Director  
-    3. Employee (catch-all)
+  For individuals with business addresses, the flow identifies the correct **Business Name** using the constituent’s **Primary Employer** relationship.
 
-- **Distinct Letter Headers – 4 constituent scenarios**
+- **Foundation Recipient Rule**  
+  Foundation gifts without a soft credit, the flow identifies the correct recipient in this order:  
+  *(Primary Contact → Principal/Director → Employee as catch-all)*
 
-  - **Individuals — Home Address**  
-    - Title + First Name + Last Name  
-    - Line 1  
-    - City, State ZIP  
+{{< fold closed="Distinct Letter Headers – 4 constituent scenarios" >}}
 
-  - **Individuals — Business Address**  
-    - Title + First Name + Last Name  
-    - Business Name  
-    - Business Address  
+- **Individuals — Home Address**  
+  - Title + First Name + Last Name  
+  - Line 1  
+  - City, State ZIP  
 
-  - **Organization Gifts with Soft Credit**  
-    - Title + Soft Credit First Name + Soft Credit Last Name  
-    - Business Name  
-    - Business Address  
+- **Individuals — Business Address**  
+  - Title + First Name + Last Name  
+  - Business Name  
+  - Business Address  
 
-  - **Foundation Gifts**  
-    - Title + First Name + Last Name of the selected contact  
-      *(1. Primary Contact → 2. Principal/Director → 3. Employee as catch-all)*  
-    - Business Name  
-    - Business Address  
-- **Salutation Rules**
+- **Organization Gifts with Soft Credit**  
+  - Title + Soft Credit First Name + Soft Credit Last Name  
+  - Business Name  
+  - Business Address  
+
+- **Foundation Gifts**  
+  - Title + First Name + Last Name of the selected contact  
+  - Business Name  
+  - Business Address  
+
+{{< /fold >}}
+{{< fold closed="Salutation Rules" >}}
   - Individuals → Dear Title Last Name,
   - Organizations with soft credit → Dear Soft Credit Title Last Name,
   - Foundations without soft credit → Dear Selected Contact Title Last Name,
-
-
-
-
 {{< /fold >}}
+{{< /fold >}}
+
 
 
 1. {{< fold title="Getting Started: SKY API and Power Automate setup" >}}
@@ -96,7 +96,7 @@ This workflow ensures that every donor receives the right acknowledgment—addre
 
    {{< /fold >}}
 
-4. {{< fold title="Inside Apply to each and retrieving gift information" >}}
+4. {{< fold title="Retrieving gift information" >}}
 
    Our first call inside each iteration is Get a gift. We make this call to get gift date, gift amount, constituent ID, and appeal ID. Each time the flow runs, it makes this call once per gift.
 
@@ -125,7 +125,7 @@ This workflow ensures that every donor receives the right acknowledgment—addre
 
    {{< /fold >}}
 
-1. {{< fold title="Retrieving constituent information" >}}
+6. {{< fold title="Retrieving constituent information" >}}
    
   Our second call inside the iteration is Get Constituent. Like Get a gift, Each time the flow runs, it makes this call once per gift. We make this call to get Constituent Information about the person who received full/hard credit for the gift. (Where as Soft Credit is soft)
 
@@ -133,6 +133,13 @@ This workflow ensures that every donor receives the right acknowledgment—addre
   C. select the + icon below, Get a Gift
   D. Search for blackbaud NXT Get a Constituent
   E. Add the action, then enter the expression 
+  
+
+   {{< /fold >}}
+
+7. {{< fold title="Retrieving Appeal and Batch" >}}
+   
+
   
 
    {{< /fold >}}
