@@ -4,14 +4,10 @@ draft = false
 title = 'Automating Non-profit Acknowledgement Letters With Blackbaud API (Work in Progress)'
 +++
 
-This is a walkthrough for automating the creation of acknowledgement letters for Non-profits with Blackbaud NXT.
+This is a walkthrough for automating the creation of acknowledgement letters for Non-profits with Blackbaud NXT, using Blackbaud SKY API, Power Automate and Sharepoint.
 
-What this accomplishes:
-- Retrieves all unacknowledged gifts from Raiser’s Edge NXT (SKY API) and pulls the related gift + constituent details needed for letter personalization.
-- Uses an Appeal/Package to LetterCode mapping to select the correct letter template/content.
-- Builds accurate headers and salutations for individuals vs organizations/foundations, including preferred business addresses and primary contacts when required.
-- Generates the acknowledgment letter from a template, saves the output, emails the donor, and then updates the gift acknowledgment status
-
+What this accomplishes:\
+This workflow ensures that every donor receives the right acknowledgment—addressed to the right person, at the right address, using the right template—without manual intervention.
 
 {{< fold closed="The business rules that guided this process flow" >}}
 
