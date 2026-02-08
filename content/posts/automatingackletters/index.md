@@ -11,7 +11,10 @@ This workflow ensures that every donor receives the right acknowledgment—addre
 
 {{< fold closed="The business rules that guided this process flow" >}}
 
-- **Appeal + Package Rule**  
+- **Filtered Gifts Rule**\
+  Only gifts greater than zero, and are not yet acknowledged and are not unpaid pledges
+
+- **Letter Template Matching Rule**  
   Gifts Appeal + Package combination determines which letter template/content is used.
 
 - **Business Identity Rule**  
@@ -42,6 +45,13 @@ This workflow ensures that every donor receives the right acknowledgment—addre
       *(1. Primary Contact → 2. Principal/Director → 3. Employee as catch-all)*  
     - Business Name  
     - Business Address  
+- **Salutation Rules**
+  - Individuals → Dear Title Last Name,
+  - Organizations with soft credit → Dear Soft Credit Title Last Name,
+  - Foundations without soft credit → Dear Selected Contact Title Last Name,
+
+
+
 
 {{< /fold >}}
 
