@@ -6,7 +6,7 @@ title = 'Automating Non-profit Acknowledgement Letters With Blackbaud API (Work 
 
 This is a walkthrough for automating the creation of acknowledgement letters for Non-profits with Blackbaud NXT, using Blackbaud SKY API, Power Automate and Sharepoint.
 
-What this accomplishes:\
+**What this accomplishes:**\
 This workflow ensures that every donor receives the right acknowledgment—addressed to the right person, at the right address, using the right template—without manual intervention.
 
 {{< fold closed="The business rules that guided this process flow" >}}
@@ -18,7 +18,7 @@ This workflow ensures that every donor receives the right acknowledgment—addre
   A gift’s **Appeal + Package** combination determines which letter template/content is used.
 
 - **Business Identity Rule**  
-  For individuals with business addresses, the flow identifies the correct **Business Name** using the constituent’s **Primary Employer** relationship.
+  For individuals with business addresses, the flow identifies the correct Business Name using the constituent’s Primary Employer relationship.
 
 - **Foundation Recipient Rule**  
   Foundation gifts without a soft credit, the flow identifies the correct recipient in this order:  
@@ -137,9 +137,16 @@ This workflow ensures that every donor receives the right acknowledgment—addre
 
    {{< /fold >}}
 
-7. {{< fold title="Retrieving Appeal and Batch" >}}
-   
+7. {{< fold title="Get Appeal and Package" >}}
+  We retrieve the Appeal + Package for each gift because this combination determines which letter template we use.To do this safely, we add a Condition that checks whether an Appeal ID exists in each gift. If it does, we pull the appeal_id from Get a Gift
 
-  
+
+  {{< fold title="What is a Condition? And Why is it relevant?" >}}  
+  A **Condition** in Power Automate is similar to an if/then statement. It evaluates an expression as True or False, often using AND or OR. 
+
+  In this flow i have use **Conditions** to prevent running actions that depend on values that may be **null** (missing). Without these safeguards, Power Automate could attempt to call a connector with a blank ID (or reference missing data), which can cause the action—and sometimes the entire run—to fail.
+
+
+  {{< /fold >}}
 
    {{< /fold >}}
