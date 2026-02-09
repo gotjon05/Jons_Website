@@ -8,18 +8,24 @@ html {
   margin-top: 0;
 }
 
-/* === Key idea: full-width page, shared centered inner width === */
+/* === Layout + Typography Controls === */
 :root {
-  --inner-max: 75ch;      /* shared width cap for header + content */
-  --page-pad-x: 1rem;     /* side padding on small screens */
+  /* ✅ Layout width is now STABLE (not tied to font size like 75ch was) */
+  --inner-max: 41rem;      /* tune once: 46rem (narrower) | 48rem (default) | 50rem (wider) */
+
+  --page-pad-x: 1rem;
   --page-pad-top: 0.25rem;
   --page-pad-bottom: 1rem;
 
-  /* Global type controls */
-  --fs-base: 18px;        /* adjust 17/18/19 */
+  /* ✅ Keep base stable to avoid rem-based header shifts */
+  --fs-base: 18px;
   --lh-base: 1.55;
 
-  /* Header sizes */
+  /* ✅ One knob to change BODY font size safely */
+  --content-fs: 19px;      /* change this only */
+  --content-lh: 1.65;      /* optional */
+
+  /* Header sizes (unchanged) */
   --fs-title: 2.8rem;
   --fs-nav: 1.2rem;
 }
@@ -38,7 +44,7 @@ body {
   box-sizing: border-box;
 }
 
-/* IMPORTANT: do NOT clamp the whole site to 75ch here */
+/* IMPORTANT: do NOT clamp the whole site here */
 .content-col {
   width: 100%;
   max-width: none;
@@ -63,7 +69,7 @@ body {
 .header-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* title left, nav right */
+  justify-content: space-between;
   gap: 2.5rem;
   box-sizing: border-box;
   flex-wrap: wrap;
@@ -76,7 +82,7 @@ body {
 
 .site-title a {
   font-size: var(--fs-title);
-  line-height: 1.2;              /* FIX: was 2 (too tall) */
+  line-height: 1.2;
   text-decoration: none;
   display: inline-block;
   font-weight: bold;
@@ -108,22 +114,23 @@ body {
 }
 
 /* === Main content === */
-/* site-main no longer controls width; .wrap does */
 .site-main {
   width: 100%;
   margin: 1.5rem 0 0;
   box-sizing: border-box;
+
+  /* ✅ Safe body sizing (does NOT affect header, does NOT affect wrap width) */
+  font-size: var(--content-fs);
+  line-height: var(--content-lh);
 }
 
 /* --- Content typography fixes --- */
-/* Restore normal list indentation/bullets for article content */
 .site-main ul,
 .site-main ol {
-  padding-left: 1.25rem;          /* FIX: was 0 */
+  padding-left: 1.25rem;
   margin-left: 0;
 }
 
-/* Keep a little space between list items */
 .site-main li {
   margin: 0.25rem 0;
 }
@@ -148,7 +155,7 @@ figcaption { font-size: 0.95em; opacity: 0.8; margin-top: 0.4rem; }
   border-radius: 12px;
   background: rgba(0,0,0,0.02);
   margin: 1rem 0;
-  overflow: hidden;               /* FIX: was clip (compatibility) */
+  overflow: hidden;
 }
 
 /* clickable header */
@@ -205,7 +212,6 @@ figcaption { font-size: 0.95em; opacity: 0.8; margin-top: 0.4rem; }
   overflow-x: auto;
 }
 
-
 /* === Mobile === */
 @media (max-width: 700px) {
   .header-inner {
@@ -220,7 +226,6 @@ figcaption { font-size: 0.95em; opacity: 0.8; margin-top: 0.4rem; }
     text-align: center;
   }
 
-
   .site-nav {
     flex-direction: row;
     flex-wrap: wrap;
@@ -231,9 +236,13 @@ figcaption { font-size: 0.95em; opacity: 0.8; margin-top: 0.4rem; }
     margin-left: 0;
   }
 
-  /* Slightly reduce list indent on small screens */
   .site-main ul,
   .site-main ol {
     padding-left: 1rem;
   }
+}
+
+/* === Page background === */
+html, body {
+  background: #E9EEF5;
 }
