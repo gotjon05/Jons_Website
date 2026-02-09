@@ -1,5 +1,6 @@
 /* Prevent header “jump” when scrollbar appears/disappears */
 html {
+  overflow-y: scroll;
   scrollbar-gutter: stable;
 }
 
@@ -10,24 +11,27 @@ html {
 
 /* === Layout + Typography Controls === */
 :root {
-  /* ✅ Layout width is now STABLE (not tied to font size like 75ch was) */
-  --inner-max: 41rem;      /* tune once: 46rem (narrower) | 48rem (default) | 50rem (wider) */
+  /* Layout width is stable (not tied to font size like 75ch was) */
+  --inner-max: 41rem;
 
   --page-pad-x: 1rem;
   --page-pad-top: 0.25rem;
   --page-pad-bottom: 1rem;
 
-  /* ✅ Keep base stable to avoid rem-based header shifts */
+  /* Keep base stable to avoid rem-based header shifts */
   --fs-base: 18px;
   --lh-base: 1.55;
 
-  /* ✅ One knob to change BODY font size safely */
-  --content-fs: 19px;      /* change this only */
-  --content-lh: 1.65;      /* optional */
+  /* One knob to change BODY font size safely */
+  --content-fs: 19px;
+  --content-lh: 1.65;
 
-  /* Header sizes (unchanged) */
+  /* Header sizes */
   --fs-title: 2.8rem;
   --fs-nav: 1.2rem;
+
+  /* ✅ Consistent spacing under header */
+  --header-gap: 1.5rem;
 }
 
 /* Global typography */
@@ -50,7 +54,7 @@ body {
   max-width: none;
 }
 
-/* ✅ Shared width wrapper used in baseof.html */
+/* Shared width wrapper used in baseof.html */
 .wrap {
   width: 100%;
   max-width: var(--inner-max);
@@ -63,16 +67,17 @@ body {
 .site-header {
   width: 100%;
   display: block;
+  margin-bottom: var(--header-gap); /* ✅ consistent gap under header */
 }
 
-/* Header layout only (width comes from .wrap) */
+/* Desktop default: prevent header reflow */
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 2.5rem;
   box-sizing: border-box;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 /* Title */
@@ -116,10 +121,10 @@ body {
 /* === Main content === */
 .site-main {
   width: 100%;
-  margin: 1.5rem 0 0;
+  margin: 0;                 /* ✅ header controls spacing now */
   box-sizing: border-box;
 
-  /* ✅ Safe body sizing (does NOT affect header, does NOT affect wrap width) */
+  /* Safe body sizing (does NOT affect header, does NOT affect wrap width) */
   font-size: var(--content-fs);
   line-height: var(--content-lh);
 }
@@ -206,18 +211,18 @@ figcaption { font-size: 0.95em; opacity: 0.8; margin-top: 0.4rem; }
 .fold__content > :first-child { margin-top: 0; }
 .fold__content > :last-child  { margin-bottom: 0; }
 
-/* optional: nicer code blocks inside folds */
 .fold__content pre {
   border-radius: 10px;
   overflow-x: auto;
 }
 
 /* === Mobile === */
-@media (max-width: 700px) {
+@media (max-width: 701px) {
   .header-inner {
     flex-direction: column;
     gap: 0.75rem;
     align-items: center;
+    flex-wrap: wrap;
   }
 
   .site-title a {
