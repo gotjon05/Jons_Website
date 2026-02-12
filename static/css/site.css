@@ -251,3 +251,9 @@ figcaption { font-size: 0.95em; opacity: 0.8; margin-top: 0.4rem; }
 html, body {
   background: #E9EEF5;
 }
+/* Home: Most recent 10 posts (no bullets) */
+.site-main ul.recent-posts {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+}

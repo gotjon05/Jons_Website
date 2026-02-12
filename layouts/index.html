@@ -3,7 +3,7 @@
 {{ .Content }}
 
 <h2>Most recent 10 posts</h2>
-<ul>
+<ul class="recent-posts">
   {{ $posts := where .Site.RegularPages "Section" "posts" }}
   {{ $posts = where $posts "Draft" "!=" true }}
   {{ $posts = where $posts "Date" "le" now }}

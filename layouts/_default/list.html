@@ -5,11 +5,11 @@
     {{ . }}
   {{ end }}
 
-  <ul class="recent-posts">
+  <ul class="recent-posts" role="list">
     {{ range .Pages.ByDate.Reverse }}
-      <li>
-        <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-        {{ with .Date }}<small> ({{ .Format "Jan 2 2006" }})</small>{{ end }}
+      <li class="recent-posts__li">
+        <a class="recent-posts__link" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+        {{ with .Date }}<small class="recent-posts__date"> ({{ .Format "Jan 2 2006" }})</small>{{ end }}
       </li>
     {{ end }}
   </ul>
