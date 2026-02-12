@@ -215,6 +215,7 @@ figcaption { font-size: 0.95em; opacity: 0.8; margin-top: 0.4rem; }
 .fold__content > :first-child { margin-top: 0; }
 .fold__content > :last-child  { margin-bottom: 0; }
 
+/* Code blocks inside folds: keep round corners + allow scroll on desktop */
 .fold__content pre {
   border-radius: 10px;
   overflow-x: auto;
@@ -280,11 +281,45 @@ html, body {
   overflow-x: auto;
 }
 
-/* Mobile safety */
+/* Mobile safety: stop the bleed so it doesn't hit the edges */
 @media (max-width: 701px) {
   .fold__content .highlight {
     margin-left: 0;
     margin-right: 0;
     width: 100%;
+  }
+}
+
+/* ================================
+   Code blocks: wrap + shrink on phones
+   (no duplicate fold__content rules)
+   ================================ */
+
+/* Desktop defaults (covers Hugo highlight + plain <pre><code>) */
+.highlight pre,
+pre {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.highlight pre code,
+pre code {
+  white-space: pre;
+}
+
+/* Phones: wrap so users can see everything */
+@media (max-width: 701px) {
+  .highlight pre,
+  pre {
+    overflow-x: hidden;
+  }
+
+  .highlight pre code,
+  pre code {
+    white-space: pre-wrap;       /* ✅ wrap lines */
+    overflow-wrap: anywhere;     /* long URLs/hashes */
+    word-break: normal;          /* avoid ugly mid-word breaks when possible */
+    font-size: 0.9em;            /* slight shrink */
+    line-height: 1.45;
   }
 }
