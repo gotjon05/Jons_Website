@@ -12,7 +12,7 @@ html {
 /* === Layout + Typography Controls === */
 :root {
   /* Layout width is stable (not tied to font size like 75ch was) */
-  --inner-max: 41rem;
+  --inner-max: 42rem;
 
   --page-pad-x: 1rem;
   --page-pad-top: 0.25rem;
@@ -127,6 +127,9 @@ body {
   /* Safe body sizing (does NOT affect header, does NOT affect wrap width) */
   font-size: var(--content-fs);
   line-height: var(--content-lh);
+
+  /* Safety net: prevent any accidental horizontal scroll from "bleed" */
+  overflow-x: clip;
 }
 
 /* --- Content typography fixes --- */
@@ -200,9 +203,10 @@ figcaption { font-size: 0.95em; opacity: 0.8; margin-top: 0.4rem; }
   transform: rotate(-135deg);
 }
 
-/* content area */
+/* content area (single source of truth for fold padding) */
 .fold__content {
-  padding: 0.85rem 0.9rem 0.95rem;
+  --fold-pad-x: 0.9rem;
+  padding: 0.85rem var(--fold-pad-x) 0.95rem;
   border-top: 1px solid rgba(0,0,0,0.10);
   background: rgba(255,255,255,0.6);
 }
@@ -251,9 +255,36 @@ figcaption { font-size: 0.95em; opacity: 0.8; margin-top: 0.4rem; }
 html, body {
   background: #E9EEF5;
 }
+
 /* Home: Most recent 10 posts (no bullets) */
 .site-main ul.recent-posts {
   list-style: none;
   padding-left: 0;
   margin-left: 0;
+}
+
+/* Option B: only "bleed" code blocks to the fold padding (prevents shrink-on-nesting) */
+
+/* Code block wrapper fills the fold content area */
+.fold__content .highlight {
+  margin-left: calc(-1 * var(--fold-pad-x));
+  margin-right: calc(-1 * var(--fold-pad-x));
+  width: calc(100% + (2 * var(--fold-pad-x)));
+  box-sizing: border-box;
+}
+
+/* Keep code block itself comfy */
+.fold__content .highlight pre {
+  padding: 1rem 1.1rem !important;
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+/* Mobile safety */
+@media (max-width: 701px) {
+  .fold__content .highlight {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
 }

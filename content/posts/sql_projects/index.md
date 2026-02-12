@@ -21,40 +21,38 @@ Tip: Use the AVG function to retrieve an average value.
     - required columns: Product ID, name, list price
     - SELF JOIN SalesLT.Product with SalesLT.SalesOrderDetail to get unit price 
     - filter by list price > unit price
-    ```sql
-        SELECT
-            p.ProductID,
-            p.Name
-        FROM 
-            [adventureworks].[SalesLT].[Product] AS p
-        JOIN
-            [adventureworks].[SalesLT].[SalesOrderDetail] AS o
-        ON
-            p.ProductID = o.ProductID
-        WHERE 
-            p.ListPrice > o.UnitPrice
-    ```
-{{< fold title="Solving this problem using Subquery" >}}
-The type of subquery determines what syntax you are allowed to use.
-
 ```sql
-    SELECT
-        p.ProductID,
-        p.Name,
-        p.ListPrice
+SELECT
+    p.ProductID,
+    p.Name
+FROM 
+    [adventureworks].[SalesLT].[Product] AS p
+JOIN
+    [adventureworks].[SalesLT].[SalesOrderDetail] AS o
+ON
+    p.ProductID = o.ProductID
+WHERE 
+    p.ListPrice > o.UnitPrice
+```
+{{< fold title="Solving this problem using Subquery" >}}
+For each product, I’m checking whether there is at least one related order-detail row where p.ProductID = o.ProductID and p.ListPrice > o.UnitPrice.
+```sql
+SELECT
+    p.ProductID,
+    p.Name,
+    p.ListPrice
     FROM 
-        [adventureworks].[SalesLT].[Product] AS p
-    WHERE EXISTS(
-        SELECT 1
-        FROM
-            [adventureworks].[SalesLT].[SalesOrderDetail] AS o
-        WHERE
-            p.ProductID = o.ProductID
-        AND  
-            p.ListPrice > o.UnitPrice
-        )
-    ```
-
+    [adventureworks].[SalesLT].[Product] AS p
+WHERE EXISTS(
+    SELECT 1
+    FROM
+        [adventureworks].[SalesLT].[SalesOrderDetail] AS o
+    WHERE
+        p.ProductID = o.ProductID
+    AND  
+        p.ListPrice > o.UnitPrice
+)
+```
 {{< /fold >}}
 
 
