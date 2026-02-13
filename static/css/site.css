@@ -12,7 +12,7 @@ html {
 /* === Layout + Typography Controls === */
 :root {
   /* Layout width is stable (not tied to font size like 75ch was) */
-  --inner-max: 42rem;
+  --inner-max: 43rem;
 
   --page-pad-x: 1rem;
   --page-pad-top: 0.25rem;

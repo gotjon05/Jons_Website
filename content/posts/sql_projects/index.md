@@ -79,6 +79,46 @@ EXISTS(
 ```
 **Challenge 2: Analyze profitability**
 
+The standard cost of a product and the unit price at which it is sold determine its profitability. You must use correlated subqueries to compare the cost and average selling price for each product.
+
+1. Retrieve the product ID, name, cost, and list price for each product along with the average unit price for which that product has been sold.
+
+    **Requirements**
+    - Columns required: ProductID, Name, Cost, ListPrice, avg unit price
+    - correlated subqueries
+
+I dont want an aggregate of ProductID, Name, Cost, ListPrice with avg unit price. I want the Unit price avg for ProductID only.
+Going to create a subquery in SELECT to find this avg with ProductID and ListPrice only. 
+
+This is a scalar subquery, my subquery needs to only return one value, the avg of unitprice 
+
+Attempt 1: I received this output from the code below: 
+Only one expression can be specified in the select list when the subquery is not introduced with EXISTS.
+
+```sql
+SELECT
+    p.ProductID,
+    p.Name,
+    p.StandardCost,
+    p.ListPrice,
+    (SELECT p.ProductID, AVG(o.UnitPrice)
+    FROM [adventureworks].[SalesLT].[Product] AS p
+    JOIN [adventureworks].[SalesLT].[SalesOrderDetail] AS o
+    ON p.ProductID = o.ProductID
+    GROUP BY p.ProductID
+    )
+FROM 
+    [adventureworks].[SalesLT].[Product] AS p
+
+
+```
+
+
+
+
+
+
+2. Retrieve products that have an average selling price that is lower than the cost. Filter your previous query to include only products where the cost price is higher than the average selling price.
 
 
 
