@@ -15,7 +15,7 @@ html {
   --inner-max: 43rem;
 
   --page-pad-x: 1rem;
-  --page-pad-top: 0.25rem;
+  --page-pad-top: 1rem;
   --page-pad-bottom: 1rem;
 
   /* Keep base stable to avoid rem-based header shifts */
