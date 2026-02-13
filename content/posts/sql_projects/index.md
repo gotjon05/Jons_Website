@@ -92,19 +92,16 @@ Going to create a subquery in SELECT to find this avg with ProductID and ListPri
 
 This is a scalar subquery, my subquery needs to only return one value, the avg of unitprice 
 
-Attempt 1: I received this output from the code below: 
-Only one expression can be specified in the select list when the subquery is not introduced with EXISTS.
-
+Attempt 1: 
 ```sql
 SELECT
     p.ProductID,
     p.Name,
     p.StandardCost,
     p.ListPrice,
-    (SELECT p.ProductID, AVG(o.UnitPrice)
-    FROM [adventureworks].[SalesLT].[Product] AS p
-    JOIN [adventureworks].[SalesLT].[SalesOrderDetail] AS o
-    ON p.ProductID = o.ProductID
+    (SELECT AVG(o.UnitPrice)
+    FROM [adventureworks].[SalesLT].[SalesOrderDetail] AS o
+    WHERE o.ProductID = p.ProductID
     GROUP BY p.ProductID
     )
 FROM 

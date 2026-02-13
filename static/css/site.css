@@ -110,7 +110,7 @@ body {
   display: block;
   text-transform: uppercase;
   text-decoration: none;
-  font-weight: 300;
+  font-weight: 550;
   letter-spacing: 0.04em;
   line-height: 1.05;
   font-size: var(--fs-nav);
