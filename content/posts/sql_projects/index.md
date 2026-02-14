@@ -144,8 +144,7 @@ Requirements:
 
 My Plan:
 
-I need to create a subquery in the WHERE statement to provide this filter of StandardCost is > AVG(unit_price) for the entire query
-Going to compare cost_price with the subquery that will provide the cost_price for each row of the outer query. 
+I need to create a subquery in the WHERE statement to provide this filter of StandardCost is > AVG(unit_price) for the entire query. Going to compare cost_price with the subquery that will provide the cost_price for each row of the outer query. 
 
 Solution:
 
