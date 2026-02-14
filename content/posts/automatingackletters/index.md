@@ -57,6 +57,15 @@ This workflow ensures that every donor receives the right acknowledgment—addre
 
 
 1. {{< fold title="Getting Started: SKY API and Power Automate setup" >}}
+  A. [To get access to the SKY API Libraries to create Create a SKY Developer account.](https://developer.blackbaud.com/skyapi/docs/getting-started) (You dont need to create an application)\
+  B. [To get Power Automate Premium $15/Month as of 2/14/26](https://go.microsoft.com/fwlink/?linkid=2252273&clcid=0x409&culture=en-us&country=us)\
+  C.
+
+
+
+
+
+
    {{< /fold >}}
 
 2. {{< fold title="Retrieving list of all Unacknowledged gifts" >}}
