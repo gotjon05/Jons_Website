@@ -106,14 +106,25 @@ SELECT
     )
 FROM 
     [adventureworks].[SalesLT].[Product] AS p
-
-
 ```
+This gave me a better understanding of Correlated Subqueries. 
 
+The reason why i created a subquery in SELECT is because i dont want an aggregate of all the different combinations of columns i was required to provide. And i dont need group by because the WHERE statement, WHERE o.ProductID = p.ProductID , makes this query, makes the two queries correlated. Which means that it loops the outer query. And because i used the aggregate AVG, it insures that subquery returns one value for each outer row
 
-
-
-
+Answer:
+```sql
+SELECT
+    p.ProductID,
+    p.Name,
+    p.StandardCost,
+    p.ListPrice,
+    (SELECT AVG(o.UnitPrice)
+    FROM [adventureworks].[SalesLT].[SalesOrderDetail] AS o
+    WHERE o.ProductID = p.ProductID
+    )
+FROM 
+    [adventureworks].[SalesLT].[Product] AS p
+```
 
 2. Retrieve products that have an average selling price that is lower than the cost. Filter your previous query to include only products where the cost price is higher than the average selling price.
 
