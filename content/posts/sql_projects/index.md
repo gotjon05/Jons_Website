@@ -18,12 +18,12 @@ Adventure Works products each have a standard cost price that indicates the cost
 Retrieve the product ID, name, and list price for each product where the list price is higher than the average unit price for all products that have been sold.
 Tip: Use the AVG function to retrieve an average value.
 
-    **Requirements**
+**Requirements**
 
-    - required columns: Product ID, name, list price
-    - SELF JOIN SalesLT.Product with SalesLT.SalesOrderDetail to get unit price 
-    - filter by list price > AVG(unit price)
-    - Required to use a subquery instead of just Joining tables
+- required columns: Product ID, name, list price
+- SELF JOIN SalesLT.Product with SalesLT.SalesOrderDetail to get unit price 
+- filter by list price > AVG(unit price)
+- Required to use a subquery instead of just Joining tables
 
 For each product, I’m checking whether there is at least one related order-detail row where p.ProductID = o.ProductID and p.ListPrice > o.UnitPrice.
 
@@ -49,9 +49,9 @@ WHERE EXISTS(
 2. Retrieve Products with a list price of 100 or more that have been sold for less than 100.
 Retrieve the product ID, name, and list price for each product where the list price is 100 or more, and the product has been sold for less than 100.
 
-    **Requirements**
-    - required columns: ProductID, Name, ListPrice
-    - filter product by list price >= 100 AND unit price < 100 (language ambigious for sold for, being unit price)
+**Requirements**
+- required columns: ProductID, Name, ListPrice
+- filter product by list price >= 100 AND unit price < 100 (language ambigious for sold for, being unit price)
 
 ListPrice is in [SalesLT].[Product], the outer query so I filtered for ListPrice there. 
 And I'm checking to see if theres at least one row of salesorderdetail for the same product where  o.UnitPrice < 100
@@ -83,9 +83,10 @@ The standard cost of a product and the unit price at which it is sold determine 
 
 1. Retrieve the product ID, name, cost, and list price for each product along with the average unit price for which that product has been sold.
 
-    **Requirements**
-    - Columns required: ProductID, Name, Cost, ListPrice, avg unit price
-    - correlated subqueries
+**Requirements**
+
+- Columns required: ProductID, Name, Cost, ListPrice, avg unit price
+- correlated subqueries
 
 I dont want an aggregate of ProductID, Name, Cost, ListPrice with avg unit price. I want the Unit price avg for ProductID only.
 
@@ -132,10 +133,41 @@ FROM
     [adventureworks].[SalesLT].[Product] AS p
 ```
 
-1. Retrieve products that have an average selling price that is lower than the cost. Filter your previous query to include only products where the cost price is higher than the average selling price.
+2. Retrieve products that have an average selling price that is lower than the cost. Filter your previous query to include only products where the cost price is higher than the average selling price.
 
+Requirements:
 
+- Columns required: ProductID, Name, Cost, ListPrice, avg unit price
+- correlated subqueries
+- cost_price is > AVG(unit_price)
+- unclear if costprice is StandardCost, very annoying
 
+My Plan:
+
+I need to create a subquery in the WHERE statement to provide this filter of StandardCost is > AVG(unit_price) for the entire query
+Going to compare cost_price with the subquery that will provide the cost_price for each row of the outer query. 
+
+Solution:
+
+```sql 
+SELECT
+    p.ProductID,
+    p.Name,
+    p.StandardCost,
+    p.ListPrice,
+    (SELECT AVG(o.UnitPrice) AS avg_UnitPrice
+    FROM [adventureworks].[SalesLT].[SalesOrderDetail] AS o
+    WHERE p.ProductID = o.ProductID
+)
+FROM 
+    [adventureworks].[SalesLT].[Product] AS p;
+WHERE p.StandardCost > (
+        SELECT AVG(UnitPrice)
+        FROM [adventureworks].[SalesLT].[SalesOrderDetail] AS o
+        WHERE o.ProductID = p.ProductID
+    )
+
+```
 
 {{< /fold >}}
 {{< /fold >}}
