@@ -88,6 +88,7 @@ The standard cost of a product and the unit price at which it is sold determine 
     - correlated subqueries
 
 I dont want an aggregate of ProductID, Name, Cost, ListPrice with avg unit price. I want the Unit price avg for ProductID only.
+
 Going to create a subquery in SELECT to find this avg with ProductID and ListPrice only. 
 
 This is a scalar subquery, my subquery needs to only return one value, the avg of unitprice 
@@ -107,15 +108,14 @@ SELECT
 )
 FROM [adventureworks].[SalesLT].[Product] AS p;
 ```
-This gave me a better understanding of correlated Subqueries. 
-
-I made a mistake while using GROUP BY in the subquery. I got the error: Each GROUP BY expression must contain at least one column that is not an outer reference. I just had to reference the inner column with ```GROUP BY o.ProductID```
+I made a mistake using GROUP BY in the subquery. I got the error: Each GROUP BY expression must contain at least one column that is not an outer reference. I just had to reference the inner column with ```GROUP BY o.ProductID```
  
-In the process, I realized I don’t need GROUP BY at all. 
+But in the process, I realized I don’t need GROUP BY at all. I could remove it and get the same outcome because this query is correlated
 
-The subquery is correlated because it references the outer query via o.ProductID = p.ProductID, so it is evaluated once per product row. 
+The subquery is correlated because it references the outer query via o.ProductID = p.ProductID, so it behaves by running the subquery once per outer query row. 
 
-For each product, the WHERE clause filters SalesOrderDetail to that product’s rows, and AVG collapses those rows into a single scalar value
+And AVG collapses the matching inner query rows into one into one scalar value, the average UnitPrice for each outer query ProductID
+
 
 Answer:
 ```sql
