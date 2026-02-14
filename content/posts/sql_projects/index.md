@@ -99,17 +99,23 @@ SELECT
     p.Name,
     p.StandardCost,
     p.ListPrice,
-    (SELECT AVG(o.UnitPrice)
-    FROM [adventureworks].[SalesLT].[SalesOrderDetail] AS o
-    WHERE o.ProductID = p.ProductID
+    (SELECT AVG(o.UnitPrice) AS avg_UnitPrice
+    FROM [adventureworks].[SalesLT].[Product] AS p
+    JOIN [adventureworks].[SalesLT].[SalesOrderDetail] AS o
+        ON p.ProductID = o.ProductID
     GROUP BY p.ProductID
-    )
-FROM 
-    [adventureworks].[SalesLT].[Product] AS p
+)
+FROM [adventureworks].[SalesLT].[Product] AS p;
 ```
-This gave me a better understanding of Correlated Subqueries. 
+This gave me a better understanding of correlated Subqueries. 
 
-The reason why i created a subquery in SELECT is because i dont want an aggregate of all the different combinations of columns i was required to provide. And i dont need group by because the WHERE statement, WHERE o.ProductID = p.ProductID , makes this query, makes the two queries correlated. Which means that it loops the outer query. And because i used the aggregate AVG, it insures that subquery returns one value for each outer row
+I made a mistake while using GROUP BY in the subquery. I got the error: Each GROUP BY expression must contain at least one column that is not an outer reference. I just had to reference the inner column with ```GROUP BY o.ProductID```
+ 
+In the process, I realized I don’t need GROUP BY at all. 
+
+The subquery is correlated because it references the outer query via o.ProductID = p.ProductID, so it is evaluated once per product row. 
+
+For each product, the WHERE clause filters SalesOrderDetail to that product’s rows, and AVG collapses those rows into a single scalar value
 
 Answer:
 ```sql
@@ -126,7 +132,7 @@ FROM
     [adventureworks].[SalesLT].[Product] AS p
 ```
 
-2. Retrieve products that have an average selling price that is lower than the cost. Filter your previous query to include only products where the cost price is higher than the average selling price.
+1. Retrieve products that have an average selling price that is lower than the cost. Filter your previous query to include only products where the cost price is higher than the average selling price.
 
 
 
