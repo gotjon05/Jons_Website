@@ -165,7 +165,7 @@ This workflow ensures that every donor receives the right acknowledgment—addre
   {{< /fold >}}
 
    {{< /fold >}}
-8. {{< fold title="Overlapping Appeal+Batch Letter Codes" >}}
+8. {{< fold title="Resolving overlapping Appeal+Batch Letter Codes with Template" >}}
 We use Appeal Code + Batch to determine which letter template to use for a gift.
 
 However, I had a problem of overlapping Appeal Code + Batch for letter templates. Appeal Code + Batch Combinations were not 1 to 1 with Letter Templates.
@@ -174,7 +174,8 @@ To solve this problem, i created a LetterCode for each appeal+batch combination 
 
 I used a JSON dictionary to retrieve the correct Lettercode for each Appeal Code + Batch by doing a reverse lookup. With the letter code as the key and appeal+batch combinations as values. I then searched for values in the dictionary and returned the corresonding key.
 
-Follow the Steps below if your (Appeal Code, Batch) pairs were not 1 to 1 with Letter Templates
+
+{{< fold title="Follow the Steps below if your (Appeal Code, Batch) pairs are also not 1 to 1 with Letter Templates. If they are, you can skip this steps and use (Appeal Code, Batch)" >}}
   1. Create an array variable to store your Dictionary
   2. An example of the Structure for a JSON Dictionary. To add additional Letter Codes, just repeat the pattern 
 ```json
@@ -199,11 +200,14 @@ Follow the Steps below if your (Appeal Code, Batch) pairs were not 1 to 1 with L
 ]
 ```
   3. Lets create a Filter array, that we will use to reverse search through this table.
+    Check List before proceeding:
+    - A variable that stores our Appeal Code + Batch for each gift
+    - Array Variable that stores Letter Code and corresponding array+variables, even if its just one
+  
+  4. Enter Variable Name for your Dictionary in FROM 
+  5. For the Filter Query 
+{{< /fold >}}
 
-
-```
-
-```
 
   {{< /fold >}}
 1. {{< fold title="Identifying the type of Constituent to provide the correct Header and salutation later" >}}
