@@ -160,6 +160,7 @@ This workflow ensures that every donor receives the right acknowledgment—addre
 
    {{< /fold >}}
 8. {{< fold title="Overlapping Appeal+Batch Letter Codes" >}}
+Appeal+Batch informed what letter template to use for a gift. However, i encountered overlap where multiple Appeal+Batch corresponded to the same letter. To solve this problem, i created a LetterCode for each template and appeal+batch combinations that belonged to each letter. I did this by creating a JSON dictionary. My Key was the Letter Code and my value was the Appeal+Batch combinations. 
 
 
 
