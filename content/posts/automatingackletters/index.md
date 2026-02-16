@@ -168,7 +168,7 @@ This workflow ensures that every donor receives the right acknowledgment—addre
 8. {{< fold title="Resolving overlapping Appeal+Batch Letter Codes with Template" >}}
 We use Appeal Code + Batch to determine which letter template to use for a gift.
 
-However, I had a problem of overlapping Appeal Code + Batch for letter templates. Appeal Code + Batch Combinations were not 1 to 1 with Letter Templates.
+However, in this use case I had a problem of overlapping Appeal Code + Batch for letter templates. Appeal Code + Batch Combinations were not 1 to 1 with Letter Templates.
 
 To solve this problem, i created a LetterCode for each appeal+batch combination that required a specific template. The Letter Code determined the template
 
