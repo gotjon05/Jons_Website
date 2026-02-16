@@ -166,14 +166,13 @@ This workflow ensures that every donor receives the right acknowledgment—addre
 
    {{< /fold >}}
 8. {{< fold title="Overlapping Appeal+Batch Letter Codes" >}}
-We use Appeal Code + Batch to determine what letter template to use for a gift. However, I had a problem of overlapping Appeal Code + Batch for letter templates. Appeal Code + Batch Combinations were not 1 to 1 with Letter Templates. 
+We use Appeal Code + Batch to determine what letter template to use for a gift. 
+
+However, I had a problem of overlapping Appeal Code + Batch for letter templates. Appeal Code + Batch Combinations were not 1 to 1 with Letter Templates. 
 
 To solve this problem, i created a LetterCode for each appeal+batch combination that required a specific template. The Letter Code determined the template
 
 I used a JSON dictionary to retrieve the correct Lettercode for each Appeal Code + Batch  by doing a reverse lookup. With the letter code as the key and appeal+batch combinations as values. I then searched for values in the dictionary and returned the corresonding key.
-
-
-
   {{< /fold >}}
 9. {{< fold title="Identifying the type of Constituent to provide the correct Header and salutation later" >}}
 
