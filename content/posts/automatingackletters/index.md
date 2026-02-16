@@ -71,7 +71,7 @@ This workflow ensures that every donor receives the right acknowledgment—addre
 
 1. {{< fold title="Retrieving list of all Unacknowledged gifts" >}}
   Our first call is List_Gifts, to retrieve every unacknowledged gift. 
-  The output provides a JSON array called value, which we loop through to access the information for each individual gift. 
+  The output provides a JSON array called value, which we loop through to access the information for each individual gift in the next step. 
   
   1. Click on List Gift and update the parameters:
 
@@ -87,15 +87,10 @@ This workflow ensures that every donor receives the right acknowledgment—addre
  ```
  Donation,GiftInKind,MatchingGiftPayment,PledgePayment,RecurringGiftPayment,Stock,SoldStock
  ```
-
-
-
    {{< img src="list_gifts.png" alt="List Gifts response in Power Automate" width="350" >}}
-
    {{< /fold >}}
 
 1. {{< fold title="Looping through list of gifts" >}}
-
    We want to iterate over each gift returned by List_Gifts, so that we access all the information we need for every gift. To do this, we will use "apply to each" action. Most of the work after this will be inside this loop, where we make additional calls to gather more details about each gift.
   
   Before doing the steps below, run your process to see the output of List_Gifts. After it runs, go to Power Automates 28-day run history, select the most recent one, and select list_gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts.)
@@ -171,7 +166,11 @@ This workflow ensures that every donor receives the right acknowledgment—addre
 
    {{< /fold >}}
 8. {{< fold title="Overlapping Appeal+Batch Letter Codes" >}}
-Appeal+Batch informed what letter template to use for a gift. However, i encountered overlap where multiple Appeal+Batch corresponded to the same letter. To solve this problem, i created a LetterCode for each template and appeal+batch combinations that belonged to each letter. I did this by creating a JSON dictionary. My Key was the Letter Code and my value was the Appeal+Batch combinations. 
+We use Appeal Code + Batch to determine what letter template to use for a gift. However, I had a problem of overlapping Appeal Code + Batch for letter templates. Appeal Code + Batch Combinations were not 1 to 1 with Letter Templates. 
+
+To solve this problem, i created a LetterCode for each appeal+batch combination that required a specific template. The Letter Code determined the template
+
+I used a JSON dictionary to retrieve the correct Lettercode for each Appeal Code + Batch  by doing a reverse lookup. With the letter code as the key and appeal+batch combinations as values. I then searched for values in the dictionary and returned the corresonding key.
 
 
 
