@@ -57,30 +57,33 @@ This workflow ensures that every donor receives the right acknowledgment—addre
 
 
 1. {{< fold title="Getting Started: SKY API and Power Automate setup" >}}
-  A. [To get access to the SKY API Libraries to create Create a SKY Developer account.](https://developer.blackbaud.com/skyapi/docs/getting-started) (You dont need to create an application)\
-  B. [To get Power Automate Premium $15/Month as of 2/14/26](https://go.microsoft.com/fwlink/?linkid=2252273&clcid=0x409&culture=en-us&country=us)\
-  C.
 
+  1. [To get Power Automate Premium $15/Month as of 2/14/26](https://go.microsoft.com/fwlink/?linkid=2252273&clcid=0x409&culture=en-us&country=us)
 
+  2. [Go to Blackbaud Marketplace and search for power automate and Connect](https://app.blackbaud.com/marketplace/)
 
+  3. Create a scheduled cloud flow in Power Automate
 
+  4. Click the + sign and Search for Blackbaud Raisers Edge NXT List Gifts
 
+  5. Blackbaud connector handles authentication internally and you will be prompted to sign-in with your blackbaud account 
+  {{< /fold >}}
 
-   {{< /fold >}}
-
-2. {{< fold title="Retrieving list of all Unacknowledged gifts" >}}
+1. {{< fold title="Retrieving list of all Unacknowledged gifts" >}}
   Our first call is List_Gifts, to retrieve every unacknowledged gift. 
   The output provides a JSON array called value, which we loop through to access the information for each individual gift. 
   
-  A. Click the + sign and Search for Blackbaud Raisers Edge NXT List Gifts\
-  B. Click on it and update the parameters:\
-  C. Start gift amount: 1 --- We want gifts that are greater than\
-  D. Acknowledgement status: NotAcknowledged\
-  E. Added on or after: (Optional, if your database is messy, you can select the earliest date for gifts you want. But you need a specific date format.) SELECT Fx and enter:   
+  1. Click on List Gift and update the parameters:
+
+  2. Start gift amount: 1 --- We want gifts that are greater than
+
+  3. Acknowledgement status: NotAcknowledged
+
+  4. Added on or after: (Optional, if your database is messy, you can select the earliest date for gifts you want. But you need a specific date format.) SELECT Fx and enter:   
 ```
   formatDateTime('2025-05-10', 'yyyy-MM-ddT00:00:00Z')
 ```
- F. Type: Enter the the gift types below to avoid Pledges: 
+  1. Type: Enter the the gift types below to avoid Pledges: 
  ```
  Donation,GiftInKind,MatchingGiftPayment,PledgePayment,RecurringGiftPayment,Stock,SoldStock
  ```
@@ -91,14 +94,15 @@ This workflow ensures that every donor receives the right acknowledgment—addre
 
    {{< /fold >}}
 
-3. {{< fold title="Looping through list of gifts" >}}
+1. {{< fold title="Looping through list of gifts" >}}
 
    We want to iterate over each gift returned by List_Gifts, so that we access all the information we need for every gift. To do this, we will use "apply to each" action. Most of the work after this will be inside this loop, where we make additional calls to gather more details about each gift.
   
   Before doing the steps below, run your process to see the output of List_Gifts. After it runs, go to Power Automates 28-day run history, select the most recent one, and select list_gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts.)
 
-  A. Select the + Sign after "List_Gifts" and Search for "apply to each"\
-  B. Add the action, then click Expression (fx) and enter: `@outputs('List_gifts')?['body/value']`\
+  1. Select the + Sign after "List_Gifts" and Search for "apply to each"
+
+  2. Add the action, then click Expression (fx) and enter: `@outputs('List_gifts')?['body/value']`
   Alternatively, you can select Dynamic content (lightning icon) to select body/value from List_Gifts. We want Body/value as the input, because its the section of the payload from List_Gifts that has the array of gifts we want to loop through.
 
    {{< img src="Apply_to_each.png" alt="apply to each" width="350" >}}
@@ -112,9 +116,11 @@ This workflow ensures that every donor receives the right acknowledgment—addre
    This call requires a gift ID, which comes from List Gifts:
    `items('Apply_to_each')?['id']`
 
-  A. Expand "Apply to each" and select the + icon\ 
-  B. Search for blackbaud NXT get a gift\
-  C. Add the action, then enter the expression `items('Apply_to_each')?['id']` **or** select Dynamic content (lightning icon) and look for system record id of gift from List gifts
+  1. Expand "Apply to each" and select the + icon
+
+  2. Search for blackbaud NXT get a gift
+
+  3. Add the action, then enter the expression `items('Apply_to_each')?['id']` **or** select Dynamic content (lightning icon) and look for system record id of gift from List gifts
 
    {{< /fold >}}
 
@@ -124,11 +130,15 @@ This workflow ensures that every donor receives the right acknowledgment—addre
 
   {{< fold title="How to initialize and set the variable" >}}
 
-  A. Select the **+** icon below **Get a Gift**  
-  B. Search for **Initialize variable**  
-  C. Name the variable (e.g., `varConstituentId`)  
-  D. Set the type to **String**  
-  E. Set the value using the Constituent ID from **Get a Gift**
+  1. Select the **+** icon below **Get a Gift**
+
+  2. Search for **Initialize variable**
+
+  3. Name the variable (e.g., `varConstituentId`) 
+
+  4. Set the type to **String**  
+
+  5. Set the value using the Constituent ID from **Get a Gift**
 
   {{< /fold >}}
 
@@ -138,10 +148,13 @@ This workflow ensures that every donor receives the right acknowledgment—addre
    
   Our second call inside the iteration is Get Constituent. Like Get a gift, Each time the flow runs, it makes this call once per gift. We make this call to get Constituent Information about the person who received full/hard credit for the gift. (Where as Soft Credit is soft)
 
-  A. Get a Constituent requires a Constituent ID. This is provided to us in Get a Gift. 
-  C. select the + icon below, Get a Gift
-  D. Search for blackbaud NXT Get a Constituent
-  E. Add the action, then enter the expression 
+  1. Get a Constituent requires a Constituent ID. This is provided to us in Get a Gift. 
+
+  2. select the + icon below, Get a Gift
+
+  3. Search for blackbaud NXT Get a Constituent
+
+  4. Add the action, then enter the expression 
   
 
    {{< /fold >}}
@@ -154,8 +167,6 @@ This workflow ensures that every donor receives the right acknowledgment—addre
   A **Condition** in Power Automate is similar to an if/then statement. It evaluates an expression as True or False, often using AND or OR. 
 
   In this flow i have use **Conditions** to prevent running actions that depend on values that may be **null** (missing). Without these safeguards, Power Automate could attempt to call a connector with a blank ID (or reference missing data), which can cause the action—and sometimes the entire run—to fail.
-
-
   {{< /fold >}}
 
    {{< /fold >}}
