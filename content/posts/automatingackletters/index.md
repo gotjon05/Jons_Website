@@ -177,7 +177,7 @@ I used a JSON dictionary to retrieve the correct Lettercode for each Appeal Code
 Follow the Steps below if your (Appeal Code, Batch) pairs were not 1 to 1 with Letter Templates
   1. Create an array variable to store your Dictionary
   2. An example of the Structure for a JSON Dictionary. To add additional Letter Codes, just repeat the pattern 
-  ```
+  ```json
   [
   {
     "LetterCode": "Gala",
