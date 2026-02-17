@@ -171,7 +171,7 @@ The Appeal + Batch Code from a gift determines which letter template to use.
 
 But in this use case, the relationship was many-to-one. Many different Appeal + Batch combinations needed to map to the same letter template. For example, the “General” letter template had 5+ different Appeal + Batch combinations associated with it.
 
-And this was a problem because later in the flow, I use a a single code to determine which template is generated for each gift, so Appeal + Batch alone wasn’t a reliable “single selector. 
+And this was a problem because later in the flow, I use a single code to determine which template is generated for each gift, so Appeal + Batch alone wasn’t a reliable “single selector. 
 
 In order to have a single code to indicate what template to use for each gift, I introduced LetterCodes that are 1-to-1 with templates. With each LetterCode having an array of Appeal+Batch codes that share the same LetterCode and template. 
 
