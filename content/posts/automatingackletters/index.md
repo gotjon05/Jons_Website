@@ -166,18 +166,22 @@ This workflow ensures that every donor receives the right acknowledgment—addre
 
    {{< /fold >}}
 8. {{< fold title="Resolving overlapping Appeal+Batch Letter Codes with Template" >}}
-We use Appeal Code + Batch to determine which letter template to use for a gift.
+The Appeal + Batch Code from a gift determines which letter template to use.
 
-However, in this use case I had a problem of overlapping Appeal Code + Batch for letter templates. Appeal Code + Batch Combinations were not 1 to 1 with Letter Templates.
+In this use case, the relationship was many-to-one. Many different Appeal + Batch combinations needed to map to the same letter template
 
-To solve this problem, i created a LetterCode for each appeal+batch combination that required a specific template. The Letter Code determined the template
+Later in the flow, I use a Switch where a single code must determine which template is generated for each gift, so Appeal + Batch alone wasn’t a reliable “single selector. For example, the “General” letter template had 5+ different Appeal + Batch combinations associated with it.
 
-I used a JSON dictionary to retrieve the correct Lettercode for each Appeal Code + Batch by doing a reverse lookup. With the letter code as the key and appeal+batch combinations as values. I then searched for values in the dictionary and returned the corresonding key.
+To solve this, I introduced LetterCodes that are 1-to-1 with templates, and mapped each Appeal + Batch combination to the appropriate LetterCode.
+
+To store this mapping, I created a JSON lookup table (an array of objects) where each object contains a LetterCode and an array of associated Appeal + Batch combinations
+
+And for each gift, i scan the appeal+batch code and returned the matching LetterCode. 
 
 
 {{< fold title="Follow the Steps below if your (Appeal Code, Batch) pairs are also not 1 to 1 with Letter Templates. If they are, you can skip this steps and use (Appeal Code, Batch)" >}}
-  1. Create an array variable to store your Dictionary
-  2. An example of the Structure for a JSON Dictionary. To add additional Letter Codes, just repeat the pattern 
+  1. Create an array variable to store JSON array
+  2. Inside this variable, i an array of objects for each Letter Code and associated Appeal + Batch combinations
 ```json
   [
   {
@@ -204,8 +208,22 @@ I used a JSON dictionary to retrieve the correct Lettercode for each Appeal Code
     - A variable that stores our Appeal Code + Batch for each gift
     - Array Variable that stores Letter Code and corresponding array+variables, even if its just one
   
-  4. Enter Variable Name for your Dictionary in FROM 
-  5. For the Filter Query 
+  5. For the Filter Query enter 
+```json
+coalesce(
+   concat(
+      body('Get_an_appeal')?['description'], 
+      if(
+         empty(body('Get_a_package')?['description']), 
+         '', 
+         concat(' - ', body('Get_a_package')?['description'])
+      )
+   ),
+   'No appeal'
+)
+```
+
+
 {{< /fold >}}
 
 
