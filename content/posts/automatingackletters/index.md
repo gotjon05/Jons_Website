@@ -181,7 +181,11 @@ And for each gift, i scan the appeal+batch code and returned the matching Letter
 
 {{< fold title="The steps if your use case has the same problem" >}}
   1. Create an array variable to store JSON array
-  2. Inside this variable, i an array of objects for each Letter Code and associated Appeal + Batch combinations
+
+
+{{< fold title="What is an array of JSON objects? And how is it helpful?" >}}
+{{< /fold >}}
+
 ```json
   [
   {
@@ -189,7 +193,7 @@ And for each gift, i scan the appeal+batch code and returned the matching Letter
     "AppealPackages": [
       "Gala - Gold",
       "Gala - Silver",
-      "Gala - Bronze",
+      "Gala - Bronze"
     ]
   },
   {
@@ -203,13 +207,13 @@ And for each gift, i scan the appeal+batch code and returned the matching Letter
   }
 ]
 ```
-  3. Lets create a Filter array, that we will use to reverse search through this table.
+  1. Lets create a Filter array, that we will use to reverse search through this table.
     Check List before proceeding:
     - A variable that stores our Appeal Code + Batch for each gift
     - Array Variable that stores Letter Code and corresponding array+variables, even if its just one
   
-  5. For the Filter Query enter 
-```json
+  2. For the Filter Query enter 
+```
 coalesce(
    concat(
       body('Get_an_appeal')?['description'], 
