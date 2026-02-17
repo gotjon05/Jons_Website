@@ -159,13 +159,13 @@ This workflow ensures that on a set schedule, every donor receives the right ack
   We retrieve the Appeal + Package for each gift because this combination determines which letter template we use.To do this safely, we add a Condition that checks whether an Appeal ID exists in each gift. If it does, we pull the appeal_id from Get a Gift
 
 
-  {{< fold title="What is a Condition? And Why is it relevant?" >}}  
+{{< fold title="What is a Condition? And Why is it relevant?" >}}  
   A **Condition** in Power Automate is similar to an if/then statement. It evaluates an expression as True or False, often using AND or OR. 
 
   In this flow i have use **Conditions** to prevent running actions that depend on values that may be **null** (missing). Without these safeguards, Power Automate could attempt to call a connector with a blank ID (or reference missing data), which can cause the action—and sometimes the entire run—to fail.
-  {{< /fold >}}
+{{< /fold >}}
 
-   {{< /fold >}}
+{{< /fold >}}
 8. {{< fold title="Resolving overlapping Appeal+Batch Letter Codes with Template Part 1" >}}
 The Appeal + Batch Code from a gift determines which letter template to use.
 
@@ -178,6 +178,17 @@ In order to have a single code to indicate what template to use for each gift, I
 To store this mapping, I created a JSON lookup table (an array of objects) where each object contains a LetterCode and an array of associated Appeal + Batch combinations.
 
 And for each gift, i scan the appeal+batch code and returned the matching LetterCode. 
+
+{{< fold title="Understanding the JSON table below" >}}
+This may not look like an Excel Table with the JSON syntax but the pattern represents the same columns and rows of Excel. 
+
+Each {} represent each object or row. In this example, i have 2 objects/rows. 
+
+And each Object has two name/value pairs, "LetterCode" is a name with "Gala" as a value. "AppealPackages" is a name with an array of appeal+batch codes as a value.
+
+And because we have more than one object, its a list of Objects, whichs needs an outside bracket []
+
+{{< /fold >}}
 
 ```json
   [
@@ -203,7 +214,7 @@ And for each gift, i scan the appeal+batch code and returned the matching Letter
 {{< /fold >}}
 
 
-9. {{< fold title="Resolving overlapping Appeal+Batch Letter Codes with Template Part 2" >}}
+1. {{< fold title="Resolving overlapping Appeal+Batch Letter Codes with Template Part 2" >}}
 {{< /fold >}}
 
 
