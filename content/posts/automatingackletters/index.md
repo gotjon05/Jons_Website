@@ -211,5 +211,8 @@ And for each gift, i scan the appeal+batch code and returned the matching Letter
 10. {{< fold title="Identifying the type of Constituent to provide the correct Header and salutation later" >}}
 {{< /fold >}}
 
+11. {{< fold title="Creating Letters, as Adobe PDF's or Word Documents" >}}
+{{< /fold >}}
+
 {{< fold title="Review and Maintaining this Process" >}}
 {{< /fold >}}
