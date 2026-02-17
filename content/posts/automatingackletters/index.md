@@ -211,7 +211,7 @@ And for each gift, i scan the appeal+batch code and returned the matching Letter
 10. {{< fold title="Identifying the type of Constituent to provide the correct Header and salutation later" >}}
 {{< /fold >}}
 
-11. {{< fold title="Creating Letters, as Adobe PDF's or Word Documents and Marking Gifts as Acknowledged" >}}
+11. {{< fold title="Creating Letters, as Adobe PDF's or Word Documents, and Marking Gifts as Acknowledged" >}}
 {{< /fold >}}
 
 12. {{< fold title="Emailing Acknowledgement Letters to Donors" >}}
