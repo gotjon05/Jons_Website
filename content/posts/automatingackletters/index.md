@@ -224,17 +224,12 @@ coalesce(
    'No appeal'
 )
 ```
-
-
 {{< /fold >}}
 
 
-  {{< /fold >}}
 10. {{< fold title="Identifying the type of Constituent to provide the correct Header and salutation later" >}}
 
-
-
-  {{< /fold >}}
+{{< /fold >}}
 
 {{< fold title="Review and Maintaining this Process" >}}
 {{< /fold >}}
