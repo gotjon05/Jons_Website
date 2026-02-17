@@ -204,31 +204,11 @@ And for each gift, i scan the appeal+batch code and returned the matching Letter
 
 
 9. {{< fold title="Resolving overlapping Appeal+Batch Letter Codes with Template Part 2" >}}
-
-  1. Lets create a Filter array, that we will use to reverse search through this table.
-    Check List before proceeding:
-    - A variable that stores our Appeal Code + Batch for each gift
-    - Array Variable that stores Letter Code and corresponding array+variables, even if its just one
-  
-  2. For the Filter Query enter 
-```
-coalesce(
-   concat(
-      body('Get_an_appeal')?['description'], 
-      if(
-         empty(body('Get_a_package')?['description']), 
-         '', 
-         concat(' - ', body('Get_a_package')?['description'])
-      )
-   ),
-   'No appeal'
-)
-```
 {{< /fold >}}
 
 
-10. {{< fold title="Identifying the type of Constituent to provide the correct Header and salutation later" >}}
 
+10. {{< fold title="Identifying the type of Constituent to provide the correct Header and salutation later" >}}
 {{< /fold >}}
 
 {{< fold title="Review and Maintaining this Process" >}}
