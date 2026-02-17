@@ -200,6 +200,9 @@ And for each gift, i scan the appeal+batch code and returned the matching Letter
   }
 ]
 ```
+{{< /fold >}}
+
+
 9. {{< fold title="Resolving overlapping Appeal+Batch Letter Codes with Template Part 2" >}}
 
   1. Lets create a Filter array, that we will use to reverse search through this table.
