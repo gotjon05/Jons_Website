@@ -6,7 +6,8 @@ title = 'Automating Non-profit Acknowledgement Letters With Blackbaud API (Work 
 
 This is a walkthrough for automating the creation of acknowledgement letters for Non-profits with Blackbaud NXT, using Blackbaud SKY API, Power Automate and Sharepoint.
 
-**What this accomplishes:**\
+**What this accomplishes:**
+
 This workflow ensures that on a set schedule, every donor receives the right acknowledgment—addressed to the right person, at the right address, using the right letter template—without manual intervention.
 
 {{< fold closed="The business rules that guided this process flow" >}}
@@ -165,26 +166,18 @@ This workflow ensures that on a set schedule, every donor receives the right ack
   {{< /fold >}}
 
    {{< /fold >}}
-8. {{< fold title="Resolving overlapping Appeal+Batch Letter Codes with Template" >}}
+8. {{< fold title="Resolving overlapping Appeal+Batch Letter Codes with Template Part 1" >}}
 The Appeal + Batch Code from a gift determines which letter template to use.
 
-In this use case, the relationship was many-to-one. Many different Appeal + Batch combinations needed to map to the same letter template
+But in this use case, the relationship was many-to-one. Many different Appeal + Batch combinations needed to map to the same letter template. For example, the “General” letter template had 5+ different Appeal + Batch combinations associated with it.
 
-Later in the flow, I use a Switch where a single code must determine which template is generated for each gift, so Appeal + Batch alone wasn’t a reliable “single selector. For example, the “General” letter template had 5+ different Appeal + Batch combinations associated with it.
+And this was a problem because later in the flow, I use a a single code to determine which template is generated for each gift, so Appeal + Batch alone wasn’t a reliable “single selector. 
 
-To solve this, I introduced LetterCodes that are 1-to-1 with templates, and mapped each Appeal + Batch combination to the appropriate LetterCode.
+In order to have a single code to indicate what template to use for each gift, I introduced LetterCodes that are 1-to-1 with templates. With each LetterCode having an array of Appeal+Batch codes that share the same LetterCode and template. 
 
-To store this mapping, I created a JSON lookup table (an array of objects) where each object contains a LetterCode and an array of associated Appeal + Batch combinations
+To store this mapping, I created a JSON lookup table (an array of objects) where each object contains a LetterCode and an array of associated Appeal + Batch combinations.
 
 And for each gift, i scan the appeal+batch code and returned the matching LetterCode. 
-
-
-{{< fold title="The steps if your use case has the same problem" >}}
-  1. Create an array variable to store JSON array
-
-
-{{< fold title="What is an array of JSON objects? And how is it helpful?" >}}
-{{< /fold >}}
 
 ```json
   [
@@ -207,6 +200,8 @@ And for each gift, i scan the appeal+batch code and returned the matching Letter
   }
 ]
 ```
+9. {{< fold title="Resolving overlapping Appeal+Batch Letter Codes with Template Part 2" >}}
+
   1. Lets create a Filter array, that we will use to reverse search through this table.
     Check List before proceeding:
     - A variable that stores our Appeal Code + Batch for each gift
@@ -232,7 +227,7 @@ coalesce(
 
 
   {{< /fold >}}
-1. {{< fold title="Identifying the type of Constituent to provide the correct Header and salutation later" >}}
+10. {{< fold title="Identifying the type of Constituent to provide the correct Header and salutation later" >}}
 
 
 
