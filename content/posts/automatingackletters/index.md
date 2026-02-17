@@ -179,7 +179,7 @@ To store this mapping, I created a JSON lookup table (an array of objects) where
 And for each gift, i scan the appeal+batch code and returned the matching LetterCode. 
 
 
-{{< fold title="Follow the Steps below if your (Appeal Code, Batch) pairs are also not 1 to 1 with Letter Templates. If they are, you can skip this steps and use (Appeal Code, Batch)" >}}
+{{< fold title="The steps if your use case has the same problem)" >}}
   1. Create an array variable to store JSON array
   2. Inside this variable, i an array of objects for each Letter Code and associated Appeal + Batch combinations
 ```json
