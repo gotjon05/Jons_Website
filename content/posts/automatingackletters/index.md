@@ -70,8 +70,8 @@ This workflow ensures that on a set schedule, every donor receives the right ack
   5. Blackbaud connector handles authentication internally and you will be prompted to sign-in with your blackbaud account 
   {{< /fold >}}
 
-1. {{< fold title="Retrieving list of all Unacknowledged gifts" >}}
-  Our first call is List_Gifts, to retrieve every unacknowledged gift. 
+2. {{< fold title="Retrieving list of all Unacknowledged gifts">}}
+  Our first call is **List_Gifts**, to retrieve every unacknowledged gift. 
   The output provides a JSON array called value, which we loop through to access the information for each individual gift in the next step. 
   
   1. Click on List Gift and update the parameters:
@@ -84,17 +84,27 @@ This workflow ensures that on a set schedule, every donor receives the right ack
 ```
   formatDateTime('2025-05-10', 'yyyy-MM-ddT00:00:00Z')
 ```
-  1. Type: Enter the the gift types below to avoid Pledges: 
+  5. Type: Enter the the gift types below to avoid Pledges: 
  ```
  Donation,GiftInKind,MatchingGiftPayment,PledgePayment,RecurringGiftPayment,Stock,SoldStock
  ```
    {{< img src="list_gifts.png" alt="List Gifts response in Power Automate" width="350" >}}
    {{< /fold >}}
 
-1. {{< fold title="Looping through list of gifts" >}}
-   We want to iterate over each gift returned by List_Gifts, so that we access all the information we need for every gift. To do this, we will use "apply to each" action. Most of the work after this will be inside this loop, where we make additional calls to gather more details about each gift.
+3. {{< fold title="Looping through list of gifts" >}}
+   We want to iterate over each gift returned by the output of List_Gifts, so that we access all the information we need for each and every gift. To do this, we will use **Apply to Each** action. Most of the work after this will be inside **Apply to Each**, where we make additional calls to gather more details about each gift.
   
-  Before doing the steps below, run your process to see the output of List_Gifts. After it runs, go to Power Automates 28-day run history, select the most recent one, and select list_gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts.)
+Before doing the steps below, lets understand List_Gifts by running your process to see the output. After it runs, go to Power Automates 28-day run history, select the most recent one, and select list_gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts.)
+
+{{< fold title="Understanding the Output of List_Gifts" >}}
+List_Gifts Outputs a JSON object, defined by the enclosed outside bracket "{}".  
+
+Inside this object are other objects. **headers** and **body**. We are only interested in body, because it has an array called **value** enclosed by "[]" with every gift, with Gift id and constituent_id for each gift, that we need for finding everything else. 
+
+{{< /fold >}}
+
+
+
 
   1. Select the + Sign after "List_Gifts" and Search for "apply to each"
 
@@ -175,7 +185,7 @@ And this was a problem because later in the flow, I use a single code to determi
 
 In order to have a single code to indicate what template to use for each gift, I introduced LetterCodes that are 1-to-1 with templates. With each LetterCode having an array of Appeal+Batch codes that share the same LetterCode and template. 
 
-To store this mapping, I created a JSON lookup table (an array of objects) where each object contains a LetterCode and an array of associated Appeal + Batch combinations.
+To store this mapping, I created a JSON lookup table (an array of objects) where each object contains a LetterCode and an array of ass ociated Appeal + Batch combinations.
 
 And for each gift, i scan the appeal+batch code and returned the matching LetterCode. 
 
