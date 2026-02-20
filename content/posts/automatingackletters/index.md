@@ -94,16 +94,14 @@ This workflow ensures that on a set schedule, every donor receives the right ack
 3. {{< fold title="Looping through list of gifts" >}}
    We want to iterate over each gift returned by the output of List_Gifts, so that we access all the information we need for each and every gift. To do this, we will use **Apply to Each** action. Most of the work after this will be inside **Apply to Each**, where we make additional calls to gather more details about each gift.
   
-Before doing the steps below, lets understand List_Gifts by running your process to see the output. After it runs, go to Power Automates 28-day run history, select the most recent one, and select list_gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts.)
+{{< fold title="Before doing the implementation steps below, lets understand List_Gifts" >}}
+Lets Run see the output of List_Gifts. Run your process and go to Power Automates 28-day run history. Select the most recent one, and select list_gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts.)
 
-{{< fold title="Understanding the Output of List_Gifts" >}}
 List_Gifts Outputs a JSON object, defined by the enclosed outside bracket "{}".  
 
 Inside this object are other objects. **headers** and **body**. We are only interested in body, because it has an array called **value** enclosed by "[]" with every gift, with Gift id and constituent_id for each gift, that we need for finding everything else. 
 
 {{< /fold >}}
-
-
 
 
   1. Select the + Sign after "List_Gifts" and Search for "apply to each"
@@ -117,10 +115,20 @@ Inside this object are other objects. **headers** and **body**. We are only inte
 
 4. {{< fold title="Retrieving gift information" >}}
 
-   Our first call inside each iteration is Get a gift. We make this call to get gift date, gift amount, constituent ID, and appeal ID. Each time the flow runs, it makes this call once per gift.
+   Our first call inside each iteration of List_Gifts is **Get a gift**. We make this call to get gift date, gift amount, constituent ID, and appeal ID for each gift.
 
-   This call requires a gift ID, which comes from List Gifts:
-   `items('Apply_to_each')?['id']`
+   This call requires a gift ID
+
+{{< fold title="Understanding How to retrieve gift ID">}}
+We have looked at JSON objects, now we have to learn how to retrieve what we want from them.
+
+We have to use Power Automates Workflow Definition Language to extract what we want from JSON outputs. 
+
+In this situation, we are inside For_Each, so we use **item()**
+
+
+{{< /fold >}}
+
 
   1. Expand "Apply to each" and select the + icon
 
@@ -129,6 +137,10 @@ Inside this object are other objects. **headers** and **body**. We are only inte
   3. Add the action, then enter the expression `items('Apply_to_each')?['id']` **or** select Dynamic content (lightning icon) and look for system record id of gift from List gifts
 
    {{< /fold >}}
+
+
+
+
 
 5. {{< fold title="Storing Constituent ID from Get a Gift into a variable" >}}
   
