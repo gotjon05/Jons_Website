@@ -120,9 +120,9 @@ Inside this object are other objects. **headers** and **body**. We are only inte
    This call requires a gift ID, that we will need to extract
 
 {{< fold title="Understanding How to retrieve gift ID">}}
-We have looked at JSON objects, the data format that we need to learn how to extract relevant data from 
+We’ve looked at JSON objects, the data format returned by the Blackbaud SKY API, and the structure we need to understand in order to extract the information we want.
 
-With Power Automate, we are using Power Automates Workflow Definition Language to extract what we want from JSON outputs. 
+In Power Automate, we use Power Automates Workflow Definition Language to access and extract what we want from JSON outputs. 
 
 In this situation, we are inside For_Each, so we use **item()**
 
