@@ -95,7 +95,7 @@ This workflow ensures that on a set schedule, every donor receives the right ack
    We want to iterate over each gift returned by the output of List_Gifts, so that we access all the information we need for each and every gift. To do this, we will use **Apply to Each** action. Most of the work after this will be inside **Apply to Each**, where we make additional calls to gather more details about each gift.
   
 {{< fold title="Before doing the implementation steps below, lets understand List_Gifts" >}}
-Lets Run see the output of List_Gifts. Run your process and go to Power Automates 28-day run history. Select the most recent one, and select list_gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts.)
+Lets see the output of List_Gifts. Run your process and go to Power Automates 28-day run history. Select the most recent one, and select list_gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts.)
 
 List_Gifts Outputs a JSON object, defined by the enclosed outside bracket "{}".  
 
@@ -117,12 +117,12 @@ Inside this object are other objects. **headers** and **body**. We are only inte
 
    Our first call inside each iteration of List_Gifts is **Get a gift**. We make this call to get gift date, gift amount, constituent ID, and appeal ID for each gift.
 
-   This call requires a gift ID
+   This call requires a gift ID, that we will need to extract
 
 {{< fold title="Understanding How to retrieve gift ID">}}
-We have looked at JSON objects, now we have to learn how to retrieve what we want from them.
+We have looked at JSON objects, the data format that we need to learn how to extract relevant data from 
 
-We have to use Power Automates Workflow Definition Language to extract what we want from JSON outputs. 
+With Power Automate, we are using Power Automates Workflow Definition Language to extract what we want from JSON outputs. 
 
 In this situation, we are inside For_Each, so we use **item()**
 
