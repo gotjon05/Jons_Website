@@ -4,7 +4,7 @@ draft = false
 title = 'Automating Non-profit Acknowledgement Letters With Blackbaud API (Work in Progress)'
 +++
 
-This is a walkthrough for automating the creation of acknowledgement letters for Non-profits with Blackbaud NXT, using Blackbaud SKY API, Power Automate and Sharepoint.
+This is a walkthrough for automating the creation of acknowledgement letters for Non-profits with Blackbaud NXT, using Blackbaud SKY API, Power Automate and Sharepoint. With the goal of explaining how Power Automate works, how to read JSON outputs, and how to use WDL expressions to access and extract the data you need.
 
 **What this accomplishes:**
 
@@ -70,7 +70,7 @@ This workflow ensures that on a set schedule, every donor receives the right ack
   5. Blackbaud connector handles authentication internally and you will be prompted to sign-in with your blackbaud account 
   {{< /fold >}}
 
-2. {{< fold title="Retrieving list of all Unacknowledged gifts">}}
+1. {{< fold title="Retrieving list of all Unacknowledged gifts">}}
   Our first call is **List_Gifts**, to retrieve every unacknowledged gift.
   
   1. Click on List Gift and update the parameters:
@@ -83,14 +83,14 @@ This workflow ensures that on a set schedule, every donor receives the right ack
 ```
   formatDateTime('2025-05-10', 'yyyy-MM-ddT00:00:00Z')
 ```
-  5. Type: Enter the the gift types below to avoid Pledges: 
+  1. Type: Enter the the gift types below to avoid Pledges: 
  ```
  Donation,GiftInKind,MatchingGiftPayment,PledgePayment,RecurringGiftPayment,Stock,SoldStock
  ```
    {{< img src="list_gifts.png" alt="List Gifts response in Power Automate" width="350" >}}
    {{< /fold >}}
 
-3. {{< fold title="Looping through list of gifts" >}}
+1. {{< fold title="Looping through list of gifts" >}}
 The output of List_Gifts is a JSON Object that includes a JSON array called value, with one object per gift. 
 
 We will use the **Apply to Each** action to loop through **List_Gifts** and inside this loop make additional calls to gather more details about each gift.
