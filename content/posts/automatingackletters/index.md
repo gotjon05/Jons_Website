@@ -94,9 +94,9 @@ This workflow ensures that on a set schedule, every donor receives the right ack
 
 3. {{< fold title="Looping through list of gifts" >}}
 
-Lets understand the output of List Gifts before implementing the steps to loop through it to access the Constituent ID and Gift ID for each gift. 
+Lets understand the output of List Gifts before implementing the steps to loop through the JSON array and access the Constituent ID and Gift ID of each gift. 
 
-Run your process and go to Power Automates 28-day run history. Select the most recent one, and select List Gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts.)
+Run your process, go to Power Automates 28-day run history and select the most recent one. Once inside, select List Gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts.)
 
 After opening List Gifts, we will see:
 - The output as one big JSON object, defined by the enclosed outside bracket "{}".  
@@ -104,13 +104,16 @@ After opening List Gifts, we will see:
 
 We are only interested in **body** because it has a JSON array called **value** defined by the enclosed "[]" with every single gift that meets the parameters with set for this call is the step before. 
 
-Adding For Each and using List_Gift as an argument allows use to loop through **body/value**
+To loop through each gift in **body** we will use the action **For Each** with an argument that references the JSON Array with our gifts. 
 
   1. Select the + Sign after "List Gifts" and Search for "apply to each"
 
-  2. Add the action, then click Expression (fx) and enter: `@outputs('List Gifts')?['body/value']`
+  2. Add the action, then click Expression (fx) and enter: `body('List_Gifts')?['value']`
   Alternatively, you can select Dynamic content (lightning icon) to select body/value from List Gifts. We want Body/value as the input, because its the section of the payload from List Gifts that has the array of gifts we want to loop through.
-
+  
+  `body('List_Gifts')?['value']` is our first instance of using a WDL expression to access and extract data. 
+  - The body() function because it selects the body object i want from  
+  
    {{< img src="Apply_to_each.png" alt="apply to each" width="350" >}}
 
    {{< /fold >}}
