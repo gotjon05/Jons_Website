@@ -72,8 +72,8 @@ This workflow ensures that on a set schedule, every donor receives the right ack
   5. Blackbaud connector handles authentication internally and you will be prompted to sign-in with your Blackbaud account 
   {{< /fold >}}
 
-1. {{< fold title="Retrieving list of all Unacknowledged gifts">}}
-  Our first call is **List_Gifts**, to retrieve every unacknowledged gift.
+2. {{< fold title="Retrieving list of all Unacknowledged gifts">}}
+  Our first call is **List Gifts**, to retrieve every unacknowledged gift.
   
   1. Click on List Gift and update the parameters:
 
@@ -85,32 +85,40 @@ This workflow ensures that on a set schedule, every donor receives the right ack
 ```
   formatDateTime('2025-05-10', 'yyyy-MM-ddT00:00:00Z')
 ```
-  1. Type: Enter the the gift types below to avoid Pledges: 
+  5. Type: Enter the the gift types below to avoid Pledges: 
  ```
  Donation,GiftInKind,MatchingGiftPayment,PledgePayment,RecurringGiftPayment,Stock,SoldStock
  ```
-   {{< img src="list_gifts.png" alt="List Gifts response in Power Automate" width="350" >}}
+   {{< img src="List_Gifts.png" alt="List Gifts response in Power Automate" width="350" >}}
    {{< /fold >}}
 
-1. {{< fold title="Looping through list of gifts" >}}
-The output of List_Gifts is a JSON Object that includes a JSON array called value, with one object per gift. 
+3. {{< fold title="Looping through list of gifts" >}}
 
-We will use the **Apply to Each** action to loop through **List_Gifts** and inside this loop make additional calls to gather more details about each gift.
+Lets understand the output of List Gifts before implementing the steps to loop through it to access Constituent ID and Gift ID for each gift. 
 
-{{< fold title="Before doing the implementation steps below, lets understand List_Gifts" >}}
-Lets see the output of List_Gifts. Run your process and go to Power Automates 28-day run history. Select the most recent one, and select list_gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts.)
+Run your process and go to Power Automates 28-day run history. Select the most recent one, and select List Gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts.)
 
-List_Gifts Outputs a JSON object, defined by the enclosed outside bracket "{}".  
-
-Inside this object are other objects. **headers** and **body**. We are only interested in body, because it has an array called **value** enclosed by "[]" with every gift, with Gift id and constituent_id for each gift, that we need for finding everything else. 
-
-{{< /fold >}}
+After opening List Gifts, we will see:
+- The output as one big JSON object, defined by the enclosed outside bracket "{}".  
+- Inside this object are two other objects. **headers** and **body**. 
 
 
-  1. Select the + Sign after "List_Gifts" and Search for "apply to each"
+List Gifts Outputs a JSON object, 
 
-  2. Add the action, then click Expression (fx) and enter: `@outputs('List_gifts')?['body/value']`
-  Alternatively, you can select Dynamic content (lightning icon) to select body/value from List_Gifts. We want Body/value as the input, because its the section of the payload from List_Gifts that has the array of gifts we want to loop through.
+
+We are only interested in body because it has every gift, including Gift id and constituent_id for finding everything else. 
+
+Body is a json array called **value** defined by the enclosed "[]"
+
+
+
+Adding For Each after List Gifts, allows use to loop through **body**
+
+
+  1. Select the + Sign after "List Gifts" and Search for "apply to each"
+
+  2. Add the action, then click Expression (fx) and enter: `@outputs('List Gifts')?['body/value']`
+  Alternatively, you can select Dynamic content (lightning icon) to select body/value from List Gifts. We want Body/value as the input, because its the section of the payload from List Gifts that has the array of gifts we want to loop through.
 
    {{< img src="Apply_to_each.png" alt="apply to each" width="350" >}}
 
@@ -118,7 +126,7 @@ Inside this object are other objects. **headers** and **body**. We are only inte
 
 1. {{< fold title="Retrieving gift information" >}}
 
-   Our first call inside each iteration of List_Gifts is **Get a gift**. We make this call to get gift date, gift amount, constituent ID, and appeal ID for each gift.
+   Our first call inside each iteration of List Gifts is **Get a gift**. We make this call to get gift date, gift amount, constituent ID, and appeal ID for each gift.
 
    This call requires a gift ID, that we will need to extract
 
