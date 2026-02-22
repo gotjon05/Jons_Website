@@ -72,7 +72,7 @@ This workflow ensures that on a set schedule, every donor receives the right ack
 
 2. {{< fold title="Retrieving list of all Unacknowledged gifts">}}
   Our first call is **List_Gifts**, to retrieve every unacknowledged gift. 
-  The output provides a JSON array called value, which we loop through to access the information for each individual gift in the next step. 
+  The output includes a JSON array called value, with every gift in an array, which we loop through to access the information for each individual gift in the next step. 
   
   1. Click on List Gift and update the parameters:
 
@@ -92,8 +92,8 @@ This workflow ensures that on a set schedule, every donor receives the right ack
    {{< /fold >}}
 
 3. {{< fold title="Looping through list of gifts" >}}
-   We want to iterate over each gift returned by the output of List_Gifts, so that we access all the information we need for each and every gift. To do this, we will use **Apply to Each** action. Most of the work after this will be inside **Apply to Each**, where we make additional calls to gather more details about each gift.
-  
+   Let will use the **Apply to Each** action to loop through **List_Gifts**. Most of the work after this will be inside **Apply to Each**, where we make additional calls to gather more details about each gift.
+
 {{< fold title="Before doing the implementation steps below, lets understand List_Gifts" >}}
 Lets see the output of List_Gifts. Run your process and go to Power Automates 28-day run history. Select the most recent one, and select list_gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts.)
 
@@ -124,7 +124,9 @@ We’ve looked at JSON objects, the data format returned by the Blackbaud SKY AP
 
 In Power Automate, we use Power Automates Workflow Definition Language to access and extract what we want from JSON outputs. 
 
-In this situation, we are inside For_Each, so we use **item()**
+We want the gift ID for each gift in the For Each Loop, so we use the function **item()**. This 
+
+
 
 
 {{< /fold >}}
