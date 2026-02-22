@@ -94,7 +94,7 @@ This workflow ensures that on a set schedule, every donor receives the right ack
 
 3. {{< fold title="Looping through list of gifts" >}}
 
-Lets understand the output of List Gifts before implementing the steps to loop through it to access Constituent ID and Gift ID for each gift. 
+Lets understand the output of List Gifts before implementing the steps to loop through it to access the Constituent ID and Gift ID for each gift. 
 
 Run your process and go to Power Automates 28-day run history. Select the most recent one, and select List Gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts.)
 
@@ -102,18 +102,9 @@ After opening List Gifts, we will see:
 - The output as one big JSON object, defined by the enclosed outside bracket "{}".  
 - Inside this object are two other objects. **headers** and **body**. 
 
+We are only interested in **body** because it has a JSON array called **value** defined by the enclosed "[]" with every single gift that meets the parameters with set for this call is the step before. 
 
-List Gifts Outputs a JSON object, 
-
-
-We are only interested in body because it has every gift, including Gift id and constituent_id for finding everything else. 
-
-Body is a json array called **value** defined by the enclosed "[]"
-
-
-
-Adding For Each after List Gifts, allows use to loop through **body**
-
+Adding For Each and using List_Gift as an argument allows use to loop through **body/value**
 
   1. Select the + Sign after "List Gifts" and Search for "apply to each"
 
