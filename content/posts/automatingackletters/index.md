@@ -71,8 +71,7 @@ This workflow ensures that on a set schedule, every donor receives the right ack
   {{< /fold >}}
 
 2. {{< fold title="Retrieving list of all Unacknowledged gifts">}}
-  Our first call is **List_Gifts**, to retrieve every unacknowledged gift. 
-  The output includes a JSON array called value, with every gift in an array, which we loop through to access the information for each individual gift in the next step. 
+  Our first call is **List_Gifts**, to retrieve every unacknowledged gift.
   
   1. Click on List Gift and update the parameters:
 
@@ -92,7 +91,9 @@ This workflow ensures that on a set schedule, every donor receives the right ack
    {{< /fold >}}
 
 3. {{< fold title="Looping through list of gifts" >}}
-   We will use the **Apply to Each** action to loop through **List_Gifts** and inside this loop make additional calls to gather more details about each gift.
+The output of List_Gifts is a JSON Object that includes a JSON array called value, with one object per gift. 
+
+We will use the **Apply to Each** action to loop through **List_Gifts** and inside this loop make additional calls to gather more details about each gift.
 
 {{< fold title="Before doing the implementation steps below, lets understand List_Gifts" >}}
 Lets see the output of List_Gifts. Run your process and go to Power Automates 28-day run history. Select the most recent one, and select list_gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts.)
@@ -113,7 +114,7 @@ Inside this object are other objects. **headers** and **body**. We are only inte
 
    {{< /fold >}}
 
-4. {{< fold title="Retrieving gift information" >}}
+1. {{< fold title="Retrieving gift information" >}}
 
    Our first call inside each iteration of List_Gifts is **Get a gift**. We make this call to get gift date, gift amount, constituent ID, and appeal ID for each gift.
 
