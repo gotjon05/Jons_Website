@@ -92,7 +92,7 @@ This workflow ensures that on a set schedule, every donor receives the right ack
    {{< /fold >}}
 
 3. {{< fold title="Looping through list of gifts" >}}
-   Let will use the **Apply to Each** action to loop through **List_Gifts**. Most of the work after this will be inside **Apply to Each**, where we make additional calls to gather more details about each gift.
+   We will use the **Apply to Each** action to loop through **List_Gifts** and inside this loop make additional calls to gather more details about each gift.
 
 {{< fold title="Before doing the implementation steps below, lets understand List_Gifts" >}}
 Lets see the output of List_Gifts. Run your process and go to Power Automates 28-day run history. Select the most recent one, and select list_gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts.)
