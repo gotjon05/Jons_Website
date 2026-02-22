@@ -4,9 +4,11 @@ draft = false
 title = 'Automating Non-profit Acknowledgement Letters With Blackbaud API (Work in Progress)'
 +++
 
-This is a walkthrough for automating the creation of acknowledgement letters for Non-profits with Blackbaud NXT, using Blackbaud SKY API, Power Automate and Sharepoint. A second goal is to use this flow to explain how Power Automate works, how to read JSON outputs returned from the API Calls we will make, and how to use WDL expressions to access and extract the relevant data.
+This is a walkthrough for automating the creation of acknowledgement letters for Non-profits with Blackbaud NXT, using Blackbaud SKY API, Power Automate and Sharepoint. 
 
-**What this accomplishes:**
+A second goal is to use this flow to explain how Power Automate works, how to read JSON outputs returned from the API Calls we will make, and how to use WDL expressions to access and extract the relevant data.
+
+**What this Accomplishes:**
 
 This workflow ensures that on a set schedule, every donor receives the right acknowledgment—addressed to the right person, at the right address, using the right letter template—without manual intervention.
 
@@ -67,7 +69,7 @@ This workflow ensures that on a set schedule, every donor receives the right ack
 
   4. Click the + sign and Search for Blackbaud Raisers Edge NXT List Gifts
 
-  5. Blackbaud connector handles authentication internally and you will be prompted to sign-in with your blackbaud account 
+  5. Blackbaud connector handles authentication internally and you will be prompted to sign-in with your Blackbaud account 
   {{< /fold >}}
 
 1. {{< fold title="Retrieving list of all Unacknowledged gifts">}}
