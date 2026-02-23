@@ -6,7 +6,7 @@ title = 'Automating Non-profit Acknowledgement Letters With Blackbaud API (Work 
 
 This is a walkthrough for automating the creation of acknowledgement letters for Non-profits with Blackbaud NXT, using Blackbaud SKY API, Power Automate and Sharepoint. 
 
-As we build the flow, I will break down the Power Automate actions being used, examine the JSON outputs returned by our API calls, and learn how to use WDL expressions to access and extract the specific data we need at each step.
+As we build the flow, I will break down each Power Automate action, look at the JSON returned by our API calls, and show how WDL expressions are used to access and extract the specific data we need at each step.
 
 **What this Accomplishes:**
 
