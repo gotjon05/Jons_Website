@@ -123,7 +123,7 @@ To loop through each gift in **body** we will use the action **For Each** with a
 
 4. {{< fold title="Retrieving gift information" >}}
 
-   Our first call inside each iteration of List Gifts is **Get a gift**. We make this call to get gift date, gift amount, constituent ID, and appeal ID for each gift.
+   Our first call inside For Each is **Get a gift**. From this call we will retrieve gift date, gift amount, constituent ID, and appeal ID for each gift.
 
    This call requires a gift ID, that we will need to extract
 
@@ -133,9 +133,6 @@ We’ve looked at JSON objects, the data format returned by the Blackbaud SKY AP
 In Power Automate, we use Power Automates Workflow Definition Language to access and extract what we want from JSON outputs. 
 
 We want the gift ID for each gift in the For Each Loop, so we use the function **item()**. This 
-
-
-
 
 {{< /fold >}}
 
@@ -147,9 +144,6 @@ We want the gift ID for each gift in the For Each Loop, so we use the function *
   3. Add the action, then enter the expression `items('Apply_to_each')?['id']` **or** select Dynamic content (lightning icon) and look for system record id of gift from List gifts
 
    {{< /fold >}}
-
-
-
 
 
 5. {{< fold title="Storing Constituent ID from Get a Gift into a variable" >}}
@@ -246,7 +240,7 @@ And because we have more than one object, its a list of Objects, whichs needs an
 {{< /fold >}}
 
 
-1. {{< fold title="Resolving overlapping Appeal+Batch Letter Codes with Template Part 2" >}}
+9. {{< fold title="Resolving overlapping Appeal+Batch Letter Codes with Template Part 2" >}}
 {{< /fold >}}
 
 
