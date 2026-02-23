@@ -123,14 +123,12 @@ To loop through each gift in **body** we will use the action **For Each** with a
 
 4. {{< fold title="Retrieving gift information" >}}
 
-   Our first call inside For Each is **Get a gift**. From this call we will retrieve gift date, gift amount, constituent ID, and appeal ID for each gift.
+   Our first call inside our **For Each** loop is **Get a gift**. This call returns the fields we need for each record: gift date, gift amount, constituent ID, and appeal ID.
 
-   This call requires a gift ID, that we will need to extract
+   This call requires a gift ID. As we loop through **List_Gifts** using our For Each Loop, we will reference the **Gift ID** of each gift as an argument to **Get a Gift** to retrieve the gift information of each gift. 
 
 {{< fold title="Understanding How to retrieve gift ID">}}
 We’ve looked at JSON objects, the data format returned by the Blackbaud SKY API, and the structure we need to understand in order to extract the information we want.
-
-In Power Automate, we use Power Automates Workflow Definition Language to access and extract what we want from JSON outputs. 
 
 We want the gift ID for each gift in the For Each Loop, so we use the function **item()**. This 
 
