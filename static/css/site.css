@@ -185,6 +185,16 @@ figcaption { font-size: 0.95em; opacity: 0.8; margin-top: 0.4rem; }
 .fold__summary:hover {
   background: rgba(0,0,0,0.04);
 }
+/* ✅ Focus ring hugs the full accordion (no whitespace mismatch) */
+.fold:focus-within {
+  box-shadow: 0 0 0 2px rgba(26,44,163,0.35);
+}
+
+/* Prevent double outlines on the summary itself */
+.fold__summary:focus,
+.fold__summary:focus-visible {
+  outline: none;
+}
 
 /* the chevron */
 .fold__chev {
@@ -209,6 +219,11 @@ figcaption { font-size: 0.95em; opacity: 0.8; margin-top: 0.4rem; }
   padding: 0.85rem var(--fold-pad-x) 0.95rem;
   border-top: 1px solid rgba(0,0,0,0.10);
   background: rgba(255,255,255,0.6);
+}
+
+/* ✅ make the divider line a bit clearer ONLY when open */
+.fold[open] .fold__content {
+  border-top-color: rgba(0,0,0,0.16);
 }
 
 /* tighten first/last margins inside */

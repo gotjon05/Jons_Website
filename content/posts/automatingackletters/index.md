@@ -96,7 +96,7 @@ This workflow ensures that on a set schedule, every donor receives the right ack
 
 {{< fold title="Lets understand the output of List Gifts before implementing the steps below.">}}
 
-Run your process, go to Power Automates 28-day run history and select the most recent one. Once inside, select List Gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts.)
+Lets run our flow by selecting run. If the results dont appear go to Power Automates 28-day run history and select the most recent one. Once inside, select List Gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts and try again.)
 
 After opening List Gifts, we will see:
 - The output as one big JSON object, defined by the enclosed outside bracket "{}".  
