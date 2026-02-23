@@ -126,17 +126,16 @@ To loop through each gift in **body** we will use the action **For Each** with a
 
 4. {{< fold title="Retrieving gift information" >}}
 
-   Our first call inside our **For Each** loop is **Get a gift**. This call returns the fields we need for each record: gift date, gift amount, constituent ID, and appeal ID.
+  Our first call inside our **For Each** loop is **Get a gift**. This call returns the fields we
+  need for each record: gift date, gift amount, constituent ID, and appeal ID.
 
-   This call requires a gift ID. As we loop through **List Gifts** using our For Each Loop, we will reference the **Gift ID** of each gift as an argument to **Get a Gift** to retrieve the gift information of each gift. 
+  **Get a gift** requires a gift ID as an argument. As **For Each** is looping over the value array returned by **List Gifts**, we can pull the gift ID from each iteration of gifts inside the loop and pass it as an argument to **Get a gift**.
 
-{{< fold title="Understanding How to retrieve gift ID">}}
-We’ve looked at JSON objects, the data format returned by the Blackbaud SKY API, and the structure we need to understand in order to extract the information we want.
+  We use the function **items()** because it returns the current item in a loop. 
+  
+  We couldnt use **body** or **output** because they arent designed from grabbing the current item of each loop. They are for selecting from the output of an action.  
 
-We want the gift ID for each gift in the For Each Loop, so we use the function **item()**. This 
-
-{{< /fold >}}
-
+  `items('Apply_to_each')?['id']`
 
   1. Expand "Apply to each" and select the + icon
 
