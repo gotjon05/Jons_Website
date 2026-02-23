@@ -6,7 +6,7 @@ title = 'Automating Non-profit Acknowledgement Letters With Blackbaud API (Work 
 
 This is a walkthrough for automating the creation of acknowledgement letters for Non-profits with Blackbaud NXT, using Blackbaud SKY API, Power Automate and Sharepoint. 
 
-A second goal is to use this flow to explain how Power Automate works, how to read JSON outputs returned from the API Calls we will make, and how to use WDL expressions to access and extract the relevant data.
+My second goal is to layer this walkthrough with explanations of how Power Automate works, how to read JSON outputs returned from the API Calls we will make, and how to use WDL expressions to access and extract the relevant data.
 
 **What this Accomplishes:**
 
@@ -102,7 +102,7 @@ After opening List Gifts, we will see:
 - The output as one big JSON object, defined by the enclosed outside bracket "{}".  
 - Inside this object are two other objects. **headers** and **body**. 
 
-We are only interested in **body** because it has a JSON array called **value** defined by the enclosed "[]" with every single gift that meets the parameters with set for this call is the step before. 
+We are only interested in **body** because it has a JSON array called **value** defined by the enclosed "[]" with every single gift that meets the parameters we set in the previous step. 
 
 To loop through each gift in **body** we will use the action **For Each** with an argument that references the JSON Array with our gifts. 
 
@@ -112,8 +112,11 @@ To loop through each gift in **body** we will use the action **For Each** with a
   Alternatively, you can select Dynamic content (lightning icon) to select body/value from List Gifts. We want Body/value as the input, because its the section of the payload from List Gifts that has the array of gifts we want to loop through.
   
   `body('List_Gifts')?['value']` is our first instance of using a WDL expression to access and extract data. 
-  - The body() function because it selects the body object i want from  
-  
+  - We use the body() function because it selects the body object we want
+  - To safely access the JSON array **value** to extract it, we use `?` in `?['value']`. This insures that body('List_Gifts') returns NULL if value doesnt exist or is NULL so it doesnt break. 
+
+  (I initially used `outputs('List_Gifts')?['body/value']` but later changed it to `body('List_Gifts')?['value']`. They point to equivelent paths but body is more direct, reducing the chance of referencing the wrong thing. Output returns the entire response while body returns the value portion.) 
+
    {{< img src="Apply_to_each.png" alt="apply to each" width="350" >}}
 
    {{< /fold >}}
