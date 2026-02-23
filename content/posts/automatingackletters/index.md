@@ -73,7 +73,7 @@ This workflow ensures that on a set schedule, every donor receives the right ack
   {{< /fold >}}
 
 2. {{< fold title="Retrieving list of all Unacknowledged gifts">}}
-  Our first call is **List Gifts**, to retrieve every unacknowledged gift.
+  Our first SKY API call is [**List Gifts**](https://developer.sky.blackbaud.com/api#api=58bdd5edd7dcde06046081d6&operation=ListGifts), to retrieve every unacknowledged gift in Raisers Edge. Our goal is to Loop through it and extract what we need to gather more information in subsequent calls.  
   
   1. Click on List Gift and update the parameters:
 

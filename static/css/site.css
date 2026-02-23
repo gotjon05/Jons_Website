@@ -164,6 +164,9 @@ figcaption { font-size: 0.95em; opacity: 0.8; margin-top: 0.4rem; }
   background: rgba(0,0,0,0.02);
   margin: 1rem 0;
   overflow: hidden;
+
+  /* ✅ needed for the consistent focus ring overlay */
+  position: relative;
 }
 
 /* clickable header */
@@ -185,14 +188,27 @@ figcaption { font-size: 0.95em; opacity: 0.8; margin-top: 0.4rem; }
 .fold__summary:hover {
   background: rgba(0,0,0,0.04);
 }
-/* ✅ Focus ring hugs the full accordion (no whitespace mismatch) */
-.fold:focus-within {
-  box-shadow: 0 0 0 2px rgba(26,44,163,0.35);
+
+/* =========================================================
+   ✅ Consistent focus ring (same color over summary + content)
+   ========================================================= */
+.fold::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px; /* match .fold radius */
+  border: 2px solid rgba(26,44,163,0.35);
+  pointer-events: none;
+  opacity: 0;
 }
 
-/* 2) If a parent fold contains a focused nested fold, remove the parent ring */
-.fold:has(.fold:focus-within):focus-within {
-  box-shadow: none;
+.fold:focus-within::after {
+  opacity: 1;
+}
+
+/* ✅ child wins: hide parent ring if a nested fold is focused */
+.fold:has(.fold:focus-within):focus-within::after {
+  opacity: 0;
 }
 
 /* Prevent double outlines on the summary itself */
