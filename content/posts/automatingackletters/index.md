@@ -72,7 +72,7 @@ This workflow ensures that on a set schedule, every donor receives the right ack
   5. Blackbaud connector handles authentication internally and you will be prompted to sign-in with your Blackbaud account 
   {{< /fold >}}
 
-1. {{< fold title="Retrieving list of all Unacknowledged gifts">}}
+2. {{< fold title="Retrieving list of all Unacknowledged gifts">}}
   Our first call is **List Gifts**, to retrieve every unacknowledged gift.
   
   1. Click on List Gift and update the parameters:
@@ -85,14 +85,14 @@ This workflow ensures that on a set schedule, every donor receives the right ack
 ```
   formatDateTime('2025-05-10', 'yyyy-MM-ddT00:00:00Z')
 ```
-  1. Type: Enter the the gift types below to avoid Pledges: 
+  5. Type: Enter the the gift types below to avoid Pledges: 
  ```
  Donation,GiftInKind,MatchingGiftPayment,PledgePayment,RecurringGiftPayment,Stock,SoldStock
  ```
    {{< img src="List_Gifts.png" alt="List Gifts response in Power Automate" width="350" >}}
    {{< /fold >}}
 
-1. {{< fold title="Looping through list of gifts" >}}
+3. {{< fold title="Looping through list of gifts" >}}
 
 Lets understand the output of List Gifts before implementing the steps to loop through the JSON array and access the Constituent ID and Gift ID of each gift. 
 
@@ -121,7 +121,7 @@ To loop through each gift in **body** we will use the action **For Each** with a
 
    {{< /fold >}}
 
-1. {{< fold title="Retrieving gift information" >}}
+4. {{< fold title="Retrieving gift information" >}}
 
    Our first call inside each iteration of List Gifts is **Get a gift**. We make this call to get gift date, gift amount, constituent ID, and appeal ID for each gift.
 
