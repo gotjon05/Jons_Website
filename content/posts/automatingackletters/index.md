@@ -94,7 +94,7 @@ This workflow ensures that on a set schedule, every donor receives the right ack
 
 3. {{< fold title="Looping through list of gifts" >}}
 
-Lets understand the output of List Gifts before implementing the steps to loop through the JSON array and access the Constituent ID and Gift ID of each gift. 
+{{< fold title="Lets understand the output of List Gifts before implementing the steps below.">}}
 
 Run your process, go to Power Automates 28-day run history and select the most recent one. Once inside, select List Gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts.)
 
@@ -102,10 +102,13 @@ After opening List Gifts, we will see:
 - The output as one big JSON object, defined by the enclosed outside bracket "{}".  
 - Inside this object are two other objects. **headers** and **body**. 
 
-We are only interested in **body** because it has a JSON array called **value** defined by the enclosed "[]" with every single gift that meets the parameters we set in the previous step. 
+You will notice that the **body** object has the relevant data we need inside the JSON array called **value** defined by the enclosed "[]"
+
+Our ultimate goal is to loop through the JSON array inside List Gifts and access the Constituent ID and Gift ID of each gift.
 
 To loop through each gift in **body** we will use the action **For Each** with an argument that references the JSON Array with our gifts. 
 
+{{< /fold >}}
   1. Select the + Sign after "List Gifts" and Search for "apply to each"
 
   2. Add the action, then click Expression (fx) and enter: `body('List_Gifts')?['value']`
