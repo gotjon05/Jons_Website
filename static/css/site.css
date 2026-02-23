@@ -190,6 +190,11 @@ figcaption { font-size: 0.95em; opacity: 0.8; margin-top: 0.4rem; }
   box-shadow: 0 0 0 2px rgba(26,44,163,0.35);
 }
 
+/* 2) If a parent fold contains a focused nested fold, remove the parent ring */
+.fold:has(.fold:focus-within):focus-within {
+  box-shadow: none;
+}
+
 /* Prevent double outlines on the summary itself */
 .fold__summary:focus,
 .fold__summary:focus-visible {
