@@ -17,7 +17,7 @@ This workflow ensures that on a set schedule, every donor receives the right ack
 - **Gifts considered in this Flow**  
   Only gifts greater than zero, not yet acknowledged, and not unpaid pledges.
 
-- **Letter Template Matching Rule**  
+- **Letter Template Matching Rule**  gifts
   A gift’s **Appeal + Package** combination determines which letter template/content is used.
 
 - **Business Identity Rule**  
@@ -92,11 +92,11 @@ This workflow ensures that on a set schedule, every donor receives the right ack
    {{< img src="List_Gifts.png" alt="List Gifts response in Power Automate" width="350" >}}
    {{< /fold >}}
 
-3. {{< fold title="Looping through list of gifts" >}}
+3. {{< fold title="Looping through list of " >}}
 
-{{< fold title="Lets understand the output of List Gifts before implementing the steps below.">}}
+{{< fold title="Lets understand the output of List Gifts before discussing how to loop through.">}}
 
-Lets run our flow by selecting run. If the results dont appear go to Power Automates 28-day run history and select the most recent one. Once inside, select List Gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts and try again.)
+Lets see the Output of our List Gifts Action by runing our flow. Select Run. If the results dont appear go to Power Automates 28-day run history and select the most recent one. Once inside, select List Gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts and try again.)
 
 After opening List Gifts, we will see:
 - The output as one big JSON object, defined by the enclosed outside bracket "{}".  
@@ -104,13 +104,12 @@ After opening List Gifts, we will see:
 
 You will notice that the **body** object has the relevant data we need inside the JSON array called **value** defined by the enclosed "[]"
 
-Our ultimate goal is to loop through the JSON array inside List Gifts and access the Constituent ID and Gift ID of each gift.
+{{< /fold >}}
+
+Our goal is to loop through List_Gifts so we can retrieve all necessary information for each gift and generate a letter within the same loop.
 
 To loop through each gift in **body** we will use the action **For Each** with an argument that references the JSON Array with our gifts. 
 
-**For Each** is our first example of using a Control Container. We will introduce other Control Conditions like **Switch** and **Condition** later in the flow. 
-
-{{< /fold >}}
   1. Select the + Sign after "List Gifts" and Search for "apply to each"
 
   2. Add the action, then click Expression (fx) and enter: `body('List_Gifts')?['value']`
@@ -135,9 +134,7 @@ To loop through each gift in **body** we will use the action **For Each** with a
 
   We use the function **items()** because it returns the current item in a loop. 
   
-  We dont use **body()** or **output()** because control containers like **For Each** dont have an Output or a Body.  
-  
-  they are used for selecting the output of an action. The output of For Each doesnt produce an output or body to grab data from. It has item() for each loop in For Each.
+  We dont use **body()** or **output()** because control containers like **For Each** dont have an Output or a Body. We are going to introduce more Control Containers like Conditions and Switch later in the Flow. 
   
   
   1. Expand "Apply to each" and select the + icon
@@ -150,10 +147,14 @@ To loop through each gift in **body** we will use the action **For Each** with a
 
 
 5. {{< fold title="Storing Constituent ID from Get a Gift into a variable" >}}
-  
-  We reference **Constituent ID** multiple times throughout this flow. To avoid repeating expressions and to keep the flow readable, we store this value in a variable immediately after Get a Gift. 
+   
+As the For each iterates through List_Gifts, we now call **Get a Gift** for each record. Once the action runs, we have access to each gifts returned data using body('Get_a_Gift'), which contains the gift details for each iteration
 
-  {{< fold title="How to initialize and set the variable" >}}
+**Get a Gift** provides the Constituent_ID of the Hard Credit Constituent which we will use to get Constituent information using Get Constituent in the next step.
+
+We reference **Constituent ID** multiple times throughout this flow. To avoid repeating expressions and to keep the flow readable, we store this value in a variable immediately after Get a Gift. 
+
+{{< fold title="How to initialize and set the variable" >}}
 
   1. Select the **+** icon below **Get a Gift**
 
