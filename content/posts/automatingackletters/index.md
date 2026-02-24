@@ -108,6 +108,8 @@ Our ultimate goal is to loop through the JSON array inside List Gifts and access
 
 To loop through each gift in **body** we will use the action **For Each** with an argument that references the JSON Array with our gifts. 
 
+**For Each** is our first example of using a Control Container. We will introduce other Control Conditions like **Switch** and **Condition** later in the flow. 
+
 {{< /fold >}}
   1. Select the + Sign after "List Gifts" and Search for "apply to each"
 
@@ -133,10 +135,11 @@ To loop through each gift in **body** we will use the action **For Each** with a
 
   We use the function **items()** because it returns the current item in a loop. 
   
-  We couldnt use **body** or **output** because they arent designed from grabbing the current item of each loop. They are for selecting from the output of an action.  
-
-  `items('Apply_to_each')?['id']`
-
+  We dont use **body()** or **output()** because control containers like **For Each** dont have an Output or a Body.  
+  
+  they are used for selecting the output of an action. The output of For Each doesnt produce an output or body to grab data from. It has item() for each loop in For Each.
+  
+  
   1. Expand "Apply to each" and select the + icon
 
   2. Search for blackbaud NXT get a gift
