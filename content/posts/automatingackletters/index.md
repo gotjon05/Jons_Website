@@ -115,7 +115,7 @@ In a single loop through every unacknowledged gift:
 
 {{< fold title="Lets understand the output of List Gifts before discussing how to loop through.">}}
 
-In order to see the Output of our List Gifts Action, we need to run our Power Automate Flow. Select Run. If the results dont appear go to Power Automates 28-day run history and select the most recent one. Once inside, select List Gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts and try again.)
+In order to see the Output of our List Gifts Action, we need to run our Power Automate Flow. Select Run. Select List Gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts and try again.)
 
 After opening List Gifts, we will see:
 - The output as one big JSON object, defined by the enclosed outside bracket "{}".  
@@ -125,10 +125,11 @@ You will notice that the **body** object has the relevant data we need inside th
 
 {{< /fold >}}
 
-Our goal is to loop through the json array called "body" in output of List_Gifts, so that we can use the specific tracking information of each gift: Constituent ID, Gift ID, 
+We loop through each gift because
+
+Every other call we need to make: Get Constituent, Get Gift, Get Relationship, requires information specific to each gift. Whether its Gift ID or Constituent ID 
 
 
-individual gift and constituent.  
 
 We will use the action **For Each** with an argument that references the JSON Array with our gifts. 
 
