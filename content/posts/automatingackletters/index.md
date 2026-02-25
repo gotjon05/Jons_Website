@@ -125,10 +125,9 @@ You will notice that the **body** object has the relevant data we need inside th
 
 {{< /fold >}}
 
-We loop through each gift because
+We Loop through List Gifts because it returns multiple gifts. And to access more detailed Constiuent and Gift Information for our letter, we have to use the unique IDs provided in each gift. Actions like Get a Gift and Get a Constituent require a single Gift ID or Constituent ID
 
-Every other call we need to make: Get Constituent, Get Gift, Get Relationship, requires information specific to each gift. Whether its Gift ID or Constituent ID 
-
+While we could parse the List Gifts output to use any fields it already includes, it provides key IDs (Gift ID, Constituent ID) but not all letter-ready details we need. For that reason, we still would need a For each loop to make these individual calls per gift.
 
 
 We will use the action **For Each** with an argument that references the JSON Array with our gifts. 
