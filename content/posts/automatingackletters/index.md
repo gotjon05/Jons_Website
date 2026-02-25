@@ -62,9 +62,9 @@ This workflow ensures that on a set schedule, every donor receives the right ack
 In a single loop through every unacknowledged gift:
 
 1. We will Gather the required data for Headers and Salutations by making separate API calls to retrieve the fields of each Gift needed for the letter: 
-    - addressee of Hard Credit/Soft Credit title, First Name, Last Name, Address (street1, city, state, ZIP) using **Get Constituent**
-    - Gift Amount, Gift Date using **Get Gift**
-    - Business Name using **List constituent relationships**
+    - addressee of Hard Credit/Soft Credit title, First Name, Last Name, Address (street1, city, state, ZIP) using *Get Constituent*
+    - Gift Amount, Gift Date using *Get Gift*
+    - Business Name using *List constituent relationships*
 2. Determine the correct letter header by identifying the constituent type
     - Individual (home address)
     - Individual (business address)
@@ -125,7 +125,7 @@ You will notice that the **body** object has the relevant data we need inside th
 
 {{< /fold >}}
 
-We Loop through List Gifts because it returns multiple gifts. And to access more detailed Constiuent and Gift Information for our letter, we have to use the unique IDs provided in each gift. Actions like Get a Gift and Get a Constituent require a single Gift ID or Constituent ID
+We Loop through the output of List Gifts because it returns multiple gifts. And to access more detailed Constiuent and Gift Information for our letter, we have to use the unique IDs provided in each gift. Actions like Get a Gift and Get a Constituent require a single Gift ID or Constituent ID
 
 While we could parse the List Gifts output to use any fields it already includes, it provides key IDs (Gift ID, Constituent ID) but not all letter-ready details we need. For that reason, we still would need a For each loop to make these individual calls per gift.
 
