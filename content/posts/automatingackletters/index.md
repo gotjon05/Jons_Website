@@ -71,10 +71,10 @@ In a single loop through every unacknowledged gift:
     - Organization (with soft-credit recipient)
     - Foundation
 3. Select the correct letter template using the gift’s Appeal + Batch mapping
-4. Generate and populate Word Templates, then save the finished letter to SharePoint.
-5. Email the Donor
-6. Create Labels for each Letter
-
+4. Generate and populate Word Templates, merging acknowledgement Letter with Supplement documents, then saving the final document/pdf to SharePoint. 
+5. Mark the Gift as acknowledged
+6. Email the Donor
+7. Create Labels for mailing each Letter
 {{< /fold >}}
 
 
@@ -91,7 +91,7 @@ In a single loop through every unacknowledged gift:
   5. Blackbaud connector handles authentication internally and you will be prompted to sign-in with your Blackbaud account 
   {{< /fold >}}
 
-2. {{< fold title="Retrieving list of all Unacknowledged gifts">}}
+1. {{< fold title="Retrieving list of all Unacknowledged gifts">}}
   Our first SKY API call is [**List Gifts**](https://developer.sky.blackbaud.com/api#api=58bdd5edd7dcde06046081d6&operation=ListGifts), to retrieve every unacknowledged gift in Raisers Edge. In the next step we will examine the output, and understand why we need to loop through it to process each gift one at a time.
 
   1. Click on List Gift and update the parameters:
@@ -111,7 +111,7 @@ In a single loop through every unacknowledged gift:
    {{< img src="List_Gifts.png" alt="List Gifts response in Power Automate" width="350" >}}
    {{< /fold >}}
 
-3. {{< fold title="Looping through List Gifts" >}}
+1. {{< fold title="Looping through List Gifts" >}}
 
 {{< fold title="Lets understand the output of List Gifts before discussing how to loop through.">}}
 
