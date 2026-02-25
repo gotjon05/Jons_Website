@@ -82,7 +82,7 @@ In a single loop through every unacknowledged gift:
 
   1. [To get Power Automate Premium $15/Month as of 2/14/26](https://go.microsoft.com/fwlink/?linkid=2252273&clcid=0x409&culture=en-us&country=us)
 
-  2. [Go to Blackbaud Marketplace and search for power automate and Connect](https://app.blackbaud.com/marketplace/)
+  2. [Go to Blackbaud Marketplace and Connect with Power Automate](https://app.blackbaud.com/marketplace/applications/848afa1d-fe4a-4331-8e03-79ea0d000343?appdetails-active-tab=overview)
 
   3. Create a scheduled cloud flow in Power Automate
 
@@ -91,9 +91,9 @@ In a single loop through every unacknowledged gift:
   5. Blackbaud connector handles authentication internally and you will be prompted to sign-in with your Blackbaud account 
   {{< /fold >}}
 
-1. {{< fold title="Retrieving list of all Unacknowledged gifts">}}
-  Our first SKY API call is [**List Gifts**](https://developer.sky.blackbaud.com/api#api=58bdd5edd7dcde06046081d6&operation=ListGifts), to retrieve every unacknowledged gift in Raisers Edge, provided in an organized JSON Array.  
-  
+2. {{< fold title="Retrieving list of all Unacknowledged gifts">}}
+  Our first SKY API call is [**List Gifts**](https://developer.sky.blackbaud.com/api#api=58bdd5edd7dcde06046081d6&operation=ListGifts), to retrieve every unacknowledged gift in Raisers Edge. In the next step we will examine the output, and understand why we need to loop through it to process each gift one at a time.
+
   1. Click on List Gift and update the parameters:
 
   2. Start gift amount: 1 --- We want gifts that are greater than
@@ -111,11 +111,11 @@ In a single loop through every unacknowledged gift:
    {{< img src="List_Gifts.png" alt="List Gifts response in Power Automate" width="350" >}}
    {{< /fold >}}
 
-1. {{< fold title="Looping through List Gifts" >}}
+3. {{< fold title="Looping through List Gifts" >}}
 
 {{< fold title="Lets understand the output of List Gifts before discussing how to loop through.">}}
 
-Lets see the Output of our List Gifts Action by runing our flow. Select Run. If the results dont appear go to Power Automates 28-day run history and select the most recent one. Once inside, select List Gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts and try again.)
+In order to see the Output of our List Gifts Action, we need to run our Power Automate Flow. Select Run. If the results dont appear go to Power Automates 28-day run history and select the most recent one. Once inside, select List Gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts and try again.)
 
 After opening List Gifts, we will see:
 - The output as one big JSON object, defined by the enclosed outside bracket "{}".  
