@@ -62,7 +62,7 @@ This workflow ensures that on a set schedule, every donor receives the right ack
 In a single loop through every unacknowledged gift:
 
 1. We will Gather the required data for Headers and Salutations by making separate API calls to retrieve the fields of each Gift needed for the letter: 
-    - addressee of Hard Credit/Soft Credit title, First_Name, Last_Name, Address (street1, city, state, ZIP) using **Get Constituent**
+    - addressee of Hard Credit/Soft Credit title, First Name, Last Name, Address (street1, city, state, ZIP) using **Get Constituent**
     - Gift Amount, Gift Date using **Get Gift**
     - Business Name using **List constituent relationships**
 2. Determine the correct letter header by identifying the constituent type
