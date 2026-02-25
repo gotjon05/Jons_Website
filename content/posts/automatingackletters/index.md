@@ -21,7 +21,7 @@ This workflow ensures that on a set schedule, every donor receives the right ack
   A gift’s **Appeal + Package** combination determines which letter template/content is used.
 
 - **Business Identity Rule**  
-  For individuals with business addresses, the flow identifies the correct Business Name using the constituent’s Primary Employer relationship.
+  For individuals with business addresses, the flow includes the Company Name by identify the correct Business Name using the constituent’s Primary Employer relationship.
 
 - **Foundation Recipient Rule**  
   Foundation gifts without a soft credit, the flow identifies the correct recipient in this order:  
@@ -57,6 +57,25 @@ This workflow ensures that on a set schedule, every donor receives the right ack
 {{< /fold >}}
 {{< /fold >}}
 
+{{< fold closed="Overview" >}}
+
+In a single loop through every unacknowledged gift:
+
+1. Gather required data by making separate API calls to retrieve the fields needed for the letter:
+    - addressee title, First_Name, Last_Name
+    - Gift Amount, Gift Date
+    - Address (street1, city, state, ZIP)
+2. Determine the correct letter header based on constituent type
+    - Individual (home address)
+    - Individual (business address)
+    - Organization (with soft-credit recipient)
+    - Foundation
+3. Select the correct letter template using the gift’s Appeal + Batch mapping
+4. Generate and populate the Word document, then save the finished letter to SharePoint.
+5. Email the Donor
+6. Create Labels for each Letter
+
+{{< /fold >}}
 
 
 1. {{< fold title="Getting Started: SKY API and Power Automate setup" >}}
@@ -72,8 +91,8 @@ This workflow ensures that on a set schedule, every donor receives the right ack
   5. Blackbaud connector handles authentication internally and you will be prompted to sign-in with your Blackbaud account 
   {{< /fold >}}
 
-2. {{< fold title="Retrieving list of all Unacknowledged gifts">}}
-  Our first SKY API call is [**List Gifts**](https://developer.sky.blackbaud.com/api#api=58bdd5edd7dcde06046081d6&operation=ListGifts), to retrieve every unacknowledged gift in Raisers Edge. Our goal is to Loop through it and extract what we need to gather more information in subsequent calls.  
+1. {{< fold title="Retrieving list of all Unacknowledged gifts">}}
+  Our first SKY API call is [**List Gifts**](https://developer.sky.blackbaud.com/api#api=58bdd5edd7dcde06046081d6&operation=ListGifts), to retrieve every unacknowledged gift in Raisers Edge, provided in an organized JSON Array.  
   
   1. Click on List Gift and update the parameters:
 
@@ -85,14 +104,14 @@ This workflow ensures that on a set schedule, every donor receives the right ack
 ```
   formatDateTime('2025-05-10', 'yyyy-MM-ddT00:00:00Z')
 ```
-  5. Type: Enter the the gift types below to avoid Pledges: 
+  1. Type: Enter the the gift types below to avoid Pledges: 
  ```
  Donation,GiftInKind,MatchingGiftPayment,PledgePayment,RecurringGiftPayment,Stock,SoldStock
  ```
    {{< img src="List_Gifts.png" alt="List Gifts response in Power Automate" width="350" >}}
    {{< /fold >}}
 
-3. {{< fold title="Looping through list of " >}}
+1. {{< fold title="Looping through List Gifts" >}}
 
 {{< fold title="Lets understand the output of List Gifts before discussing how to loop through.">}}
 
@@ -106,9 +125,12 @@ You will notice that the **body** object has the relevant data we need inside th
 
 {{< /fold >}}
 
-Our goal is to loop through List_Gifts so we can retrieve all necessary information for each gift and generate a letter within the same loop.
+Our goal is to loop through the json array called "body" in output of List_Gifts, so that we can use the specific tracking information of each gift: Constituent ID, Gift ID, 
 
-To loop through each gift in **body** we will use the action **For Each** with an argument that references the JSON Array with our gifts. 
+
+individual gift and constituent.  
+
+We will use the action **For Each** with an argument that references the JSON Array with our gifts. 
 
   1. Select the + Sign after "List Gifts" and Search for "apply to each"
 
