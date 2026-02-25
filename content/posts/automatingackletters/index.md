@@ -61,11 +61,11 @@ This workflow ensures that on a set schedule, every donor receives the right ack
 
 In a single loop through every unacknowledged gift:
 
-1. Gather required data by making separate API calls to retrieve the fields needed for the letter:
-    - addressee title, First_Name, Last_Name
-    - Gift Amount, Gift Date
-    - Address (street1, city, state, ZIP)
-2. Determine the correct letter header based on constituent type
+1. We will Gather the required data for Headers and Salutations by making separate API calls to retrieve the fields of each Gift needed for the letter: 
+    - addressee of Hard Credit/Soft Credit title, First_Name, Last_Name, Address (street1, city, state, ZIP) using **Get Constituent**
+    - Gift Amount, Gift Date using **Get Gift**
+    - Business Name using **List constituent relationships**
+2. Determine the correct letter header by identifying the constituent type
     - Individual (home address)
     - Individual (business address)
     - Organization (with soft-credit recipient)
@@ -206,8 +206,13 @@ We reference **Constituent ID** multiple times throughout this flow. To avoid re
   
 
    {{< /fold >}}
+5. {{< fold title="Checking the Type of Constituent" >}}
 
-7. {{< fold title="Get Appeal and Package" >}}
+   {{< /fold >}}
+
+
+
+6. {{< fold title="Get Appeal and Package" >}}
   We retrieve the Appeal + Package for each gift because this combination determines which letter template we use.To do this safely, we add a Condition that checks whether an Appeal ID exists in each gift. If it does, we pull the appeal_id from Get a Gift
 
 
