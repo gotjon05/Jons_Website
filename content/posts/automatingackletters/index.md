@@ -71,7 +71,7 @@ In a single loop through every unacknowledged gift:
     - Organization (with soft-credit recipient)
     - Foundation
 3. Select the correct letter template using the gift’s Appeal + Batch mapping
-4. Generate and populate the Word document, then save the finished letter to SharePoint.
+4. Generate and populate Word Templates, then save the finished letter to SharePoint.
 5. Email the Donor
 6. Create Labels for each Letter
 
