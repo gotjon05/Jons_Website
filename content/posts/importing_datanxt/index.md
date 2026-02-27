@@ -1,11 +1,8 @@
 +++
 date = '2026-02-26T12:42:04-05:00'
 draft = false
-title = 'Replacing Raiser’s Edge Import Tools: Building a SharePoint Table to NXT Integration with SKY API'
+title = 'Replacing Raiser’s Edge Import Tools: Building a SharePoint Table to NXT Integration with SKY API (Work in Progress)'
 +++
-
-(Work in Progress)
-
 
 This is a walkthrough for replacing Raisers Edge's antiquated Database Import Tool without paying for Omatic Cloud.
 
