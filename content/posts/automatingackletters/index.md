@@ -61,20 +61,23 @@ This workflow ensures that on a set schedule, every donor receives the right ack
 
 In a single loop through every unacknowledged gift:
 
-1. We will Gather the required data for Headers and Salutations by making separate API calls to retrieve the fields of each Gift needed for the letter: 
+1. **Gather fields required for the Letter**
     - addressee of Hard Credit/Soft Credit title, First Name, Last Name, Address (street1, city, state, ZIP) using *Get Constituent*
     - Gift Amount, Gift Date using *Get Gift*
     - Business Name using *List constituent relationships*
-2. Determine the correct letter header by identifying the constituent type
-    - Individual (home address)
-    - Individual (business address)
-    - Organization (with soft-credit recipient)
-    - Foundation
-3. Select the correct letter template using the gift’s Appeal + Batch mapping
-4. Generate and populate Word Templates, merging acknowledgement Letter with Supplement documents, then saving the final document/pdf to SharePoint. 
-5. Mark the Gift as acknowledged
-6. Email the Donor
-7. Create Labels for mailing each Letter
+2. **Determine which Header each gift needs.**
+  My organization uses four distinct header formats. To map each gift to the correct header, I create Compose actions that evaluate boolean conditions (True/False). Each Compose will test whether the gift matches one of the header scenarios.
+    - Individual (Home Address)
+    - Individual (Business Address)
+    - Organization (with Soft Credit Recipient)
+    - Foundation with no Soft Credit
+3. **Determmine which Template each gift needs**
+  We will group Appeal+Batch combinations that share the same template (Letter Content), under a single LetterCode. With 1:1 mapping between LetterCode and Template, we immediately know which template to use for that gift.
+4. **Populating our Word Templates**
+  After matching a gift with the correct template, we will add our Header, Salutations, Gift Date, Gift Amount, and Appeal in strategic sections of the letter
+5. **Mark the Gift as acknowledged**
+6. **Email the Donor**
+7. **Create Labels for mailing each Letter**
 {{< /fold >}}
 
 
@@ -169,52 +172,29 @@ We will use the action **For Each** with an argument that references the JSON Ar
    {{< /fold >}}
 
 
-5. {{< fold title="Storing Constituent ID from Get a Gift into a variable" >}}
-   
-When we run our process again List_Gifts calls **Get a Gift** for each id in the body of List Gifts. Inside the output of **Get a Gift** of each gift, we can find the Constituent ID of the Hard Credit Constituent of each gift.
+5. {{< fold title="Retrieving constituent information" >}}
 
-We are going to need to use Constituent ID for 
+List_Gifts now calls **Get a Gift** for each id in the body of List Gifts. Inside the output we can find the Constituent ID key of the Hard Credit Constituent who was credited for the gift. Using this Constituent_ID with **Get Constituent** will provide Title, First Name, Last Name and address information.
+
+  1. Inside the For Each Loop, select the + icon below **Get a Gift**
+
+  2. Search for blackbaud NXT **Get a Constituent**
+
+  3. Opening **Get a Constituent** will reveal that Constituent ID is a required argument
 
 
-We reference **Constituent ID** multiple times throughout this flow. To avoid repeating expressions and to keep the flow readable, we store this value in a variable immediately after Get a Gift. 
 
-{{< fold title="How to initialize and set the variable" >}}
 
-  1. Select the **+** icon below **Get a Gift**
 
-  2. Search for **Initialize variable**
-
-  3. Name the variable (e.g., `varConstituentId`) 
-
-  4. Set the type to **String**  
-
-  5. Set the value using the Constituent ID from **Get a Gift**
-
-  {{< /fold >}}
 
    {{< /fold >}}
-
-6. {{< fold title="Retrieving constituent information" >}}
-   
-  Our second call inside the iteration is Get Constituent. Like Get a gift, Each time the flow runs, it makes this call once per gift. We make this call to get Constituent Information about the person who received full/hard credit for the gift. (Where as Soft Credit is soft)
-
-  1. Get a Constituent requires a Constituent ID. This is provided to us in Get a Gift. 
-
-  2. select the + icon below, Get a Gift
-
-  3. Search for blackbaud NXT Get a Constituent
-
-  4. Add the action, then enter the expression 
-  
-
-   {{< /fold >}}
-5. {{< fold title="Checking the Type of Constituent" >}}
+1. {{< fold title="Checking the Type of Constituent" >}}
 
    {{< /fold >}}
 
 
 
-6. {{< fold title="Get Appeal and Package" >}}
+7. {{< fold title="Get Appeal and Package" >}}
   We retrieve the Appeal + Package for each gift because this combination determines which letter template we use.To do this safely, we add a Condition that checks whether an Appeal ID exists in each gift. If it does, we pull the appeal_id from Get a Gift
 
 
@@ -273,18 +253,18 @@ And because we have more than one object, its a list of Objects, whichs needs an
 {{< /fold >}}
 
 
-9. {{< fold title="Resolving overlapping Appeal+Batch Letter Codes with Template Part 2" >}}
+8. {{< fold title="Resolving overlapping Appeal+Batch Letter Codes with Template Part 2" >}}
 {{< /fold >}}
 
 
 
-10. {{< fold title="Identifying the type of Constituent to provide the correct Header and salutation later" >}}
+9. {{< fold title="Identifying the type of Constituent to provide the correct Header and salutation later" >}}
 {{< /fold >}}
 
-11. {{< fold title="Creating Letters, as Adobe PDF's or Word Documents, and Marking Gifts as Acknowledged" >}}
+10. {{< fold title="Creating Letters, as Adobe PDF's or Word Documents, and Marking Gifts as Acknowledged" >}}
 {{< /fold >}}
 
-12. {{< fold title="Emailing Acknowledgement Letters to Donors" >}}
+11. {{< fold title="Emailing Acknowledgement Letters to Donors" >}}
 {{< /fold >}}
 
 
