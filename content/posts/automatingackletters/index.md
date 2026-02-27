@@ -62,21 +62,30 @@ This workflow ensures that on a set schedule, every donor receives the right ack
 In a single loop through every unacknowledged gift:
 
 1. **Gather fields required for the Letter**
-    - addressee of Hard Credit/Soft Credit title, First Name, Last Name, Address (street1, city, state, ZIP) using *Get Constituent*
-    - Gift Amount, Gift Date using *Get Gift*
-    - Business Name using *List constituent relationships*
-2. **Determine which Header each gift needs.**
-  My organization uses four distinct header formats. To map each gift to the correct header, I create Compose actions that evaluate boolean conditions (True/False). Each Compose will test whether the gift matches one of the header scenarios.
-    - Individual (Home Address)
-    - Individual (Business Address)
-    - Organization (with Soft Credit Recipient)
-    - Foundation with no Soft Credit
-3. **Determmine which Template each gift needs**
+
+- addressee of Hard Credit/Soft Credit title, First Name, Last Name, Address (street1, city, state, ZIP) using *Get Constituent*
+- Gift Amount, Gift Date using *Get Gift*
+- Business Name using *List constituent relationships*
+  
+2. **Determine which Header each gift needs**
+
+In order to map each gift to the correct header, I create Compose actions that evaluate boolean conditions (True/False). Each Compose will test whether the gift matches one of the header scenarios.
+  - Individual (Home Address)
+  - Individual (Business Address)
+  - Organization (with Soft Credit Recipient)
+  - Foundation with no Soft Credit
+3. **Determine which Template each gift needs**
+
   We will group Appeal+Batch combinations that share the same template (Letter Content), under a single LetterCode. With 1:1 mapping between LetterCode and Template, we immediately know which template to use for that gift.
+
 4. **Populating our Word Templates**
+  
   After matching a gift with the correct template, we will add our Header, Salutations, Gift Date, Gift Amount, and Appeal in strategic sections of the letter
+
 5. **Mark the Gift as acknowledged**
+
 6. **Email the Donor**
+
 7. **Create Labels for mailing each Letter**
 {{< /fold >}}
 
