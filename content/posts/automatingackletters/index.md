@@ -157,22 +157,24 @@ We will use the action **For Each** with an argument that references the JSON Ar
   We use the function **items()** because it returns the current item in a loop. 
   
   We dont use **body()** or **output()** because control containers like **For Each** dont have an Output or a Body. We are going to introduce more Control Containers like Conditions and Switch later in the Flow. 
-  
-  
+    
   1. Expand "Apply to each" and select the + icon
 
   2. Search for blackbaud NXT get a gift
 
   3. Add the action, then enter the expression `items('Apply_to_each')?['id']` **or** select Dynamic content (lightning icon) and look for system record id of gift from List gifts
 
+  In the next step, we are going to look at the output of Get a Gift and introduce Variables.
+
    {{< /fold >}}
 
 
 5. {{< fold title="Storing Constituent ID from Get a Gift into a variable" >}}
    
-As the For each iterates through List_Gifts, we now call **Get a Gift** for each record. Once the action runs, we have access to each gifts returned data using body('Get_a_Gift'), which contains the gift details for each iteration
+When we run our process again List_Gifts calls **Get a Gift** for each id in the body of List Gifts. Inside the output of **Get a Gift** of each gift, we can find the Constituent ID of the Hard Credit Constituent of each gift.
 
-**Get a Gift** provides the Constituent_ID of the Hard Credit Constituent which we will use to get Constituent information using Get Constituent in the next step.
+We are going to need to use Constituent ID for 
+
 
 We reference **Constituent ID** multiple times throughout this flow. To avoid repeating expressions and to keep the flow readable, we store this value in a variable immediately after Get a Gift. 
 
