@@ -103,8 +103,8 @@ In order to map each gift to the correct header, I create Compose actions that e
   5. Blackbaud connector handles authentication internally and you will be prompted to sign-in with your Blackbaud account 
   {{< /fold >}}
 
-1. {{< fold title="Retrieving list of all Unacknowledged gifts">}}
-  Our first SKY API call is [**List Gifts**](https://developer.sky.blackbaud.com/api#api=58bdd5edd7dcde06046081d6&operation=ListGifts), to retrieve every unacknowledged gift in Raisers Edge. In the next step we will examine the output, and understand why we need to loop through it to process each gift one at a time.
+2. {{< fold title="Retrieving list of all Unacknowledged gifts">}}
+  Our first SKY API call is [**List Gifts**](https://developer.sky.blackbaud.com/api#api=58bdd5edd7dcde06046081d6&operation=ListGifts), which retrieves all unacknowledged gifts from Raiser’s Edge NXT in a Json Array. 
 
   1. Click on List Gift and update the parameters:
 
@@ -116,50 +116,57 @@ In order to map each gift to the correct header, I create Compose actions that e
 ```
   formatDateTime('2025-05-10', 'yyyy-MM-ddT00:00:00Z')
 ```
-  1. Type: Enter the the gift types below to avoid Pledges: 
+  5. Type: Enter the the gift types below to avoid Pledges: 
  ```
  Donation,GiftInKind,MatchingGiftPayment,PledgePayment,RecurringGiftPayment,Stock,SoldStock
- ```
-   {{< img src="List_Gifts.png" alt="List Gifts response in Power Automate" width="350" >}}
+ ```  
    {{< /fold >}}
 
-1. {{< fold title="Looping through List Gifts" >}}
 
-{{< fold title="Lets understand the output of List Gifts before discussing how to loop through.">}}
 
-In order to see the Output of our List Gifts Action, we need to run our Power Automate Flow. Select Run. Select List Gifts and then select "show raw outputs". (This assumes you have unacknowledged gifts in Raisers Edge. If you don’t, create a few test gifts and try again.)
 
-After opening List Gifts, we will see:
+3. {{< fold title="Looping through List Gifts" >}}
+
+We loop through the output of List Gifts because each subsequent Blackbaud API call requires one unique key. 
+
+**Get a Gift** requires the unique Gift ID of each Gift. **Get Constituent** requires the Constituent ID of each constituent hard credited for that gift.
+
+So the full workflow of retrieving gift + donor details, selecting the right template, and generating the letter runs once per gift, inside each iteration of the loop.
+
+  1. Add the action "apply to each", and and set the input to `body('List_Gifts')?['value']`
+  Alternatively, you can select Dynamic content (lightning icon) to select body/value from List Gifts. 
+  
+{{< fold title="Why we use body('List_Gifts')?['value'] as input in apply to each">}}
+After running your Power Automate Flow and opening the Raw Output of List Gifts, We will See:
 - The output as one big JSON object, defined by the enclosed outside bracket "{}".  
 - Inside this object are two other objects. **headers** and **body**. 
-
 You will notice that the **body** object has the relevant data we need inside the JSON array called **value** defined by the enclosed "[]"
 
-{{< /fold >}}
+Thats why we loop through `body('List_Gifts')?['value']` 
 
-We Loop through the output of List Gifts because it returns multiple gifts. And to access more detailed Constiuent and Gift Information for our letter, we have to use the unique IDs provided in each gift. Actions like Get a Gift and Get a Constituent require a single Gift ID or Constituent ID
-
-While we could parse the List Gifts output to use any fields it already includes, it provides key IDs (Gift ID, Constituent ID) but not all letter-ready details we need. For that reason, we still would need a For each loop to make these individual calls per gift.
-
-
-We will use the action **For Each** with an argument that references the JSON Array with our gifts. 
-
-  1. Select the + Sign after "List Gifts" and Search for "apply to each"
-
-  2. Add the action, then click Expression (fx) and enter: `body('List_Gifts')?['value']`
-  Alternatively, you can select Dynamic content (lightning icon) to select body/value from List Gifts. We want Body/value as the input, because its the section of the payload from List Gifts that has the array of gifts we want to loop through.
-  
-  `body('List_Gifts')?['value']` is our first instance of using a WDL expression to access and extract data. 
+This is our first use of a Power Automate expression to access and extract data. 
   - We use the body() function because it selects the body object we want
   - To safely access the JSON array **value** to extract it, we use `?` in `?['value']`. This insures that body('List_Gifts') returns NULL if value doesnt exist or is NULL so it doesnt break. 
 
   (I initially used `outputs('List_Gifts')?['body/value']` but later changed it to `body('List_Gifts')?['value']`. They point to equivelent paths but body is more direct, reducing the chance of referencing the wrong thing. Output returns the entire response while body returns the value portion.) 
 
-   {{< img src="Apply_to_each.png" alt="apply to each" width="350" >}}
+{{< /fold >}}
 
-   {{< /fold >}}
+{{< fold title="Why we Loop instead of Parse through List Gifts">}}
 
-4. {{< fold title="Retrieving gift information" >}}
+While we could parse the List Gifts output to use any fields it already includes, it provides key IDs (Gift ID, Constituent ID) but not all letter-ready details we need. For that reason, we still would need a For each loop to make these individual calls per gift.
+{{< /fold >}}
+
+{{< /fold >}}
+
+
+
+
+
+
+
+
+1. {{< fold title="Retrieving gift information" >}}
 
   Our first call inside our **For Each** loop is **Get a gift**. This call returns the fields we
   need for each record: gift date, gift amount, constituent ID, and appeal ID.
