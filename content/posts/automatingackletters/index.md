@@ -69,12 +69,13 @@ In a single loop through every unacknowledged gift:
   
 2. **Determine which Header each gift needs**
 
-In order to map each gift to the correct header, I create Compose actions that evaluate boolean conditions (True/False). Each one returns True/False depending on whether the gift matches a header scenario. Later, I look at which flag is True and assign the corresponding header to the letter.
+We will map each gift to the correct header, by using Compose actions that evaluate True/False depending on whether the gift matches a header scenario. Later, I look at which flag is True and assign the corresponding header to the letter.
 
   - Individual (Home Address)
   - Individual (Business Address)
   - Organization (with Soft Credit Recipient)
   - Foundation with no Soft Credit
+  
 3. **Determine which Template each gift needs**
 
   We will group Appeal+Batch combinations that share the same template (Letter Content), under a single LetterCode. With 1:1 mapping between LetterCode and Template, we immediately know which template to use for that gift.
