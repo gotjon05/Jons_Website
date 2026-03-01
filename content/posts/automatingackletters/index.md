@@ -69,7 +69,8 @@ In a single loop through every unacknowledged gift:
   
 2. **Determine which Header each gift needs**
 
-In order to map each gift to the correct header, I create Compose actions that evaluate boolean conditions (True/False). Each Compose will test whether the gift matches one of the header scenarios.
+In order to map each gift to the correct header, I create Compose actions that evaluate boolean conditions (True/False). Each one returns True/False depending on whether the gift matches a header scenario. Later, I look at which flag is True and assign the corresponding header to the letter.
+
   - Individual (Home Address)
   - Individual (Business Address)
   - Organization (with Soft Credit Recipient)
@@ -166,45 +167,48 @@ While we could parse the List Gifts output to use any fields it already includes
 
 
 
-1. {{< fold title="Retrieving gift information" >}}
+4. {{< fold title="Retrieving gift information for each gift in List Gifts" >}}
 
   Our first call inside our **For Each** loop is **Get a gift**. This call returns the fields we
   need for each record: gift date, gift amount, constituent ID, and appeal ID.
 
   **Get a gift** requires a gift ID as an argument. As **For Each** is looping over the value array returned by **List Gifts**, we can pull the gift ID from each iteration of gifts inside the loop and pass it as an argument to **Get a gift**.
 
-  We use the function **items()** because it returns the current item in a loop. 
-  
-  We dont use **body()** or **output()** because control containers like **For Each** dont have an Output or a Body. We are going to introduce more Control Containers like Conditions and Switch later in the Flow. 
-    
+
+
+
   1. Expand "Apply to each" and select the + icon
 
   2. Search for blackbaud NXT get a gift
 
   3. Add the action, then enter the expression `items('Apply_to_each')?['id']` **or** select Dynamic content (lightning icon) and look for system record id of gift from List gifts
 
-  In the next step, we are going to look at the output of Get a Gift and introduce Variables.
+
+{{< fold title="Why we use items() instead of body() or output() as an argument in Get a Gift" >}}
+  We use the function **items()** because it returns the current item in a loop. 
+  
+  We dont use **body()** or **output()** because control containers like **For Each** dont have an Output or a Body. We are going to introduce more Control Containers like Conditions and Switch later in the Flow. 
+{{< /fold >}}
+  In the next step, we are going to get Constituent information using the output of Get a Gift
 
    {{< /fold >}}
 
 
-5. {{< fold title="Retrieving constituent information" >}}
+5. {{< fold title="Retrieving constituent information for each gift in List Gifts" >}}
 
 List_Gifts now calls **Get a Gift** for each id in the body of List Gifts. Inside the output we can find the Constituent ID key of the Hard Credit Constituent who was credited for the gift. Using this Constituent_ID with **Get Constituent** will provide Title, First Name, Last Name and address information.
 
-  1. Inside the For Each Loop, select the + icon below **Get a Gift**
+  1. Inside the For Each Loop, lets add blackbaud NXT call **Get a Constituent** after Get a gift. 
 
-  2. Search for blackbaud NXT **Get a Constituent**
+  2. Constituent ID is a required field and we need to retrieve it from the output of our previous call **Get a Gift** using body('Get_a_gift')?['constituent_id'] 
 
-  3. Opening **Get a Constituent** will reveal that Constituent ID is a required argument
+Now in every iteration of For Each(), we are retrieving gift and constituent information for each gift. 
+
+{{< /fold >}}
+6. {{< fold title="Checking the Type of Constituent">}}
+We need Gift and Constituent Information for every gift regardless of the constiuent type. 
 
 
-
-
-
-
-   {{< /fold >}}
-1. {{< fold title="Checking the Type of Constituent" >}}
 
    {{< /fold >}}
 
