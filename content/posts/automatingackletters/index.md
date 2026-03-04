@@ -80,6 +80,7 @@ In a single loop through every unacknowledged gift:
   We will group Appeal+Batch combinations that share the same template (Letter Content), under a single LetterCode. With 1:1 mapping between LetterCode and Template, we immediately know which template to use for that gift.
 
 4. **We use a nested if statement that priorities whats returned true by Boolean Flags for each component of the header**
+   
   Order of priority: Soft Credit → Foundation → Individual
 
 
