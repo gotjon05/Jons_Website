@@ -67,28 +67,30 @@ In a single loop through every unacknowledged gift:
 - Gift Amount, Gift Date using *Get Gift*
 - Business Name using *List constituent relationships*
   
-2. **Determine which Header each gift needs**
+2. **Boolean Flags to route Header logic later in the process**
+    We use four Compose Actions that evaluate to True/False to classify each gift as either of the four flags below: 
+  - Soft credit
+  - organization vs individual
+  - home vs business address
+  - foundation
 
-We will map each gift to the correct header, by using Compose actions that evaluate True/False depending on whether the gift matches a header scenario. Later, I look at which flag is True and assign the corresponding header to the letter.
-
-  - Individual (Home Address)
-  - Individual (Business Address)
-  - Organization (with Soft Credit Recipient)
-  - Foundation with no Soft Credit
-  
 3. **Determine which Template each gift needs**
 
   We will group Appeal+Batch combinations that share the same template (Letter Content), under a single LetterCode. With 1:1 mapping between LetterCode and Template, we immediately know which template to use for that gift.
 
-4. **Populating our Word Templates**
+4. **We use a nested if statement that priorities whats returned true by Boolean Flags for each component of the header**
+  Order of priority: Soft Credit → Foundation → Individual
+
+
+5. **Populating our Word Templates**
   
   After matching a gift with the correct template, we will add our Header, Salutations, Gift Date, Gift Amount, and Appeal in strategic sections of the letter
 
-5. **Mark the Gift as acknowledged**
+6. **Mark the Gift as acknowledged**
 
-6. **Email the Donor**
+7. **Email the Donor**
 
-7. **Create Labels for mailing each Letter**
+8. **Create Labels for mailing each Letter**
 {{< /fold >}}
 
 
@@ -123,8 +125,6 @@ We will map each gift to the correct header, by using Compose actions that evalu
  Donation,GiftInKind,MatchingGiftPayment,PledgePayment,RecurringGiftPayment,Stock,SoldStock
  ```  
    {{< /fold >}}
-
-
 
 
 3. {{< fold title="Looping through List Gifts" >}}
@@ -164,18 +164,12 @@ While we could parse the List Gifts output to use any fields it already includes
 
 
 
-
-
-
-
 4. {{< fold title="Retrieving gift information for each gift in List Gifts" >}}
 
   Our first call inside our **For Each** loop is **Get a gift**. This call returns the fields we
   need for each record: gift date, gift amount, constituent ID, and appeal ID.
 
   **Get a gift** requires a gift ID as an argument. As **For Each** is looping over the value array returned by **List Gifts**, we can pull the gift ID from each iteration of gifts inside the loop and pass it as an argument to **Get a gift**.
-
-
 
 
   1. Expand "Apply to each" and select the + icon
@@ -194,28 +188,47 @@ While we could parse the List Gifts output to use any fields it already includes
 
    {{< /fold >}}
 
-
+ 
 5. {{< fold title="Retrieving constituent information for each gift in List Gifts" >}}
+ 
+List_Gifts now calls **Get a Gift** for each id in the body of List Gifts. Inside the output we can find the Constituent ID key of the Hard Credit Constituent who was credited for the gift. Using this Constituent_ID with **Get Constituent** will provide Title, First Name, Last  Name and address information.
 
-List_Gifts now calls **Get a Gift** for each id in the body of List Gifts. Inside the output we can find the Constituent ID key of the Hard Credit Constituent who was credited for the gift. Using this Constituent_ID with **Get Constituent** will provide Title, First Name, Last Name and address information.
-
-  1. Inside the For Each Loop, lets add blackbaud NXT call **Get a Constituent** after Get a gift. 
+  1. Inside the For Each Loop, lets add blackbaud NXT call **Get a Constituent** after Get a gift.  
 
   2. Constituent ID is a required field and we need to retrieve it from the output of our previous call **Get a Gift** using body('Get_a_gift')?['constituent_id'] 
 
 Now in every iteration of For Each(), we are retrieving gift and constituent information for each gift. 
 
 {{< /fold >}}
+
+
 6. {{< fold title="Checking the Type of Constituent">}}
-We need Gift and Constituent Information for every gift regardless of the constiuent type. 
+{{< /fold >}}
 
 
 
-   {{< /fold >}}
+7. {{< fold title="Checking the Type of Constituent">}}
+We are going to create flags using the Compose Action that evaluate to True or False. Later in the process, we can decide which of the four Headers to use based on which flag is True. 
+
+
+Identifying Hard Credit Constituents with a preferred address with the address type of home
+
+```
+and(
+  equals(toLower(coalesce(outputs('Get_a_constituent')?['body/type'], '')), 'individual'),
+  equals(toLower(coalesce(outputs('Get_a_constituent')?['body/address']?['type'], '')), 'home'),
+  coalesce(outputs('Get_a_constituent')?['body/address']?['preferred'], true)
+)
+```
+ 
 
 
 
-7. {{< fold title="Get Appeal and Package" >}}
+{{< /fold >}}
+
+
+
+8. {{< fold title="Get Appeal and Package" >}}
   We retrieve the Appeal + Package for each gift because this combination determines which letter template we use.To do this safely, we add a Condition that checks whether an Appeal ID exists in each gift. If it does, we pull the appeal_id from Get a Gift
 
 
@@ -226,7 +239,7 @@ We need Gift and Constituent Information for every gift regardless of the consti
 {{< /fold >}}
 
 {{< /fold >}}
-8. {{< fold title="Resolving overlapping Appeal+Batch Letter Codes with Template Part 1" >}}
+9. {{< fold title="Resolving overlapping Appeal+Batch Letter Codes with Template Part 1" >}}
 The Appeal + Batch Code from a gift determines which letter template to use.
 
 But in this use case, the relationship was many-to-one. Many different Appeal + Batch combinations needed to map to the same letter template. For example, the “General” letter template had 5+ different Appeal + Batch combinations associated with it.
@@ -274,18 +287,18 @@ And because we have more than one object, its a list of Objects, whichs needs an
 {{< /fold >}}
 
 
-8. {{< fold title="Resolving overlapping Appeal+Batch Letter Codes with Template Part 2" >}}
+10. {{< fold title="Resolving overlapping Appeal+Batch Letter Codes with Template Part 2" >}}
 {{< /fold >}}
 
 
 
-9. {{< fold title="Identifying the type of Constituent to provide the correct Header and salutation later" >}}
+11. {{< fold title="Identifying the type of Constituent to provide the correct Header and salutation later" >}}
 {{< /fold >}}
 
-10. {{< fold title="Creating Letters, as Adobe PDF's or Word Documents, and Marking Gifts as Acknowledged" >}}
+12. {{< fold title="Creating Letters, as Adobe PDF's or Word Documents, and Marking Gifts as Acknowledged" >}}
 {{< /fold >}}
 
-11. {{< fold title="Emailing Acknowledgement Letters to Donors" >}}
+13. {{< fold title="Emailing Acknowledgement Letters to Donors" >}}
 {{< /fold >}}
 
 
