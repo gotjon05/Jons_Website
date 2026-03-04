@@ -68,7 +68,8 @@ In a single loop through every unacknowledged gift:
 - Business Name using *List constituent relationships*
   
 2. **Boolean Flags to route Header logic later in the process**
-    We use four Compose Actions that evaluate to True/False to classify each gift as either of the four flags below: 
+   
+  We use four Compose Actions that evaluate to True/False to classify each gift as either of the four flags below: 
   - Soft credit
   - organization vs individual
   - home vs business address
