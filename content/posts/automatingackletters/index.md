@@ -17,7 +17,7 @@ This workflow ensures that on a set schedule, every donor receives the right ack
 - **Gifts considered in this Flow**  
   Only gifts greater than zero, not yet acknowledged, and not unpaid pledges.
 
-- **Letter Template Matching Rule**  gifts
+- **Letter Template Matching Rule**
   A gift’s **Appeal + Package** combination determines which letter template/content is used.
 
 - **Business Identity Rule**  
