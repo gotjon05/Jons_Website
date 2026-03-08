@@ -88,12 +88,12 @@ In a single loop through every unacknowledged gift:
 5. **Dynamic first paragraph for letters with shared content but different first paragraph**
   Letters for NY/NJ/Gala events each have 8+ different variations of the first paragraph. I initially used a massive amount of switches, based on the LetterCode, with a template for each variation. But quickly switched to just using one template for NJ and NY Golf events and made the first paragraph dynamic, as the rest of the letter was the same for all the golf letters.
 
-  A. Create a dictionary for each event with Appeal+batch as key, and first paragraph as value. 
+    A. Create a dictionary for each event with Appeal+batch as key, and first paragraph as value. 
 
-  B. Make event dates dynamic in paragraph values
-      I wanted the year/Date of event to be dynamic for easy maintinance so i placeholders {year} and {date} and replace them dynamically with the correct year and date for an event
+    B. Make event dates dynamic in paragraph values
+        I wanted the year/Date of event to be dynamic for easy maintinance so i placeholders {year} and {date} and replace them dynamically with the correct year and date for an event
 
-  C. Retrieve correct paragraph from dictionary based on appeal+batch key and stores it for insertion into the template
+    C. Retrieve correct paragraph from dictionary based on appeal+batch key and stores it for insertion into the template
 
 6. **Populating our Word Templates**
   
