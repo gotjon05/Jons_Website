@@ -90,8 +90,7 @@ In a single loop through every unacknowledged gift:
 
     A. Create a dictionary for each event with Appeal+batch as key, and first paragraph as value. 
 
-    B. Make event dates dynamic in paragraph values
-        I wanted the year/Date of event to be dynamic for easy maintinance so i placeholders {year} and {date} and replace them dynamically with the correct year and date for an event
+    B. Make event dates dynamic in paragraph values. I wanted the year/Date of event to be dynamic for easy maintinance so i placeholders {year} and {date} and replace them dynamically with the correct year and date for an event
 
     C. Retrieve correct paragraph from dictionary based on appeal+batch key and stores it for insertion into the template
 
