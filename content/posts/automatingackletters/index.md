@@ -67,13 +67,15 @@ In a single loop through every unacknowledged gift:
 - Gift Amount, Gift Date using *Get Gift*
 - Business Name using *List constituent relationships*
   
-2. **Boolean Flags to route Header logic later in the process**
+2. **Boolean Flags to route Letter Header logic later in the process**
    
   We use four Compose Actions that evaluate to True/False to classify each gift as either of the four flags below: 
   - Soft credit
   - organization vs individual
   - home vs business address
   - foundation
+  
+  These flags determine how the letter header and addressee should be constructed later in the process. 
 
 3. **Determine which Template each gift needs**
 
@@ -83,16 +85,25 @@ In a single loop through every unacknowledged gift:
    
   Order of priority: Soft Credit → Foundation → Individual
 
+5. **Dynamic first paragraph for letters with shared content but different first paragraph**
+  Letters for NY/NJ/Gala events each have 8+ different variations of the first paragraph. I initially used a massive amount of switches, based on the LetterCode, with a template for each variation. But quickly switched to just using one template for NJ and NY Golf events and made the first paragraph dynamic, as the rest of the letter was the same for all the golf letters.
 
-5. **Populating our Word Templates**
+  A. Create a dictionary for each event with Appeal+batch as key, and first paragraph as value. 
+
+  B. Make event dates dynamic in paragraph values
+      I wanted the year/Date of event to be dynamic for easy maintinance so i placeholders {year} and {date} and replace them dynamically with the correct year and date for an event
+
+  C. Retrieve correct paragraph from dictionary based on appeal+batch key and stores it for insertion into the template
+
+6. **Populating our Word Templates**
   
-  After matching a gift with the correct template, we will add our Header, Salutations, Gift Date, Gift Amount, and Appeal in strategic sections of the letter
+  After matching a gift with the correct template, we will add our Header, Salutations, Gift Date, Gift Amount, and Appeal in strategic sections of the letter. For NJ and NY event with variations of the first paragraph, i 
 
-6. **Mark the Gift as acknowledged**
+7. **Mark the Gift as acknowledged**
 
-7. **Email the Donor**
+8. **Email the Donor**
 
-8. **Create Labels for mailing each Letter**
+9. **Create Labels for mailing each Letter**
 {{< /fold >}}
 
 
