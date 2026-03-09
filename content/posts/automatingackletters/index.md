@@ -88,13 +88,13 @@ In a single loop through every unacknowledged gift:
 5. **Dynamic first paragraph for letters with shared content but different first paragraph**
   Letters for NY/NJ/Gala events each have 8+ different variations of the first paragraph. I initially used a massive amount of switches, based on the LetterCode, with a template for each variation. But quickly switched to just using one template for NJ and NY Golf events and made the first paragraph dynamic, as the rest of the letter was the same for all the golf letters.
 
-    A. Create a dictionary for each event with Appeal+batch as key, and first paragraph as value. 
+      1. Create a dictionary for each event with Appeal+batch as key, and first paragraph as value. 
 
-    B. Make event dates dynamic in paragraph values. I wanted the year/Date of event to be dynamic for easy maintinance so i placeholders {year} and {date} and replace them dynamically with the correct year and date for an event
+      2. Make event dates dynamic in paragraph values. I wanted the year/Date of event to be dynamic for easy maintinance so i placeholders {year} and {date} and replace them dynamically with the correct year and date for an event
 
-    C. Retrieve correct paragraph from dictionary based on appeal+batch key and stores it for insertion into the template
+      3. Retrieve correct paragraph from dictionary based on appeal+batch key and stores it for insertion into the template
 
-6. **Populating our Word Templates**
+1. **Populating our Word Templates**
   
   After matching a gift with the correct template, we will add our Header, Salutations, Gift Date, Gift Amount, and Appeal in strategic sections of the letter. For NJ and NY event with variations of the first paragraph, i 
 
@@ -213,29 +213,25 @@ Now in every iteration of For Each(), we are retrieving gift and constituent inf
 
 {{< /fold >}}
 
-
 6. {{< fold title="Checking the Type of Constituent">}}
+  I use Compose Action to create Boolean Flags that let me know the Gift either has:
+    - Soft Credit 
+    - Hard Credit has a home address or business address
+    - Soft Credit has a home address or business address
+    - Hard Credit is a Foundation
+    - Hard Credit is Organization
+
+
+
 {{< /fold >}}
 
+7. {{< fold title="Retrieving Soft Credit Information">}}
+  
+We first check whether the gift includes a soft credit. If a soft credit exists, the acknowledgment letter should be addressed to the soft credit individual rather than the hard credit donor. We retrieve the title, first name, and last name of the soft credit individual so the correct addressee can be constructed in the letter header.
 
-
-7. {{< fold title="Checking the Type of Constituent">}}
-We are going to create flags using the Compose Action that evaluate to True or False. Later in the process, we can decide which of the four Headers to use based on which flag is True. 
-
-
-Identifying Hard Credit Constituents with a preferred address with the address type of home
-
-```
-and(
-  equals(toLower(coalesce(outputs('Get_a_constituent')?['body/type'], '')), 'individual'),
-  equals(toLower(coalesce(outputs('Get_a_constituent')?['body/address']?['type'], '')), 'home'),
-  coalesce(outputs('Get_a_constituent')?['body/address']?['preferred'], true)
-)
-```
- 
-
-
-
+   1. **Check if gift includes a soft credit**
+       We add a condition action that checks if Soft Credit is Present in 
+   2. 
 {{< /fold >}}
 
 
