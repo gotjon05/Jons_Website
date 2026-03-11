@@ -67,25 +67,27 @@ In a single loop through every unacknowledged gift:
 - Gift Amount, Gift Date using *Get Gift*
 - Business Name using *List constituent relationships*
   
-2. **Boolean Flags to route Letter Header logic later in the process**
+2. **Flags to route Letter Header logic later in the process**
    
-  We use four Compose Actions that evaluate to True/False to classify each gift as either of the four flags below: 
+  We use four Compose Actions as flags that determine how the letter header and addressee should be constructed later in the process. 
   - Soft credit
-  - organization vs individual
-  - home vs business address
+  - Soft Credit home or business address
+  - organization or individual
+  - Individual home or business address
   - foundation
   
-  These flags determine how the letter header and addressee should be constructed later in the process. 
 
-3. **Determine which Template each gift needs**
+3. **Using Appeal + Batch to identify templates using a dictionary of grouped combinations**
 
-  We will group Appeal+Batch combinations that share the same template (Letter Content), under a single LetterCode. With 1:1 mapping between LetterCode and Template, we immediately know which template to use for that gift.
-
-4. **We use a nested if statement that priorities whats returned true by Boolean Flags for each component of the header**
+  The database records gifts tied to specific events, but many of these gifts require the same acknowledgment letter. To streamline template selection, I created a LetterCode dictionary that groups overlapping Appeal + Batch combinations and maps them to the appropriate letter template.
    
+4. **Making the first paragraph dynamic for templates with many variations of the first paragraph. But consistent for the rest of the letter**
+  Some letters share identical content except for the first paragraph, which varies by event. Rather than creating separate templates for each variation, the first paragraph is generated dynamically while the rest of the letter remains fixed. A dictionary maps Appeal + Batch combinations to their corresponding paragraph, allowing the correct paragraph to be retrieved.
+
+5. **We use a nested if statement that priorities whats returned true by Boolean Flags for each component of the header**
   Order of priority: Soft Credit → Foundation → Individual
 
-5. **Dynamic first paragraph for letters with shared content but different first paragraph**
+6. **Dynamic first paragraph for letters with shared content but different first paragraph**
   Letters for NY/NJ/Gala events each have 8+ different variations of the first paragraph. I initially used a massive amount of switches, based on the LetterCode, with a template for each variation. But quickly switched to just using one template for NJ and NY Golf events and made the first paragraph dynamic, as the rest of the letter was the same for all the golf letters.
 
       1. Create a dictionary for each event with Appeal+batch as key, and first paragraph as value. 
@@ -94,15 +96,15 @@ In a single loop through every unacknowledged gift:
 
       3. Retrieve correct paragraph from dictionary based on appeal+batch key and stores it for insertion into the template
 
-1. **Populating our Word Templates**
+7. **Populating our Word Templates**
   
   After matching a gift with the correct template, we will add our Header, Salutations, Gift Date, Gift Amount, and Appeal in strategic sections of the letter. For NJ and NY event with variations of the first paragraph, i 
 
-7. **Mark the Gift as acknowledged**
+8. **Mark the Gift as acknowledged**
 
-8. **Email the Donor**
+9. **Email the Donor**
 
-9. **Create Labels for mailing each Letter**
+10. **Create Labels for mailing each Letter**
 {{< /fold >}}
 
 
@@ -221,7 +223,7 @@ Now in every iteration of For Each(), we are retrieving gift and constituent inf
     - Hard Credit is a Foundation
     - Hard Credit is Organization
 
-
+  
 
 {{< /fold >}}
 
