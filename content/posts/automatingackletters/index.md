@@ -219,19 +219,51 @@ Now in every iteration of For Each(), we are retrieving gift and constituent inf
 {{< /fold >}}
 
 6. {{< fold title="Checking the Type of Constituent">}}
-  I use Compose Action to create Boolean Flags that let me know the Gift either has:
-    - Soft Credit 
-    - Hard Credit has a home address or business address
-    - Soft Credit has a home address or business address
-    - Hard Credit is a Foundation
-    - Hard Credit is Organization
+  We use several Compose actions as flags to determine what information must be retrieved and how the letter header should be constructed. These flags identify whether the hard credit is an organization, whether the gift includes a soft credit, whether the hard or soft credited constituent uses a home or business address, and whether the hard credit is a foundation.
 
+1. Create a Compose to check if Gift has a Soft Credit and call it CheckIfSoftCredit. 
+```not(empty(body('Get_a_gift')?['soft_credits']))```
+   
   
+2. Create compose For Hard Credit for gift is Organization and call it CheckifHardCreditISORG
+```
+if(
+  outputs('CheckIfSoftCredit'),
+  if(
+    and(
+      equals(toLower(coalesce(outputs('Get_a_constituent')?['body/address']?['type'], '')), 'home'),
+      equals(coalesce(outputs('Get_a_constituent')?['body/address']?['preferred'], false), true)
+    ),
+    'Home',
+    if(
+      and(
+        equals(toLower(coalesce(outputs('Get_a_constituent')?['body/address']?['type'], '')), 'business'),
+        equals(coalesce(outputs('Get_a_constituent')?['body/address']?['preferred'], false), true)
+      ),
+      'Business',
+      ''
+    )
+  ),
+  ''
+)   
+```    
+  3. Create a Compose for determining Hard Credit address type
+  This Compose determines whether the hard credited constituent is an individual whose preferred address is Home or Business.
 
+
+ 
+
+
+
+      
 {{< /fold >}}
 
-7. {{< fold title="Retrieving Soft Credit Information">}}
+1. {{< fold title="Retrieving Soft Credit Information">}}
   
+
+
+  If the Flag checks for Soft Credit returns True, 
+
 We first check whether the gift includes a soft credit. If a soft credit exists, the acknowledgment letter should be addressed to the soft credit individual rather than the hard credit donor. We retrieve the title, first name, and last name of the soft credit individual so the correct addressee can be constructed in the letter header.
 
    1. **Check if gift includes a soft credit**
