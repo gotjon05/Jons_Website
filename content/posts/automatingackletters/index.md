@@ -69,7 +69,7 @@ In a single loop through every unacknowledged gift:
   
 2. **Set Flags for header and addressee logic**
    
-  We use four Compose Actions as flags to determine how the letter header and addressee should be built later in the process. 
+  We use Compose Actions as flags to determine how the letter header and addressee should be built later in the process. 
 
   - Whether the gift includes a soft credit
   - Whether the soft-credit recipient has a preferered home or business address
@@ -80,24 +80,27 @@ In a single loop through every unacknowledged gift:
 
 3. **Map Appeal + Package combinations to Lettercodes**
    
-  I use information from a gifts Appeal + Package to decide what template to use. But because of overlapping Appeal + Package combinations for one acknowledgement template, I created a LetterCode dictionary that groups overlapping Appeal + Batch combinations and maps them to the appropriate letter template.
+  I use information from a gifts Appeal + Package to decide what template to use. But because of overlapping Appeal + Package combinations for one acknowledgement template, I created a LetterCode dictionary that groups overlapping Appeal + Package combinations and maps them to the appropriate letter template.
    
 4. **Generate dynamic first paragraphs where needed**
    
-  Some letters share identical content except for the first paragraph, which varies by event. Rather than creating separate templates for each variation, the first paragraph is generated dynamically while the rest of the letter remains fixed. A dictionary maps Appeal + Batch combinations to their corresponding paragraph, allowing the correct paragraph to be retrieved.
+  Some letters share identical content except for the first paragraph, which varies by event. Rather than creating separate templates for each variation, the first paragraph is generated dynamically while the rest of the letter remains fixed. A dictionary maps Appeal + Package combinations to their corresponding paragraph, allowing the correct paragraph to be retrieved.
 
 5. **We use a nested if statement for each element of the header with the Order of priority: Soft Credit → Foundation → Individual**
 
-
 6. **Construct Header into one compose, pulling from each element of the header in previous step**
+
+7. **Create Word templates stored in SharePoint**
   
-7. **Switch Statement using LetterCode for each template**
+  Word templates are stored in SharePoint and referenced by the Switch action, which selects and populates the appropriate template using the LetterCode.
 
-8. **Mark the Gift as acknowledged**
+8.  **Switch Action with LetterCode as input to match Header/Salutations information with the correct template**
 
-9. **Email the Donor**
+9.  **Mark the Gift as acknowledged**
 
-10. **Create Labels for mailing each Letter**
+10.   **Email the Donor**
+
+11.  **Create Labels for mailing each Letter**
 {{< /fold >}}
 
 
@@ -291,25 +294,25 @@ We first check whether the gift includes a soft credit. If a soft credit exists,
 {{< /fold >}}
 
 {{< /fold >}}
-9. {{< fold title="Resolving overlapping Appeal+Batch Letter Codes with Template Part 1" >}}
-The Appeal + Batch Code from a gift determines which letter template to use.
+9. {{< fold title="Resolving overlapping Appeal+Package Letter Codes with Template Part 1" >}}
+The Appeal + Package Code from a gift determines which letter template to use.
 
-But in this use case, the relationship was many-to-one. Many different Appeal + Batch combinations needed to map to the same letter template. For example, the “General” letter template had 5+ different Appeal + Batch combinations associated with it.
+But in this use case, the relationship was many-to-one. Many different Appeal + Package combinations needed to map to the same letter template. For example, the “General” letter template had 5+ different Appeal + Package combinations associated with it.
 
-And this was a problem because later in the flow, I use a single code to determine which template is generated for each gift, so Appeal + Batch alone wasn’t a reliable “single selector. 
+And this was a problem because later in the flow, I use a single code to determine which template is generated for each gift, so Appeal + Package alone wasn’t a reliable “single selector. 
 
-In order to have a single code to indicate what template to use for each gift, I introduced LetterCodes that are 1-to-1 with templates. With each LetterCode having an array of Appeal+Batch codes that share the same LetterCode and template. 
+In order to have a single code to indicate what template to use for each gift, I introduced LetterCodes that are 1-to-1 with templates. With each LetterCode having an array of Appeal+Package codes that share the same LetterCode and template. 
 
-To store this mapping, I created a JSON lookup table (an array of objects) where each object contains a LetterCode and an array of ass ociated Appeal + Batch combinations.
+To store this mapping, I created a JSON lookup table (an array of objects) where each object contains a LetterCode and an array of ass ociated Appeal + Package combinations.
 
-And for each gift, i scan the appeal+batch code and returned the matching LetterCode. 
+And for each gift, i scan the appeal+Package code and returned the matching LetterCode. 
 
 {{< fold title="Understanding the JSON table below" >}}
 This may not look like an Excel Table with the JSON syntax but the pattern represents the same columns and rows of Excel. 
 
 Each {} represent each object or row. In this example, i have 2 objects/rows. 
 
-And each Object has two name/value pairs, "LetterCode" is a name with "Gala" as a value. "AppealPackages" is a name with an array of appeal+batch codes as a value.
+And each Object has two name/value pairs, "LetterCode" is a name with "Gala" as a value. "AppealPackages" is a name with an array of appeal+Package codes as a value.
 
 And because we have more than one object, its a list of Objects, whichs needs an outside bracket []
 
@@ -339,7 +342,7 @@ And because we have more than one object, its a list of Objects, whichs needs an
 {{< /fold >}}
 
 
-10. {{< fold title="Resolving overlapping Appeal+Batch Letter Codes with Template Part 2" >}}
+10. {{< fold title="Resolving overlapping Appeal+Package Letter Codes with Template Part 2" >}}
 {{< /fold >}}
 
 
