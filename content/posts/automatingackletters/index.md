@@ -67,46 +67,36 @@ In a single loop through every unacknowledged gift:
 - Gift Amount, Gift Date using *Get Gift*
 - Business Name using *List constituent relationships*
   
-2. **Flags to route Letter Header logic later in the process**
+2. **Set Flags for header and addressee logic**
    
-  We use four Compose Actions as flags that determine how the letter header and addressee should be constructed later in the process. 
-  - Soft credit
-  - Soft Credit home or business address
-  - organization or individual
-  - Individual home or business address
-  - foundation
+  We use four Compose Actions as flags to determine how the letter header and addressee should be built later in the process. 
+
+  - Whether the gift includes a soft credit
+  - Whether the soft-credit recipient has a preferered home or business address
+  - Whether the constituent is an organization or an individual
+  - Whether the hard credit recipient has a preferered home or business address
+  - Whether the recipient is a foundation
   
 
-3. **Mapping overlapping Appeal + Package combinations to Lettercodes for identifing acknowledgement template to use**
-  I use information from a gifts Appeal + Batch to decide what template to use. But because of overlapping Appeal + Package combinations for one acknowledgement template, I created a LetterCode dictionary that groups overlapping Appeal + Batch combinations and maps them to the appropriate letter template.
+1. **Map Appeal + Package combinations to Lettercodes**
+  I use information from a gifts Appeal + Package to decide what template to use. But because of overlapping Appeal + Package combinations for one acknowledgement template, I created a LetterCode dictionary that groups overlapping Appeal + Batch combinations and maps them to the appropriate letter template.
    
-4. **Dynamic First Paragraphs for templates with many variations of the first paragraph. But consistent for the rest of the letter**
+1. **Generate dynamic first paragraphs where needed**
    
   Some letters share identical content except for the first paragraph, which varies by event. Rather than creating separate templates for each variation, the first paragraph is generated dynamically while the rest of the letter remains fixed. A dictionary maps Appeal + Batch combinations to their corresponding paragraph, allowing the correct paragraph to be retrieved.
 
-5. **We use a nested if statement that priorities whats returned true by Boolean Flags for each component of the header**
-   
-  Order of priority: Soft Credit → Foundation → Individual
+5. **We use a nested if statement for each element of the header with the Order of priority: Soft Credit → Foundation → Individual**
 
-6. **Dynamic first paragraph for letters with shared content but different first paragraph**
-   
-  Letters for NY/NJ/Gala events each have 8+ different variations of the first paragraph. I initially used a massive amount of switches, based on the LetterCode, with a template for each variation. But quickly switched to just using one template for NJ and NY Golf events and made the first paragraph dynamic, as the rest of the letter was the same for all the golf letters.
 
-      1. Create a dictionary for each event with Appeal+batch as key, and first paragraph as value. 
-
-      2. Make event dates dynamic in paragraph values. I wanted the year/Date of event to be dynamic for easy maintinance so i placeholders {year} and {date} and replace them dynamically with the correct year and date for an event
-
-      3. Retrieve correct paragraph from dictionary based on appeal+batch key and stores it for insertion into the template
-
-1. **Populating our Word Templates**
+6. **Populating our Word Templates**
   
   After matching a gift with the correct template, we will add our Header, Salutations, Gift Date, Gift Amount, and Appeal in strategic sections of the letter. For NJ and NY event with variations of the first paragraph, i 
 
-8. **Mark the Gift as acknowledged**
+7. **Mark the Gift as acknowledged**
 
-9. **Email the Donor**
+8. **Email the Donor**
 
-10. **Create Labels for mailing each Letter**
+9. **Create Labels for mailing each Letter**
 {{< /fold >}}
 
 
