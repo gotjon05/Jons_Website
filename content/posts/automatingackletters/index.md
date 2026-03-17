@@ -79,6 +79,7 @@ In a single loop through every unacknowledged gift:
   
 
 3. **Map Appeal + Package combinations to Lettercodes**
+   
   I use information from a gifts Appeal + Package to decide what template to use. But because of overlapping Appeal + Package combinations for one acknowledgement template, I created a LetterCode dictionary that groups overlapping Appeal + Batch combinations and maps them to the appropriate letter template.
    
 4. **Generate dynamic first paragraphs where needed**
