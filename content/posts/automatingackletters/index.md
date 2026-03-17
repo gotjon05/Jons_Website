@@ -226,12 +226,62 @@ Pseudocode:
 {{< fold title="Code for Determining if Gift has a Soft Credit" >}}
 ```not(empty(body('Get_a_gift')?['soft_credits']))```
 {{< /fold >}}
- 
-  
-2. Create compose to check if hard credit of gift has a preferedd address of home or buisness. Call it IndividualHomeOrBusinessAddress  
 
+2. Create compose to check if soft credit of gift has a prefered address of home or buisness. Call it IndividualHomeOrBusinessAddress
+
+Pseudocode:
+  ```text
+  If Constituent CheckIfSoftCredit is true
+    If address is type Home and preferred is true
+      return 'home'
+    Else If Preferred address is type business and preferred is true
+      return 'business'
+    Else return ''
+  Else 
+    return ''
+  ```
+{{< fold title="Code for Determining if a soft credits preferred address is home or business" >}}
+  ```
+if(
+  outputs('CheckIfSoftCredit'),
+  if(
+    and(
+      equals(toLower(coalesce(outputs('Get_a_constituent')?['body/address']?['type'], '')), 'home'),
+      equals(coalesce(outputs('Get_a_constituent')?['body/address']?['preferred'], false), true)
+    ),
+    'Home',
+    if(
+      and(
+        equals(toLower(coalesce(outputs('Get_a_constituent')?['body/address']?['type'], '')), 'business'),
+        equals(coalesce(outputs('Get_a_constituent')?['body/address']?['preferred'], false), true)
+      ),
+      'Business',
+      ''
+    )
+  ),
+  ''
+)
+  ```
+
+
+{{< /fold >}}
+
+
+3. Create compose to check if hard credit of gift has a prefered address of home or buisness. Call it IndividualHomeOrBusinessAddress
+
+Pseudocode:
+  ```text
+  If Constituent is individual
+    If address is type Home and preferred is true
+      return 'home'
+    Else If Preferred address is type business and preferred is true
+      return 'business'
+    Else return ''
+  Else 
+    return ''
+  ```
    
-{{< fold title="Code for Determining if a hapreferred address is home or business" >}}
+{{< fold title="Code for Determining if a hard credits preferred address is home or business" >}}
 
 ```
 if(
@@ -255,7 +305,6 @@ if(
 )   
 ```    
 {{< /fold >}}
-
 
   3. Create a Compose for determining Hard Credit address type
   This Compose determines whether the hard credited constituent is an individual whose preferred address is Home or Business.
