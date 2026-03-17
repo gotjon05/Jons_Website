@@ -78,25 +78,25 @@ In a single loop through every unacknowledged gift:
   - Whether the recipient is a foundation
   
 
-1. **Map Appeal + Package combinations to Lettercodes**
+3. **Map Appeal + Package combinations to Lettercodes**
   I use information from a gifts Appeal + Package to decide what template to use. But because of overlapping Appeal + Package combinations for one acknowledgement template, I created a LetterCode dictionary that groups overlapping Appeal + Batch combinations and maps them to the appropriate letter template.
    
-1. **Generate dynamic first paragraphs where needed**
+4. **Generate dynamic first paragraphs where needed**
    
   Some letters share identical content except for the first paragraph, which varies by event. Rather than creating separate templates for each variation, the first paragraph is generated dynamically while the rest of the letter remains fixed. A dictionary maps Appeal + Batch combinations to their corresponding paragraph, allowing the correct paragraph to be retrieved.
 
 5. **We use a nested if statement for each element of the header with the Order of priority: Soft Credit → Foundation → Individual**
 
 
-6. **Populating our Word Templates**
+6. **Construct Header into one compose, pulling from each element of the header in previous step**
   
-  After matching a gift with the correct template, we will add our Header, Salutations, Gift Date, Gift Amount, and Appeal in strategic sections of the letter. For NJ and NY event with variations of the first paragraph, i 
+7. **Switch Statement using LetterCode for each template**
 
-7. **Mark the Gift as acknowledged**
+8. **Mark the Gift as acknowledged**
 
-8. **Email the Donor**
+9. **Email the Donor**
 
-9. **Create Labels for mailing each Letter**
+10. **Create Labels for mailing each Letter**
 {{< /fold >}}
 
 
