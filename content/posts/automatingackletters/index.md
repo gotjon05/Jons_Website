@@ -66,7 +66,8 @@ In a single loop through every unacknowledged gift:
 - addressee of Hard Credit/Soft Credit title, First Name, Last Name, Address (street1, city, state, ZIP) using *Get Constituent*
 - Gift Amount, Gift Date using *Get Gift*
 - Business Name using *List constituent relationships*
-  
+- Filter Constituent Codes for Foundation using *List constituent codes* 
+
 2. **Set Flags for header and addressee logic**
    
   We use Compose Actions as flags to determine how the letter header and addressee should be built later in the process. 
@@ -310,7 +311,7 @@ if(
 ```    
 {{< /fold >}}
 
-4. Cje
+4. Add the Action "List constituent codes", With Constituent ID as the input. This organization uses Constituent Codes to determine if an organization record is a Foundation, this is how we will retrieve that information. We then add a compose action to check if hard credit of gift is a Foundation. Call it CheckIfFoundation. 
 
 
  
