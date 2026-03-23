@@ -212,7 +212,14 @@ Now in every iteration of For Each(), we are retrieving gift and constituent inf
 {{< /fold >}}
 
 6. {{< fold title="Checking the Type of Constituent">}}
-  We use several Compose actions as flags to determine what information must be retrieved and how the letter header should be constructed. These flags identify whether the hard credit is an organization, whether the gift includes a soft credit, whether the hard or soft credited constituent uses a home or business address, and whether the hard credit is a foundation.
+  We use several Compose actions as flags to determine what information must be retrieved and how the letter header should be constructed. 
+  
+These flags identify:
+
+  - Whether the hard credit is an organization
+  - Whether the gift includes a soft credit
+  - Whether the hard or soft credited constituent uses a home or business address
+  - Whether the hard credit is a foundation
 
 1. Create a Compose to check if Gift has a Soft Credit and call it CheckIfSoftCredit. This Compose returns true when the gift includes at least one soft credit and false otherwise
 
@@ -241,7 +248,7 @@ Pseudocode:
     return ''
   ```
 {{< fold title="Code for Determining if a soft credits preferred address is home or business" >}}
-  ```
+```
 if(
   outputs('CheckIfSoftCredit'),
   if(
@@ -261,13 +268,10 @@ if(
   ),
   ''
 )
-  ```
-
-
+```
 {{< /fold >}}
 
-
-3. Create compose to check if hard credit of gift has a prefered address of home or buisness. Call it IndividualHomeOrBusinessAddress
+3. Create compose to check if hard credit of gift has a prefered address of home or business. Call it IndividualHomeOrBusinessAddress
 
 Pseudocode:
   ```text
@@ -299,15 +303,14 @@ if(
       ),
       'Business',
       ''
-    )
-  ),
+    )      
+  ), 
   ''
 )   
 ```    
 {{< /fold >}}
 
-  3. Create a Compose for determining Hard Credit address type
-  This Compose determines whether the hard credited constituent is an individual whose preferred address is Home or Business.
+4. Cje
 
 
  
