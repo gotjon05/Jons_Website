@@ -224,7 +224,8 @@ Because foundation gifts do not use soft credits, we cannot rely on that logic t
    
 3. Create a Filter Array action.
 
- {{< fold title="Why we cant filter the output of List Constituent Codes and need to use Filter Array Action to do so">}}
+{{< fold title="Why we cant filter the output of List Constituent Codes with Foundation and need to use Filter Array Action to do so">}}
+
 
 {{< /fold >}}
 
