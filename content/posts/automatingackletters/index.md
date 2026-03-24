@@ -66,7 +66,7 @@ In a single loop through every unacknowledged gift:
 - addressee of Hard Credit/Soft Credit title, First Name, Last Name, Address (street1, city, state, ZIP) using *Get Constituent*
 - Gift Amount, Gift Date using *Get Gift*
 - Business Name using *List constituent relationships*
-- Filter Constituent Codes for Foundation using *List constituent codes* 
+- Filter Constituent Codes for Foundation using *List constituent codes* to determine if Record is Foundation
 
 2. **Set Flags for header and addressee logic**
    
@@ -212,7 +212,28 @@ Now in every iteration of For Each(), we are retrieving gift and constituent inf
 
 {{< /fold >}}
 
-6. {{< fold title="Checking the Type of Constituent">}}
+6. {{< fold title="Filter Constituent Codes for Foundation">}}
+
+For organization records, a foundation can be identified by the Constituent Code “Foundation.” To support this, we need to retrieve constituent codes for each applicable record. To improve efficiency, we should only run List Constituent Codes when the Hard Credit constituent is an Organization.
+
+Because foundation gifts do not use soft credits, we cannot rely on that logic to determine who the acknowledgment should be addressed to. Instead, we use the organization’s relationships to identify the appropriate contact person for the header and salutation. For foundation records, the relationship data determines who the letter is written to and when organization relationship logic should be used.
+
+1. Create a condition called IfOrg
+
+2. Add the action "List Constituent Codes" and use Constituent ID as input
+   
+3. Create a Filter Array action.
+
+ {{< fold title="Why we cant filter the output of List Constituent Codes and need to use Filter Array Action to do so">}}
+
+{{< /fold >}}
+
+
+{{< /fold >}}
+
+
+
+1. {{< fold title="Checking the Type of Constituent">}}
   We use several Compose actions as flags to determine what information must be retrieved and how the letter header should be constructed. 
   
 These flags identify:
@@ -222,7 +243,7 @@ These flags identify:
   - Whether the hard or soft credited constituent uses a home or business address
   - Whether the hard credit is a foundation
 
-1. Create a Compose to check if Gift has a Soft Credit and call it CheckIfSoftCredit. This Compose returns true when the gift includes at least one soft credit and false otherwise
+8. Create a Compose to check if Gift has a Soft Credit and call it CheckIfSoftCredit. This Compose returns true when the gift includes at least one soft credit and false otherwise
 
 Pseudocode:
   ```text
@@ -321,7 +342,7 @@ if(
       
 {{< /fold >}}
 
-1. {{< fold title="Retrieving Soft Credit Information">}}
+9. {{< fold title="Retrieving Soft Credit Information">}}
   
 
 
