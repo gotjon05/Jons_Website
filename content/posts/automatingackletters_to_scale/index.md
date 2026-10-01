@@ -25,7 +25,7 @@ Automate the creation of donor acknowledgment letters for 21 hospitals by combin
 
 
 ## Design:
-The data for the letters came from two different sources. Hospital-specific information and letter content could not be retrieved from the database, so I gathered and stored them in JSON configuration objects. Dynamic gift and constituent information, such as gift amount, fund, date, addressee, salutation, tribute, recurring gift information, and soft-credit data, was retrieved from Raiser’s Edge NXT through SKY API calls. The Letter Code and Constituent Code from the gift, were crucial for connecting the appropriate hospital and letter specific information. 
+The data used to generate the letters came from two different sources. Hospital-specific information and letter content had to be gathered externally and stored in JSON configuration objects. Dynamic gift and constituent information, such as gift amount, fund, date, addressee, salutation, tribute, recurring gift information, and soft-credit data, was retrieved from Raiser’s Edge NXT through SKY API calls. The Letter Code and Constituent Code from the gift, were crucial for connecting the appropriate hospital and letter specific information. 
 
 During this project, the template and logo of the letter was standardized for all 21 hospitals. There was agreement in principle to standardize lettercodes to reduce the amount but wasn't implemented. The existing lettercodes were doing too much, capturing market specific information and Gift specific information. If lettercode were to only be gift specific, the number could be brought down to 117 distinct lettercodes. The market specific information would be directly sourced from the gifts constituent code. 
 
