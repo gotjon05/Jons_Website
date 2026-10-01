@@ -67,15 +67,20 @@ markettaxID: the tax/receipt language associated with that letter code
    3. Retrieve soft-credit information when applicable.
    4. Retrieve tribute, fund, receipt, recurring-gift, pledge, and Gift-in-Kind information as needed.
 
-4. **Retrieve Content corresponding to the gifts Letter Code**
-   1. Use the gift's Letter Code to retrieve the corresponding letter content.
-   2. Retrieve the applicable tax and receipt language.
+4. **Retrieve letter content using the gift's Letter Code**
+   1. Retrieve the Letter Code from **Get a Gift**.
+   2. Use the Letter Code as the key to look up the matching lettercode in the Letter Code Dictionary.
+   3. Retrieve the corresponding letter content and tax receipt language.
 
-5. **Apply business rules and construct dynamic content**
-   1. Create flags identifying the applicable gift and recipient scenarios.
+5. **Apply business rules and populate dynamic content**
+   1. Create flags identifying the applicable gift and recipient scenarios, such as:
+      - Individual hard-credit constituent
+      - Organization hard-credit constituent
+      - Organization with a designated Receipts Contact
+      - Soft-credit / DAF scenario
    2. Apply the addressing rules to determine the addressee, salutation, and organization values.
    3. Store the dynamic replacement values in the Tokens Compose.
-   4. Replace the placeholders in the letter content with the corresponding token values.
+   4. Replace the placeholders in the retrieved letter content with the corresponding token values.
 
 6. **Generate and complete the acknowledgement**
    1. Populate the Word template.
