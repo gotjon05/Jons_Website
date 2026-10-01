@@ -9,7 +9,8 @@ title = 'Automating Donor Acknowledgment Letters Across 21 Hospitals'
 Automate the creation of donor acknowledgment letters for 21 hospitals by combining Raiser’s Edge NXT gift and constituent data with hospital-specific configuration, approximately 280 letter variations, dynamic gift content, and recipient-specific addressing rules.
 
 ## Business Rules:
-- Gifts Letter Code determines the content of the letter; the gift's Constituent Code determines hospital-specific information.
+- Gifts Letter Code determines the content of the letter and the Hospital a Gift belongs to
+- A gifts Constituent Code also determines what hospital a gift belongs to
 - Header requires hospital-specific information: hospital/foundation name, address, phone, email, and website.
 - The content of the letter needs to use one of approximately 280 existing letters specifically written by the hospitals.
 - Letter content includes dynamic values: `{giftamount}`, `{giftdate}`, `{giftfund}`, `{gifttribute}`, `{giftpledgeamount}`, `{recurringgiftfrequency}`, `{recurringgiftamount}`, `{giftreceiptamount}`, `{giftinkind}`, and `{addressee}`.
@@ -29,7 +30,6 @@ The data used to generate the letters came from two different sources. Hospital-
 
 During this project, the template and logo of the letter was standardized for all 21 hospitals. There was agreement to standardize letter codes to reduce the amount but wasn't implemented. Letter Codes did two things, they provided market specific information and the information about the gift. Combining these responsibilities to Letter Codes increased the number of letters with content to maintain. For example, there were 18 General Acknowledgment letters.
 
-
 A proposed redesign would separate these responsibilities. Letter Codes would identify only the gift-specific content, while the Constituent Code would determine the hospital-specific information, such as branding and market details. Under this structure, the existing set of Letter Codes could be reduced to approximately 117 distinct codes while still supporting hospital-specific letters.
  
 My solution to handling the large amount of Letter Code specific content and the Hospital specific information was to store them in two Nested JSON objects. I used the Letter Code and Constituent Code as keys because they reliably identified the correct acknowledgment content and hospital configuration for each gift. Using bracket notation, the flow could dynamically look up the matching key and return only the values needed for that gift. These values stored the static information that could not be retrieved directly from the database, such as letter content, tax language, and Hospital specific information.
@@ -37,6 +37,10 @@ My solution to handling the large amount of Letter Code specific content and the
 Inside the static content of my nested json objects were placeholders for all the dynamic language i needed. After retrieving the content from my nested json objects, I replaced the placeholders with their actual values. 
 
 I also gathered the constituent and gift information needed to determine how each letter should be addressed. I created flags to identify the relevant recipient scenario, including an individual hard-credit constituent, an organization hard-credit constituent with a designated Receipts Contact, or a DAF/soft-credit scenario. Those flags allowed the flow to apply the appropriate addressee and salutation rules when building the letter.
+
+
+
+
 
 Nested JSON of Hospital/Constituent Code Dictionary:
 MarketName: hospital/foundation name
