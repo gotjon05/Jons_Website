@@ -1,6 +1,6 @@
 +++
 date = '2026-01-30T12:42:04-05:00'
-draft = false
+draft = true
 title = 'Automating Non-profit Acknowledgement Letters With Blackbaud API (Work in Progress)'
 +++
 
