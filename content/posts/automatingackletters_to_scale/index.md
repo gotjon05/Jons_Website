@@ -54,11 +54,12 @@ markettaxID: the tax/receipt language associated with that letter code
    1. Use **List Gifts** to retrieve an array of unacknowledged gifts.
    2. Loop through each gift.
 
-2. **Retrieve Gift Specific Hospital information**
+2. **Retrieve Gift-Specific Hospital Information**
    1. Retrieve the gift and constituent record.
-   2. Use the gift's Constituent Code to identify the corresponding hospital configuration.
-   3. Retrieve the hospital-specific values from the Hospital/Constituent Code Dictionary.
-   4. Skip gifts associated with excluded hospitals.
+   2. Retrieve the gift's Constituent Code from **Get a Gift**.
+   3. Use the Constituent Code as the key to look up the matching entry in the Hospital/Constituent Code Dictionary.
+   4. Retrieve the hospital-specific values from the matching dictionary entry, including MarketName, MarketInformation, Footer1, Footer2, and Signature.
+   5. Skip gifts associated with excluded Constituent Codes.
 
 3. **Determine Addressee and Saluation**
    1. Retrieve name-format information for the addressee and salutation.
