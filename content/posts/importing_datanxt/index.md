@@ -30,8 +30,10 @@ I matched constituents using progressively broader criteria, that accepted match
 4. First Name + Last Name + Primary Business Name
 
 If the matching child flow returned a System ID, I used that ID for the subsequent constituent update operations. If no match was returned, I created a new constituent and used the newly created system ID for the remaining operations.
+
 The challenge in adding gifts to a gift batch was that the import table columns for Campaign, Appeal, Package and Fund are loaded with strings when the SKY API required the corresponding IDs for Campaign, Appeal, Package, and Fund when creating the gift.
 After normalizing the text values, I filtered the corresponding SKY API records to find the matching Campaign, Appeal, Package, and Fund, then retrieved each record’s ID.I could then use those IDs, along with the remaining gift information from the import table, to add the gift to the batch I had created.
+
 I also added the employer information using the fields: company_name, company_position, business_address1, business_city, business_state, business_zip. If the organization existed, I used its ID to create a relationship between the constituent and the organization, identifying the organization as the constituent’s primary employer. If no matching organization was found, I created a new organization record and then used its ID to create the employer relationship.
 
 
