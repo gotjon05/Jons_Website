@@ -12,10 +12,10 @@ Provide a way for Constituent and Gift information to be imported into Blackbaud
 
 Business Rules:
 
-Existing constituents should be matched before creating a new constituent.
-Gifts must be associated with the correct constituent before import.
-Gifts need to be added to Blackbaud gift batch rather than posted directly 
-A gift needed the required fields: Amount, Appeal, Package, Payment Method, Gift Date, Campaign, and Fund. 
+- Existing constituents should be matched before creating a new constituent.
+- Gifts must be associated with the correct constituent before import.
+- Gifts need to be added to Blackbaud gift batch rather than posted directly 
+- A gift needed the required fields: Amount, Appeal, Package, Payment Method, Gift Date, Campaign, and Fund. 
 
 
 Design:
