@@ -19,6 +19,7 @@ Business Rules:
 
 
 Design:
+
 My original program made the mistake of combining constituent matching with constituent update logic.Each condition checked for a single match using different criteria, but also contained its own copy of the steps for updating constituent information. This made the program hard to modify and maintain. 
 
 I later refactored the program by creating child flows for individual operations, including constituent matching.This allowed the rest of the import process to use the same functions regardless of whether the constituent was matched or newly created.
