@@ -6,23 +6,20 @@ title = 'Building a Fundraiser Performance Dashboard in Power BI'
 
 Under Construction
 
-
 The goal of this report was to measure fundraiser performance using data from Raiser’s Edge NXT. I focused the analysis on five areas: activity, pipeline progression, engagement with assigned constituents, fundraising outcomes, and follow-through. For three populations: Assigned Constituents, Assigned Constituents with Actions, and Assigned Constituents with Opportunities. I wanted to create a data model that would continuously update with new information. So I built an automated pipeline that retrieved constituent, fundraiser assignment, Action, Opportunity, gift, pledge, prospect status, wealth rating, and related fundraising data from Raiser’s Edge NXT through the SKY API. The API responses were transformed from JSON and array structures into structured datasets and written to SharePoint files, which served as refreshable data sources for a Power BI semantic model.
 
 Requirements
 
 - Build a data pipeline and model that could refresh as new data became available
-- Needed reporting at multiple organizational levels: Market, Fundraiser Leader, Fundraiser.
+- Drill down from Hospital -> Fundraiser Leader -> Fundraiser to evaluate performance at each level
 - Analyze fundraiser performance over a rolling 12-month period
 - Help fundraisers identify issues with their assigned prospects, actions and opportunities such as overdue Actions, stalled prospects, aging Opportunities, and gaps in portfolio engagement.
 - Provide high-level performance summaries and detailed views of Assigned Constituents, Assigned Actions, and Assigned Opportunities.
 
 
-
 Data Pipeline: 
 
-Automated pipeline from SKY API to use as separate data sources for the Power BI model and could be refreshed as the data updates from Sharepoint.
-
+I built an automated data pipeline using SKY API to continuously retrieve, transform and structure NXT data into separate tables for the Power BI model. Including the creation of fact, dimension and bridge tables,  
 
 
 Fundraisers and Fundraiser Assignments
