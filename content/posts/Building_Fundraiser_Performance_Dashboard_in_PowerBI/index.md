@@ -1,5 +1,5 @@
 +++
-date = '2026-10-06T12:42:04-05:00'
+date = '2026-10-06T01:15:00-04:00'
 draft = false
 title = 'Building a Fundraiser Performance Dashboard in Power BI'
 +++
