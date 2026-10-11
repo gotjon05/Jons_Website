@@ -7,7 +7,7 @@ title = 'Building a Fundraiser Performance Dashboard in Power BI'
 Under Construction
 
 
-I was tasked with developing a report to evaluate fundraiser performance. While the organization had existing excel reports focused on specific aspects of fundraising, this project had a broad objective. I was given considerable flexibility in determining how to approach the evaluation, with the expectation that I would develop an initial approach and seek feedback as the report took shape.
+I developed a report to evaluate fundraiser performance. I had considerable flexibility to develop my own approach and refine it through stakeholder feedback. 
 
 My goal was to create a Power BI report supported by a data model that could be refreshed with new data, allowing the organization to continuously evaluate fundraiser performance.
 
@@ -15,12 +15,6 @@ I started by grabbing relevant data from NXT, where where fundraisers logged act
 
 
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
-
-How did i know the data was correct?
-
-
-  
 
 
 After getting feedback on questions i thought were important to understand performance, i organized the questions into five categories: Fundraiser Activity, Pipeline Progression, Engagement with assigned constituents, fundraising outcomes, and Follow-Through. Questions related to activity focused on how frequently and consistently fundraiser were per 
