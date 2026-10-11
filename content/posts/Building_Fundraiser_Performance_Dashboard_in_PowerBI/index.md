@@ -6,7 +6,35 @@ title = 'Building a Fundraiser Performance Dashboard in Power BI'
 
 Under Construction
 
-The goal of this report was to measure fundraiser performance using data from Raiser’s Edge NXT. I focused the analysis on five areas: activity, pipeline progression, engagement with assigned constituents, fundraising outcomes, and follow-through. For three populations: Assigned Constituents, Assigned Constituents with Actions, and Assigned Constituents with Opportunities. I wanted to create a data model that would continuously update with new information. So I built an automated pipeline that retrieved constituent, fundraiser assignment, Action, Opportunity, gift, pledge, prospect status, wealth rating, and related fundraising data from Raiser’s Edge NXT through the SKY API. The API responses were transformed from JSON and array structures into structured datasets and written to SharePoint files, which served as refreshable data sources for a Power BI semantic model.
+
+I was tasked with developing a report to evaluate fundraiser performance. While the organization had existing excel reports focused on specific aspects of fundraising, this project had a broad objective. I was given considerable flexibility in determining how to approach the evaluation, with the expectation that I would develop an initial approach and seek feedback as the report took shape.
+
+My goal was to create a Power BI report supported by a data model that could be refreshed with new data, allowing the organization to continuously evaluate fundraiser performance.
+
+I started by grabbing relevant data from NXT, where where fundraisers logged actions and opportunities with their assigned constituents. And other data that described their assigned constituents, prospect status, gifts, event participation. 
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+
+How did i know the data was correct?
+
+
+  
+
+
+After getting feedback on questions i thought were important to understand performance, i organized the questions into five categories: Fundraiser Activity, Pipeline Progression, Engagement with assigned constituents, fundraising outcomes, and Follow-Through. Questions related to activity focused on how frequently and consistently fundraiser were per 
+
+is actually being touched or developed? what percentage of assigned constituents had Actions, Opportunities, Gifts, multiple completed Actions, recent contact, etc.
+Follow-through = whether they are completing actions and keeping work from becoming overdue or stagnant
+Results = what that work ultimately produced
+
+
+For three populations: Assigned Constituents, Assigned Constituents with Actions, and Assigned Constituents with Opportunities. I wanted to create a data model that would continuously update with new information. So I built an automated pipeline that retrieved constituent, fundraiser assignment, Action, Opportunity, gift, pledge, prospect status, wealth rating, and related fundraising data from Raiser’s Edge NXT through the SKY API. The API responses were transformed from JSON and array structures into structured datasets and written to SharePoint files, which served as refreshable data sources for a Power BI semantic model.
+
+
+
+
 
 Requirements
 
