@@ -7,13 +7,13 @@ title = 'Building a Fundraiser Performance Dashboard in Power BI'
 Under Construction
 
 
-I developed a report to evaluate fundraiser performance. I had considerable flexibility to develop my own approach and refine it through stakeholder feedback. 
+I want this write-up to summarize and reflect on a recent project I worked on with a hospital fundraising department, to evaluate fundraiser performance using data collected from Blackbaud NXT.  
 
-My goal was to create a Power BI report supported by a data model that could be refreshed with new data, allowing the organization to continuously evaluate fundraiser performance.
-
-I started by grabbing relevant data from NXT, where where fundraisers logged actions and opportunities with their assigned constituents. And other data that described their assigned constituents, prospect status, gifts, event participation. 
+My goal was to create a data model that could be refreshed as new data was entered into the database, allowing the organization to continuously evaluate fundraiser performance. The project had a broad scope with some initial questions to guidance and the expectation that it would be more defined with stakeholder feedback. 
 
 
+
+  
 
 
 
