@@ -7,17 +7,23 @@ title = 'Building a Fundraiser Performance Dashboard in Power BI'
 Under Construction
 
 
-I want this write-up to summarize and reflect on a recent project I worked on with a hospital fundraising department, to evaluate fundraiser performance using data collected from Blackbaud NXT.  
+Overview: 
 
-My goal was to create a data model that could be refreshed as new data was entered into the database, allowing the organization to continuously evaluate fundraiser performance. The project had a broad scope with some initial questions to guidance and the expectation that it would be more defined with stakeholder feedback. 
+I want this write-up to summarize and reflect on a report I created for a hospital's fundraising department, to evaluate fundraiser performance using data collected from Blackbaud NXT. 
+
+Fundraising Leadership wanted greater oversight from their fundraisers, and i was given a broad scope to do this, with the intention that it would be more defined with stakeholder feedback. My personal goal was to create a data model that could continuously evaluate new fundraiser data.
+
+I started by pulling as much information i could get using Power Automate with Blackbaud SKYAPI. The process of building the data pipeline informed me about how to build the data model, as I largely created created the tables i would eventually use in this stage. 
+
+
+I realized that Fundraisers, and their Assigned Constituents, Actions and Opportunities had a natural Many to Many Relationship. 
 
 
 
-  
 
 
 
-After getting feedback on questions i thought were important to understand performance, i organized the questions into five categories: Fundraiser Activity, Pipeline Progression, Engagement with assigned constituents, fundraising outcomes, and Follow-Through. Questions related to activity focused on how frequently and consistently fundraiser were per 
+Fundraiser Activity, Pipeline Progression, Engagement with assigned constituents, fundraising outcomes, and Follow-Through. Questions related to activity focused on how frequently and consistently fundraiser were per 
 
 is actually being touched or developed? what percentage of assigned constituents had Actions, Opportunities, Gifts, multiple completed Actions, recent contact, etc.
 Follow-through = whether they are completing actions and keeping work from becoming overdue or stagnant
