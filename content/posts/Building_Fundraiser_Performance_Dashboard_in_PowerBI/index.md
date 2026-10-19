@@ -11,32 +11,12 @@ Overview:
 
 I want this write-up to summarize and reflect on a report I created for a hospital's fundraising department, to evaluate fundraiser performance using data collected from Blackbaud NXT. 
 
-Fundraising Leadership wanted greater oversight from their fundraisers, and i was given a broad scope to do this, with the intention that it would be more defined with stakeholder feedback. My personal goal was to create a data model that could continuously evaluate new fundraiser data.
+Fundraiser Leadership wanted a high level overview of fundraiser performance and a way to use available data to better support their fundraisers. I was given a broad scope with the intention that the requirements would be more defined through stakeholder feedback. 
 
-I started by pulling as much information i could get using Power Automate with Blackbaud SKYAPI. The process of building the data pipeline informed me about how to build the data model, as I largely created created the tables i would eventually use in this stage. 
+My personal goal was to create a data model that could continuously evaluate new fundraiser data.
 
-
-I realized that Fundraisers, and their Assigned Constituents, Actions and Opportunities had a natural Many to Many Relationship. 
-
-
-
-
-
-
-Fundraiser Activity, Pipeline Progression, Engagement with assigned constituents, fundraising outcomes, and Follow-Through. Questions related to activity focused on how frequently and consistently fundraiser were per 
-
-is actually being touched or developed? what percentage of assigned constituents had Actions, Opportunities, Gifts, multiple completed Actions, recent contact, etc.
-Follow-through = whether they are completing actions and keeping work from becoming overdue or stagnant
-Results = what that work ultimately produced
-
-
-For three populations: Assigned Constituents, Assigned Constituents with Actions, and Assigned Constituents with Opportunities. I wanted to create a data model that would continuously update with new information. So I built an automated pipeline that retrieved constituent, fundraiser assignment, Action, Opportunity, gift, pledge, prospect status, wealth rating, and related fundraising data from Raiser’s Edge NXT through the SKY API. The API responses were transformed from JSON and array structures into structured datasets and written to SharePoint files, which served as refreshable data sources for a Power BI semantic model.
-
-
-
-
-
-Requirements
+ 
+Requirements that evolved over time: 
 
 - Build a data pipeline and model that could refresh as new data became available
 - Drill down from Hospital -> Fundraiser Leader -> Fundraiser to evaluate performance at each level
