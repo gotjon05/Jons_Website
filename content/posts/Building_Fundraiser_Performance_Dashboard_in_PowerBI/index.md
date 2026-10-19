@@ -13,8 +13,6 @@ I want this write-up to summarize and reflect on a report I created for a hospit
 
 Fundraiser Leadership wanted a high level overview of fundraiser performance and a way to use available data to better support their fundraisers. I was given a broad scope with the intention that the requirements would be more defined through stakeholder feedback. 
 
-My personal goal for this report to have a data model that could be used to continuously evaluate new fundraiser data.
-
 Requirements that evolved over time: 
 
 - Build a data pipeline and model that could refresh as new data became available
@@ -26,6 +24,7 @@ Requirements that evolved over time:
 
 Data Pipeline: 
 
+I started this report by retrieving data from SKY API. Active Fundraisers use the database by logging interactions with donors as Actions, and solicitations through opportunities. 
 
 
 
