@@ -13,9 +13,8 @@ I want this write-up to summarize and reflect on a report I created for a hospit
 
 Fundraiser Leadership wanted a high level overview of fundraiser performance and a way to use available data to better support their fundraisers. I was given a broad scope with the intention that the requirements would be more defined through stakeholder feedback. 
 
-My personal goal was to create a data model that could continuously evaluate new fundraiser data.
+My personal goal for this report to have a data model that could be used to continuously evaluate new fundraiser data.
 
- 
 Requirements that evolved over time: 
 
 - Build a data pipeline and model that could refresh as new data became available
@@ -26,6 +25,12 @@ Requirements that evolved over time:
 
 
 Data Pipeline: 
+
+
+
+
+
+
 
 I built an automated data pipeline using SKY API to continuously retrieve, transform and structure NXT data into separate tables for the Power BI model. Including the creation of fact, dimension and bridge tables,  
 
