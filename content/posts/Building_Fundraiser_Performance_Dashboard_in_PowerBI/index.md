@@ -24,9 +24,27 @@ Requirements that evolved over time:
 
 Data Pipeline: 
 
+1. Overall summary of this step  - explain purpose of the stage, initial approach
+2. What I learned from doing this 
+3. What I ended up doing
+4. Lessons
+
+
+
+
+
+
 Active Fundraisers use the database to log interactions and solicitations with their assigned constituents. 
 
-I organized data extraction from SKY API around active individual fundraisers. 
+I organized data extraction from SKY API around active fundraisers and their assigned constituents.  
+
+
+I tried to get action data from the fundraisers instead of constituents, expecting to retrieve their fundraising activity
+
+
+
+
+
 
 
 
