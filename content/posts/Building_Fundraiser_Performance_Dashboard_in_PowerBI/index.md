@@ -24,14 +24,10 @@ Requirements that evolved over time:
 
 Data Pipeline: 
 
-I started this report by retrieving data from SKY API. Active Fundraisers use the database by logging interactions with donors as Actions, and solicitations through opportunities. 
+Active Fundraisers use the database to log interactions and solicitations with their assigned constituents. 
 
+I organized data extraction from SKY API around active individual fundraisers. 
 
-
-
-
-
-I built an automated data pipeline using SKY API to continuously retrieve, transform and structure NXT data into separate tables for the Power BI model. Including the creation of fact, dimension and bridge tables,  
 
 
 Creating Tables for Active Fundraisers and Fundraiser Assignments
