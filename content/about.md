@@ -10,4 +10,4 @@ I’ve spent several years working in nonprofits, where understanding work proce
 
 My time in my college Hacker Club shaped how I learn: I don’t feel I truly understand something until I can explain it clearly, document my process, and reflect on the mistakes and assumptions I made along the way. And “You never know if you’re right; you only know if you’re wrong.”
 
-Outside of tech, I’m an avid long-distance runner and occasional caver. I love being part of outdoor adventures.
+Outside of work, I’m an avid ultra marathon runner and caver, who enjoys outdoor adventures.
