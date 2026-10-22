@@ -28,7 +28,13 @@ Data Pipeline:
 
 Active Fundraisers use the database to log interactions and solicitations with their assigned constituents. I began by retrieving these and related endpoints from SKY API to extract the source data for the report. 
 
-I organized data extraction from SKY API around active fundraisers and their assigned constituents. 
+
+When i started, I thought that Actions and Opportunities each had one fundraiser. My intention had been to create an action fact table with one row per action. But started noticing arrays of multiple fundraisers with the same action.  
+
+
+
+
+
 
 
 
