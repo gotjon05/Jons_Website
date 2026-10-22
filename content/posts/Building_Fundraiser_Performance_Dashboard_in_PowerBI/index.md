@@ -22,14 +22,11 @@ Requirements that evolved over time:
 - Provide high-level performance summaries and detailed views of Assigned Constituents, Assigned Actions, and Assigned Opportunities.
 
 
-Data Pipeline: 
+The Process in creating a Date Pipeline: 
 
-1. Overall summary of this step  - explain purpose of the stage, initial approach
+Fundraisers log interactions and solicitations in their assigned constituent records. This was the primary information i used to evaluate their performance. I started with the expectation that their would be unique one to many relationships between fundraisers and the Constituent, Actions and Opportunities they were assigned to. I began extracting active fundraisers and their assigned constituents, without considering that constituents could have more than one fundraiser. 
 
-Active Fundraisers use the database to log interactions and solicitations with their assigned constituents. I began by retrieving these and related endpoints from SKY API to extract the source data for the report. 
-
-
-When i started, I thought that Actions and Opportunities each had one fundraiser. My intention had been to create an action fact table with one row per action. But started noticing arrays of multiple fundraisers with the same action.  
+While examining the Action data returned from SKY API, I discovered that the fundraisers array could contain multiple fundraisers for the same action. This prompted me to investigate the relationships more closely, eventually recognizing that fundraisers and their assigned constituents, actions and opportunities could have many to many relationships.
 
 
 
@@ -39,28 +36,7 @@ When i started, I thought that Actions and Opportunities each had one fundraiser
 
 
 
-Why Fundraiser assignements and fundraiser associated actions needed to be modeled as seperate relationships
 
-
-
-
-2. What I learned from doing this
--misunderstanding of list constituent action
--consttuent actions and fundraiser actions
-understanding of the relationship
- 
-3. What I ended up doing
-4. Lessons
-
-
-
-
-
-
-I organized data extraction from SKY API around active fundraisers and their assigned constituents.  
-
-
-I tried to get action data from the fundraisers instead of constituents, expecting to retrieve their fundraising activity
 
 
 
