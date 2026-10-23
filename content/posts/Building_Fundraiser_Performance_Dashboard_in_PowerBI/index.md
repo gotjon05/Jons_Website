@@ -11,8 +11,10 @@ Overview:
 
 I want this write-up to summarize and reflect on a report I created for a hospital's fundraising department, to evaluate fundraiser performance using data collected from Blackbaud NXT. 
 
-Fundraiser Leadership wanted a high level overview of fundraiser performance and a way to use available data to better support their fundraisers. I was given a broad scope with the intention that the requirements would be more defined through stakeholder feedback. 
+Fundraiser Leadership wanted a high level overview of fundraiser performance and a way to use available data to better support their fundraisers. I was given a broad scope with the intention that the requirements would be more defined through stakeholder feedback.
 
+In my last report, 2-3 years ago. I was working with bad survey data, and it made it difficult to sell myself as someone who could create a report, let alone a data model. My goal for this report was to create a report that could continue to be relied upon even if i was no longer there, with a data model that was continuously fed new information.
+   
 Requirements that evolved over time: 
 
 - Build a data pipeline and model that could refresh as new data became available
@@ -24,11 +26,19 @@ Requirements that evolved over time:
 
 The Process in creating a Date Pipeline: 
 
-Fundraisers log interactions and solicitations in their assigned constituent records. This was the primary information i used to evaluate their performance. I started with the expectation that their would be unique one to many relationships between fundraisers and the Constituent, Actions and Opportunities they were assigned to. I began extracting active fundraisers and their assigned constituents, without considering that constituents could have more than one fundraiser. 
+Fundraisers log interactions and solicitations in their assigned constituent records. This was the primary information i extracted and used for my report. I started with the expectation that their would be unique one to many relationships between fundraisers and the Constituent, Actions and Opportunities they were assigned to. I began extracting active fundraisers and their assigned constituents, without considering that constituents could have more than one fundraiser.
 
-While examining the Action data returned from SKY API, I discovered that the fundraisers array could contain multiple fundraisers for the same action. This prompted me to investigate the relationships more closely, eventually recognizing that fundraisers and their assigned constituents, actions and opportunities could have many to many relationships.
+While examining the Action data returned from SKY API, I discovered that the fundraisers array could contain multiple fundraisers for the same action. Starting the conversation that led to me recognizing that fundraisers and their assigned constituents, actions and opportunities could have many to many relationships.
+
+The data retrieved for each table had a grain of one action, one opportunity and constituent per row, but with an array for multiple fundraisers. I wanted to create a direct relationship between each fundraiser and each action, opportunity and constituent. So i had to transform the data. 
 
 
+
+
+
+
+
+inside the constituent to create that same relationship without impacting the grain of one constituent per row, because a constituent could be assigned to multiple fundraisers.This also gave me a way to use the Fundraiser–Constituent Bridge to define which constituents belonged to the selected fundraiser’s portfolio. Because I could filter the bridge by the fundraiser table that pointed to it.
 
 
 
