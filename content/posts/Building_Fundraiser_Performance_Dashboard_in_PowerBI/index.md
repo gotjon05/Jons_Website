@@ -30,29 +30,13 @@ Fundraisers log interactions and solicitations in their assigned constituent rec
 
 While examining the Action data returned from SKY API, I discovered that the fundraisers array could contain multiple fundraisers for the same action. Starting the conversation that led to me recognizing that fundraisers and their assigned constituents, actions and opportunities could have many to many relationships.
 
-The data retrieved for each table had a grain of one action, one opportunity and constituent per row, but with an array for multiple fundraisers. I wanted to create a direct relationship between each fundraiser and each action, opportunity and constituent. So i had to transform the data. 
+Action and Opportunity endpoints had a grain of one distinct action/opportunity per row, but each with an array for multiple fundraisers. Fundraiser Assignments had duplicate constituents for different fundraisers.    
 
+I wanted to create a direct relationship between each individual fundraiser and each action, opportunity and constituent without changing the grain. 
 
+One option was to expand the fundraiser array and create duplicate rows so that each row had one fundraiser, would have changed the grain, and made it more difficult to calculate aggregate values correctly in the reporting stage. And creating 1 to many relationships between fact and dimension tables would not have been possible.  
 
-
-
-
-
-inside the constituent to create that same relationship without impacting the grain of one constituent per row, because a constituent could be assigned to multiple fundraisers.This also gave me a way to use the Fundraiser–Constituent Bridge to define which constituents belonged to the selected fundraiser’s portfolio. Because I could filter the bridge by the fundraiser table that pointed to it.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+The alternative was to create bridge tables to have 1 to many relationships between fundraisers, and their constituents, actions and opportunities. Presented by KimballGroup.com I used that as a guide to create bridge tables. 
 
 
 Creating Tables for Active Fundraisers and Fundraiser Assignments
@@ -77,9 +61,6 @@ Creating Table for Current Prospect Status
 
 
 Creating Bridge Tables: 
-
-Before building the Power BI relationships, I created a modeling matrix that documented each business process, source table, grain, and the key fields used to relate the datasets. Defining the grain and relationships helped me understand the many-to-many relationships in the datasets, that could not be represented cleanly with direct relationships. 
-
 
 Creating FundraiserConstituentBridge Table: 
 
