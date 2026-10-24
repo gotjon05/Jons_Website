@@ -13,7 +13,7 @@ I want this write-up to summarize and reflect on a report I created for a hospit
 
 Fundraiser Leadership wanted a high level overview of fundraiser performance and a way to use available data to better support their fundraisers. I was given a broad scope with the intention that the requirements would be more defined through stakeholder feedback.
 
-In my last report, 2-3 years ago. I was working with bad survey data, and it made it difficult to sell myself as someone who could create a report, let alone a data model. My goal for this report was to create a report that could continue to be relied upon even if i was no longer there, with a data model that was continuously fed new information.
+My goal for this report was to create a report that could continue to be relied upon even if i was no longer there, with a data model that was continuously fed new information.
    
 Requirements that evolved over time: 
 
