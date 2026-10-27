@@ -32,9 +32,9 @@ While examining the Action data returned from SKY API, I discovered that the fun
 
 Action and Opportunity endpoints had a grain of one distinct action/opportunity per row, but each with an array for multiple fundraisers. Fundraiser Assignments had duplicate constituents for different fundraisers.    
 
-I wanted to create a direct relationship between each individual fundraiser and each action, opportunity and constituent without changing the grain. 
+I wanted to create a relationship between each individual fundraiser and each action, opportunity and constituent while preserving the grain of one row per unique record. 
 
-One option was to expand the fundraiser array, creating a separate row for each distinct Action-Fundraiser or Opportunity-Fundraiser. But that would have changed the grain by creating duplicate rows and increase the risk of counting duplicate values in aggregations.  
+One option was to expand the fundraiser array for Opportunity and Action, creating a separate row for each distinct Action-Fundraiser or Opportunity-Fundraiser. But that would have changed the grain by creating duplicate rows and increase the risk of counting duplicate values in aggregations.  
 
 The alternative was to create bridge tables to have 1 to many relationships between fundraisers, and their constituents, actions and opportunities. Presented by KimballGroup.com I used that as a guide to create bridge tables. 
 
