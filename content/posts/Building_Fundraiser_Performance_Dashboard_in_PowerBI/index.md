@@ -73,9 +73,15 @@ Extracting data for Fundraiser-Opportunity Bridge Table with Distinct Pairings o
 
 {{< /fold >}}
 
+When Retrieving Actions, I had decided to limit the actions retrieved to the assigned constituents of active fundraisers instead of grabbing the entire table of Actions. 
+
+But a Bulk extraction of the entire table might have been cleaner, because I could have easily filter out actions not assigned to the constituents
 
 
 
+I used SELECT to create arrays of all 
+
+The output of the bridges had nested arrays. In the process  
 
 
 
