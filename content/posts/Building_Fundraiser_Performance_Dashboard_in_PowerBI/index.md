@@ -34,9 +34,12 @@ Action and Opportunity endpoints had a grain of one distinct action/opportunity 
 
 I wanted to create a direct relationship between each individual fundraiser and each action, opportunity and constituent without changing the grain. 
 
-One option was to expand the fundraiser array and create duplicate rows so that each row had one fundraiser, would have changed the grain, and made it more difficult to calculate aggregate values correctly in the reporting stage. And creating 1 to many relationships between fact and dimension tables would not have been possible.  
+One option was to expand the fundraiser array, creating a separate row for each distinct Action-Fundraiser or Opportunity-Fundraiser. But that would have changed the grain by creating duplicate rows and increase the risk of counting duplicate values in aggregations.  
 
 The alternative was to create bridge tables to have 1 to many relationships between fundraisers, and their constituents, actions and opportunities. Presented by KimballGroup.com I used that as a guide to create bridge tables. 
+
+I created bridge tables with distinct pairings of action/opportunity/constituent with the fundraiser ID. Allowing me to create a relationship where the fundraiser table was 1:many with the bridge. and the action/opportunity/constituent table was 1 to many with the action/opportunity/constituent. 
+
 
 
 Creating Tables for Active Fundraisers and Fundraiser Assignments
