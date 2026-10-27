@@ -42,7 +42,66 @@ I created bridge tables with distinct pairings of action/opportunity/constituent
 
 
 
-Creating Tables for Active Fundraisers and Fundraiser Assignments
+{{< fold title="Creating the Bridge Tables" >}}
+Extracting data for Fundraiser-Constituent Bridge Table With Distinct Pairings of Active Fundraiser and Assigned Constituent:
+
+1. For each active fundraiser, I ran List Fundraiser Assignments to retrieve the constituents assigned to that fundraiser.
+2. Used Select to extract the FundraiserConstituentID, DonorConstituentID, assignment ID, start date, assignment type, and amount.
+3. Appended the selected assignment records into the DimFundraiserAssignments array, creating a nested array structure containing each fundraiser’s assignment records.
+4. After all fundraiser assignments had been processed, converted DimFundraiserAssignments into a CSV table.
+5. Used the CSV output to update the existing FundraiserAssignments.csv file in SharePoint.
+6. Used that assignment dataset in Power BI to represent the Fundraiser–Constituent relationship, allowing a fundraiser to have many assigned constituents and a constituent to be associated with more than one fundraiser.
+
+
+Extracting data for Fundraiser-Action Bridge Table with Distinct Pairings of Active Fundraisers And Actions:
+
+1. For each fundraiser and each of their assigned constituents, ran List Constituent Actions.
+2. For each returned Action, extracted the ActionID and the Action’s associated fundraisers collection.
+3. Appended those results into the ActionBridgeFundraiser array, creating a nested array structure where each Action contained its associated fundraiser collection.
+4. After all fundraiser assignments and Actions had been processed, converted the ActionBridgeFundraiser variable into a CSV table.
+5. Used that CSV output to update the existing ActionFundraiserBridge.csv file in SharePoint.
+6. That SharePoint CSV served as the refreshable source for the Action–Fundraiser relationship in the Power BI semantic model.
+
+Extracting data for Fundraiser-Opportunity Bridge Table with Distinct Pairings of Active Fundraisers and Opportunities:
+
+1. Used the records returned from List Opportunities.
+2. For each returned Opportunity, extracted the OpportunityID and the Opportunity’s associated fundraisers collection.
+3. Appended those results into the OpportunityBridgeFundraiser array, creating a nested array structure where each Opportunity contained its associated fundraiser collection.
+4. After all fundraisers and Opportunities had been processed, converted the OpportunityBridgeFundraiser variable into a CSV table.
+5. Used the CSV output to update the existing OpportunityFundraiserBridgeTable.csv file in SharePoint.
+6. That SharePoint CSV served as the refreshable source for the Opportunity–Fundraiser relationship in the Power BI semantic model.
+
+{{< /fold >}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 1. Ran List Fundraisers to retrieve active fundraisers from Raiser’s Edge NXT.
 2. Appended each fundraiser into the DimFundraiser array with fields including Fundraiser Constituent ID, lookup ID, name, first name, and last name.
