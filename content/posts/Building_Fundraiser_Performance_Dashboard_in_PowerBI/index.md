@@ -75,8 +75,7 @@ Extracting data for Fundraiser-Opportunity Bridge Table with Distinct Pairings o
 
 I retrieved actions that only belonged to the assigned constituents of active fundraisers instead of grabbing the entire table of Actions. But in hindsight, extracting all the actions and filtered for relevant constituents in Power Bi could have done the same thing and been more simple.I took this broader approach with Opportunities because there were fewer Opportunities than Actions, so I was less concerned about exceeding the API's record limits and missing data due to unhandled pagination. 
 
-Because i chose to retrieve actions by looping through each fundraiser, and their active constituents, i needed an efficient way to append it to an array, that would later be saved as a CSV. By using SELECT, i could create an array of every constituents action and then append it to an array.
-                                   
+Because I retrieved actions by looping through each active fundraiser, and their active constituents, i needed an efficient way to collect the data into an array for export to CSV. I originally appended the                                    
  
 
 
@@ -188,6 +187,7 @@ Related: weekly prospect screening / prospect quality dashboard: The goal was to
 
 
 
+Overall Lessons:
 
 
 
