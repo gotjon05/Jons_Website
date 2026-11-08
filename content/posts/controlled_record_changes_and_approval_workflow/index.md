@@ -1,6 +1,6 @@
 +++
 date = '2026-11-07T12:42:04-05:00'
-draft = true
+draft = false
 title = 'Controlled Record Changes and Approval Workflow (Work in Progress)'
 +++
 
@@ -24,10 +24,13 @@ The flow provided three primary functions:
 
 Flow 1: Adaptive Card Creation
 
-I created a SKY application in Blackbaud's Developer Portal. That my first program called using Blackbaud HTTP, to connect with the application, to validate the user
+I registered a SKY application with Constituent Tile Dashboard extension point in Blackbaud's developer portal. When a user visited a constituent record and the tile loaded, this application would call my first flow to generate the form. 
 
-
+The first flow had a trigger of "When an HTTP request is received". And the SKY application would send an HTTP request to my flow.
  
+My Flow responded with a generated the Adaptive Card JSON, and returned it through an HTTP Response action.
 
+
+Flow 2: Receiving data from user 
 
 
