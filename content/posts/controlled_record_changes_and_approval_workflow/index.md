@@ -33,4 +33,7 @@ My Flow responded with a generated the Adaptive Card JSON, and returned it throu
 
 Flow 2: Receiving data from user 
 
+The second flow used the trigger "When an HTTP request is received." When the user clicked Save Changes on the Adaptive Card, it sent an HTTP request to Flow 2 containing the submitted form data, the user's identity token, and the constituent record ID.
+
+
 
